@@ -1,4 +1,4 @@
-require Axios from 'axios'
+import Axios from 'axios'
 
 class RailsRanger {
   constructor() {
@@ -14,7 +14,6 @@ class RailsRanger {
   }
 
   get(path, pathParams, queryParams) {
-
     let processedPath = path
 
     pathParams.forEachWithIndex((paramName, paramValue) => {
