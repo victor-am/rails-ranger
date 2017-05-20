@@ -1,0 +1,20 @@
+{
+  "name": "rails-ranger",
+  "version": "0.1.0",
+  "description": "A Rails API client",
+  "main": "rails-ranger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rails",
+    "ranger",
+    "api",
+    "ajax"
+  ],
+  "author": "Victor A.M.",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.16.1"
+  }
+}
