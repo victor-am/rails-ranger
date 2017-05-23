@@ -85,8 +85,8 @@ const injectPathWithQuery = function (path, params) {
 // and return the processed path and the params left out
 // of the path
 //
-const prepareArguments = function (path, params) {
-  let processedPath = deepClone(path)
+const prepareArguments = function (path = '', params = {}) {
+  let processedPath = path
   let processedParams = deepClone(params)
 
   for (let key in params) {
