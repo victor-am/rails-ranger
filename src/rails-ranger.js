@@ -115,4 +115,3 @@ const deepClone = function(object) {
 }
 
 export default RailsRanger
-
