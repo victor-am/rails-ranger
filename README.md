@@ -13,7 +13,9 @@ Rails Ranger is a very thin layer on top of [Axios](/mzabriskie/axios), which gi
 
 ## Installation
 
-yarn add 'rails-ranger'
+```bash
+yarn add rails-ranger
+```
 
 ## Usage
 
