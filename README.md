@@ -12,10 +12,7 @@
 Rails Ranger is a very thin layer on top of [Axios](/mzabriskie/axios), which gives you an opinionated interface to query APIs built with Ruby on Rails.
 
 ## Installation
-
-```bash
-yarn add rails-ranger
-```
+**TODO**
 
 ## Usage
 
