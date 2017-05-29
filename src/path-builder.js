@@ -1,32 +1,31 @@
 class PathBuilder {
   get (path, params) {
-    let request = { path, params }
-    request = this.injectParams(request.path, request.params)
-    request = this.injectQuery(request.path, request.params)
-
-    return request
+    return this._injectParamsAndQuery(path, params)
   }
 
   post (path, params) {
-    let request = this.injectParams(path, params)
+    let request = this._injectParams(path, params)
     return request
   }
 
   patch (path, params) {
-    let request = this.injectParams(path, params)
+    let request = this._injectParams(path, params)
     return request
   }
 
   put (path, params) {
-    let request = this.injectParams(path, params)
+    let request = this._injectParams(path, params)
     return request
   }
 
   delete (path, params) {
-    let request = { path, params }
-    request = this.injectParams(request.path, request.params)
-    request = this.injectQuery(request.path, request.params)
+    return this._injectParamsAndQuery(path, params)
+  }
 
+  _injectParamsAndQuery (path, params) {
+    let request = { path, params }
+    request = this._injectParams(request.path, request.params)
+    request = this._injectQuery(request.path, request.params)
     return request
   }
 
@@ -38,7 +37,7 @@ class PathBuilder {
   // injectParams('users/:id', { id: 1 })
   // => { path: 'users/1', params {} }
   //
-  injectParams (path = '', params = {}) {
+  _injectParams (path = '', params = {}) {
     let processedPath = path
     let processedParams = deepClone(params)
 
@@ -60,7 +59,7 @@ class PathBuilder {
     return { path: processedPath, params: processedParams }
   }
 
-  injectQuery (path, params) {
+  _injectQuery (path, params) {
     let keyValuePairs = Object.entries(params)
     let stringParams  = keyValuePairs.map((pair) => `${pair[0]}=${pair[1]}`)
     let query         = stringParams.join('&')
