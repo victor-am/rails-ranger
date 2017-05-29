@@ -9,9 +9,9 @@ class RailsRanger {
   * @param {object} configs - Configurations to be handled to Axios.
   */
   constructor (configs = {}) {
-    this.client            = Axios.create(configs)
-    this.pathBuilder       = new PathBuilder()
-    this.railsRouteBuilder = new RailsRouteBuilder()
+    this.client       = Axios.create(configs)
+    this.route        = new RailsRouteBuilder()
+    this._pathBuilder = new PathBuilder()
   }
 
   /**
@@ -25,7 +25,7 @@ class RailsRanger {
   * //=> GET request to '/users/1?flag=true' path
   */
   get (path, params) {
-    let request = this.pathBuilder.get(path, params)
+    let request = this._pathBuilder.get(path, params)
     return this.client.get(request.path)
   }
 
@@ -40,7 +40,7 @@ class RailsRanger {
   * //=> POST request to '/users/1' path with { flag: true } parameters
   */
   post (path, params) {
-    let request = this.pathBuilder.get(path, params)
+    let request = this._pathBuilder.get(path, params)
     return this.client.post(request.path, request.params)
   }
 
@@ -55,7 +55,7 @@ class RailsRanger {
   * //=> PATCH request to '/users/1' path with { flag: true } parameters
   */
   patch (path, params) {
-    let request = this.pathBuilder.get(path, params)
+    let request = this._pathBuilder.get(path, params)
     return this.client.patch(request.path, request.params)
   }
 
@@ -70,7 +70,7 @@ class RailsRanger {
   * //=> PUT request to '/users/1' path with { flag: true } parameters
   */
   put (path, params) {
-    let request = this.pathBuilder.get(path, params)
+    let request = this._pathBuilder.get(path, params)
     return this.client.put(request.path, request.params)
   }
 
@@ -85,47 +85,47 @@ class RailsRanger {
   * //=> DELETE request to '/users/1?flag=true' path
   */
   delete (path, params) {
-    let request = this.pathBuilder.get(path, params)
+    let request = this._pathBuilder.get(path, params)
     return this.client.delete(request.path, request.params)
   }
 
   index (resource, params) {
-    let request = this.railsRouteBuilder.index(resource, params)
+    let request = this.route.index(resource, params)
     return this.client.get(request.path)
   }
 
   list (resource, params) {
-    let request = this.railsRouteBuilder.index(resource, params)
+    let request = this.route.index(resource, params)
     return this.client.get(request.path)
   }
 
   show (resource, params) {
-    let request = this.railsRouteBuilder.show(resource, params)
+    let request = this.route.show(resource, params)
     return this.client.get(request.path)
   }
 
   destroy (resource, params) {
-    let request = this.railsRouteBuilder.destroy(resource, params)
+    let request = this.route.destroy(resource, params)
     return this.client.delete(request.path)
   }
 
   create (resource, params) {
-    let request = this.railsRouteBuilder.create(resource, params)
+    let request = this.route.create(resource, params)
     return this.client.post(request.path, request.params)
   }
 
   update (resource, params) {
-    let request = this.railsRouteBuilder.update(resource, params)
+    let request = this.route.update(resource, params)
     return this.client.patch(request.path, request.params)
   }
 
   new (resource, params) {
-    let request = this.railsRouteBuilder.new(resource, params)
+    let request = this.route.new(resource, params)
     return this.client.get(request.path)
   }
 
   edit (resource, params) {
-    let request = this.railsRouteBuilder.edit(resource, params)
+    let request = this.route.edit(resource, params)
     return this.client.get(request.path)
   }
 }
