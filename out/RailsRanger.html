@@ -2,22 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: RailsRanger</title>
+    <title>RailsRanger - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-    <h1 class="page-title">Class: RailsRanger</h1>
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RailsRanger.html">RailsRanger</a><ul class='methods'><li data-type='method'><a href="RailsRanger.html#delete">delete</a></li><li data-type='method'><a href="RailsRanger.html#get">get</a></li><li data-type='method'><a href="RailsRanger.html#patch">patch</a></li><li data-type='method'><a href="RailsRanger.html#post">post</a></li><li data-type='method'><a href="RailsRanger.html#put">put</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">RailsRanger</h1>
+    
 
     
 
@@ -28,7 +39,9 @@
 
 <header>
     
-        <h2>RailsRanger</h2>
+        <h2>
+        RailsRanger
+        </h2>
         
     
 </header>
@@ -46,9 +59,56 @@
 
 
 
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
 <div class="description">
     RailsRanger object constructor
 </div>
+
+
 
 
 
@@ -111,51 +171,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
 
 
 
@@ -195,6 +210,51 @@
 
 
 
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line87">line 87</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
 <div class="description">
     Makes a DELETE request to the given path with the given parameters
 </div>
@@ -203,6 +263,15 @@
 
 
 
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let api = new RailsRanger
+api.delete('/users/:id', { id: 1, flag: true })
+//=> DELETE request to '/users/1?flag=true' path</code></pre>
 
 
 
@@ -283,50 +352,6 @@
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line87">line 87</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
 
 
@@ -340,7 +365,7 @@
         
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -355,14 +380,6 @@
     
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.delete('/users/:id', { id: 1, flag: true })
-//=> DELETE request to '/users/1?flag=true' path</code></pre>
-
-
-
         
             
 
@@ -371,6 +388,51 @@ api.delete('/users/:id', { id: 1, flag: true })
     <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(path, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line27">line 27</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
 
 
@@ -386,6 +448,15 @@ api.delete('/users/:id', { id: 1, flag: true })
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let api = new RailsRanger
+api.get('/users/:id', { id: 1, flag: true })
+//=> GET request to '/users/1?flag=true' path</code></pre>
+
+
+
+
     <h5>Parameters:</h5>
     
 
@@ -462,50 +533,6 @@ api.delete('/users/:id', { id: 1, flag: true })
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line27">line 27</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
 
 
@@ -519,7 +546,7 @@ api.delete('/users/:id', { id: 1, flag: true })
         
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -534,14 +561,6 @@ api.delete('/users/:id', { id: 1, flag: true })
     
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.get('/users/:id', { id: 1, flag: true })
-//=> GET request to '/users/1?flag=true' path</code></pre>
-
-
-
         
             
 
@@ -550,6 +569,51 @@ api.get('/users/:id', { id: 1, flag: true })
     <h4 class="name" id="patch"><span class="type-signature"></span>patch<span class="signature">(path, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
 
 
@@ -565,6 +629,15 @@ api.get('/users/:id', { id: 1, flag: true })
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let api = new RailsRanger
+api.patch('/users/:id', { id: 1, flag: true })
+//=> PATCH request to '/users/1' path with { flag: true } parameters</code></pre>
+
+
+
+
     <h5>Parameters:</h5>
     
 
@@ -641,50 +714,6 @@ api.get('/users/:id', { id: 1, flag: true })
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line57">line 57</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
 
 
@@ -698,7 +727,7 @@ api.get('/users/:id', { id: 1, flag: true })
         
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -713,14 +742,6 @@ api.get('/users/:id', { id: 1, flag: true })
     
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.patch('/users/:id', { id: 1, flag: true })
-//=> PATCH request to '/users/1' path with { flag: true } parameters</code></pre>
-
-
-
         
             
 
@@ -729,6 +750,51 @@ api.patch('/users/:id', { id: 1, flag: true })
     <h4 class="name" id="post"><span class="type-signature"></span>post<span class="signature">(path, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
 
 
@@ -744,6 +810,15 @@ api.patch('/users/:id', { id: 1, flag: true })
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let api = new RailsRanger
+api.post('/users/:id', { id: 1, flag: true })
+//=> POST request to '/users/1' path with { flag: true } parameters</code></pre>
+
+
+
+
     <h5>Parameters:</h5>
     
 
@@ -820,50 +895,6 @@ api.patch('/users/:id', { id: 1, flag: true })
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line42">line 42</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
 
 
@@ -877,7 +908,7 @@ api.patch('/users/:id', { id: 1, flag: true })
         
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -892,14 +923,6 @@ api.patch('/users/:id', { id: 1, flag: true })
     
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.post('/users/:id', { id: 1, flag: true })
-//=> POST request to '/users/1' path with { flag: true } parameters</code></pre>
-
-
-
         
             
 
@@ -908,6 +931,51 @@ api.post('/users/:id', { id: 1, flag: true })
     <h4 class="name" id="put"><span class="type-signature"></span>put<span class="signature">(path, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
 
 
 
@@ -923,6 +991,15 @@ api.post('/users/:id', { id: 1, flag: true })
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let api = new RailsRanger
+api.put('/users/:id', { id: 1, flag: true })
+//=> PUT request to '/users/1' path with { flag: true } parameters</code></pre>
+
+
+
+
     <h5>Parameters:</h5>
     
 
@@ -999,50 +1076,6 @@ api.post('/users/:id', { id: 1, flag: true })
 
 
 
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line72">line 72</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
 
 
 
@@ -1056,7 +1089,7 @@ api.post('/users/:id', { id: 1, flag: true })
         
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -1069,14 +1102,6 @@ api.post('/users/:id', { id: 1, flag: true })
 </dl>
 
     
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.put('/users/:id', { id: 1, flag: true })
-//=> PUT request to '/users/1' path with { flag: true } parameters</code></pre>
-
 
 
         
@@ -1094,17 +1119,13 @@ api.put('/users/:id', { id: 1, flag: true })
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="RailsRanger.html">RailsRanger</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon May 29 2017 00:46:19 GMT-0300 (-03)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon May 29 2017 00:54:07 GMT-0300 (-03) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>
