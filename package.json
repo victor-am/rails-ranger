@@ -10,7 +10,7 @@
     "watch": "gulp watch",
     "build": "gulp build",
     "coverage": "gulp coverage",
-    "gen-doc": "jsdoc -r src/ -t node_modules/docdash -c .jsdoc-conf.json"
+    "doc": "jsdoc -r src/ -t node_modules/docdash -c .jsdoc-conf.json -d docs/"
   },
   "repository": {
     "type": "git",
