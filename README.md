@@ -10,7 +10,9 @@
 [![devDependency Status](https://david-dm.org/victor-am/rails-ranger/dev-status.svg)](https://david-dm.org/victor-am/rails-ranger#info=devDependencies)
 [![Ebert](https://ebertapp.io/github/victor-am/rails-ranger.svg)](https://ebertapp.io/github/victor-am/rails-ranger)
 
-Rails Ranger is a very thin layer on top of [Axios](/mzabriskie/axios), which gives you an opinionated interface to query APIs built with Ruby on Rails.
+Rails Ranger is a thin layer on top of [Axios](/mzabriskie/axios), which gives you an opinionated interface to query APIs built with Ruby on Rails.
+<br>
+[See the documentation](https://victor-am.github.io/rails-ranger)
 
 ## Installation
 **TODO**
