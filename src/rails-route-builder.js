@@ -1,11 +1,10 @@
-import Axios from 'axios'
 import PathBuilder from './path-builder'
 
 class RailsRouteBuilder {
   constructor (configs = {}) {
     // TODO
     // Make an option for switching to GET for destroy actions
-    this.pathBuilder = new PathBuilder
+    this.pathBuilder = new PathBuilder()
   }
 
   //
