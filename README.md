@@ -3,6 +3,7 @@
 > This library development is in a very early stage
 
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/562e26fd8c8e48ec8206430b42b9dc75)](https://www.codacy.com/app/victor-am/rails-ranger?utm_source=github.com&utm_medium=referral&utm_content=victor-am/rails-ranger&utm_campaign=badger)
 [![Travis build status](http://img.shields.io/travis/victor-am/rails-ranger.svg?style=flat)](https://travis-ci.org/victor-am/rails-ranger)
 [![Code Climate](https://codeclimate.com/github/victor-am/rails-ranger/badges/gpa.svg)](https://codeclimate.com/github/victor-am/rails-ranger)
 [![Test Coverage](https://codeclimate.com/github/victor-am/rails-ranger/badges/coverage.svg)](https://codeclimate.com/github/victor-am/rails-ranger)
