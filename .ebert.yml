@@ -1,5 +1,5 @@
 ---
 exclude_paths:
-- docs
-- dist
-- test
+- "docs/"
+- "dist/"
+- "test/"
