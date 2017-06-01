@@ -1,4 +1,15 @@
 ---
+engines:
+  eslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+        javascript: true
+  remark-lint:
+    enabled: true
+
 exclude_paths:
 - "docs/"
 - "dist/"
