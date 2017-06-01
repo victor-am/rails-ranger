@@ -6,7 +6,7 @@ class RailsRanger {
   /**
   * RailsRanger object constructor
   * @constructor
-  * @param {object} configs - Configurations to be handled to Axios.
+  * @param {object} configs - Configurations to be handed to Axios.
   */
   constructor (configs = {}) {
     this.client       = Axios.create(configs)
@@ -91,7 +91,6 @@ class RailsRanger {
 
   /**
   * Makes a GET request to the **index path** of the given resource
-  * @alias list
   * @param {string} resource - The base path of the request
   * @param {object} params - The parameters to be injected in the path as query
   * @returns {Promise}
@@ -100,16 +99,9 @@ class RailsRanger {
   * api.index('users', { flag: true })
   * //=> GET request to '/users?flag=true' path
   */
-  index (resource, params) {
+  list (resource, params) {
     let request = this.route.index(resource, params)
     return this.client.get(request.path)
-  }
-
-  /**
-  * An alias for the index method
-  */
-  list (...args) {
-    return this.index(...args)
   }
 
   /**
