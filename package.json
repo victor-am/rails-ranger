@@ -10,7 +10,7 @@
     "watch": "gulp watch",
     "build": "gulp build",
     "coverage": "gulp coverage",
-    "generate-docs": "node_modules/.bin/jsdoc -r src/ -d docs/ --configure .jsdoc-conf.json --verbose"
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc-conf.json --verbose"
   },
   "repository": {
     "type": "git",

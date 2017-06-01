@@ -1,7 +1,24 @@
 {
-  "plugins": ["plugins/markdown"],
+  "plugins": [
+    "plugins/markdown",
+    "plugins/underscore"
+  ],
 
   "opts": {
-    "template": "node_modules/minami"
+    "template": "node_modules/minami",
+    "destination": "./docs/",
+    "encoding": "utf8"
+  },
+
+  "source": {
+    "include": ["src", "README.md"],
+    "includePattern": ".js$"
+  },
+
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": true,
+    "useLongnameInNav": false,
+    "showInheritedInNav": true
   }
 }
