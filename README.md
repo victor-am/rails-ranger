@@ -2,6 +2,7 @@
 ### Exploring the routes and paths of Rails APIs
 > This library development is in a very early stage
 
+#### [Github Repository](https://github.com/victor-am/rails-ranger) | [Documentation](https://victor-am.github.io/rails-ranger)
 
 [![Travis build status](http://img.shields.io/travis/victor-am/rails-ranger.svg?style=flat)](https://travis-ci.org/victor-am/rails-ranger)
 [![Code Climate](https://codeclimate.com/github/victor-am/rails-ranger/badges/gpa.svg)](https://codeclimate.com/github/victor-am/rails-ranger)
@@ -10,9 +11,7 @@
 [![devDependency Status](https://david-dm.org/victor-am/rails-ranger/dev-status.svg)](https://david-dm.org/victor-am/rails-ranger#info=devDependencies)
 [![Ebert](https://ebertapp.io/github/victor-am/rails-ranger.svg)](https://ebertapp.io/github/victor-am/rails-ranger)
 
-Rails Ranger is a thin layer on top of [Axios](/mzabriskie/axios), which gives you an opinionated interface to query APIs built with Ruby on Rails.
-<br>
-[See the documentation](https://victor-am.github.io/rails-ranger)
+Rails Ranger is a thin layer on top of [Axios](https://github.com/mzabriskie/axios), which gives you an opinionated interface to query APIs built with Ruby on Rails.
 
 ## Installation
 **TODO**
