@@ -9,6 +9,8 @@ engines:
         javascript: true
   remark-lint:
     enabled: true
+  fixme:
+    enabled: true
 
 exclude_paths:
 - "docs/"
