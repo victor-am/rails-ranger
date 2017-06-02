@@ -5,4 +5,4 @@ env:
   CODECLIMATE_REPO_TOKEN: 49eddeba6c3d0713fb7959b0460acee77bf8796cc4d9b75fec5b0c55cb0b4411
 after_success:
   - npm install -g codeclimate-test-reporter
-  - codeclimate-test-reporter < lcov.info
+  - codeclimate-test-reporter < coverage/lcov.info
