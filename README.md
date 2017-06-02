@@ -1,6 +1,6 @@
 # Rails Ranger
 ### Exploring the routes and paths of Rails APIs
-> This library development is in a very early stage
+> This library development is in a very early stage and the API is **VERY** unstable
 
 #### [Github Repository](https://github.com/victor-am/rails-ranger) | [Documentation](https://victor-am.github.io/rails-ranger)
 
