@@ -9,7 +9,6 @@ describe('RailsRanger', () => {
   })
 
   describe('.get', () => {
-    // Spy on client.get function
     beforeEach(() => { spy(ranger.client, 'get') })
 
     it('triggers a get request through the client', () => {
@@ -34,7 +33,6 @@ describe('RailsRanger', () => {
   })
 
   describe('.post', () => {
-    // Spy on client.post function
     beforeEach(() => { spy(ranger.client, 'post') })
 
     it('triggers a post request through the client', () => {
@@ -48,8 +46,35 @@ describe('RailsRanger', () => {
     })
   })
 
+  describe('.put', () => {
+    beforeEach(() => { spy(ranger.client, 'put') })
+
+    it('triggers a put request through the client', () => {
+      ranger.put('/users')
+      expect(ranger.client.put).to.have.been.calledOnce
+    })
+
+    it('interpolates parameters into the path', () => {
+      ranger.put('/users/:id', { id: 1 })
+      expect(ranger.client.put).to.have.been.calledWith('/users/1')
+    })
+  })
+
+  describe('.patch', () => {
+    beforeEach(() => { spy(ranger.client, 'patch') })
+
+    it('triggers a patch request through the client', () => {
+      ranger.patch('/users')
+      expect(ranger.client.patch).to.have.been.calledOnce
+    })
+
+    it('interpolates parameters into the path', () => {
+      ranger.patch('/users/:id', { id: 1 })
+      expect(ranger.client.patch).to.have.been.calledWith('/users/1')
+    })
+  })
+
   describe('.delete', () => {
-    // Spy on client.delete function
     beforeEach(() => { spy(ranger.client, 'delete') })
 
     it('triggers a delete request through the client', () => {
@@ -60,6 +85,20 @@ describe('RailsRanger', () => {
     it('interpolates parameters into the path', () => {
       ranger.delete('/users/:id', { id: 1 })
       expect(ranger.client.delete).to.have.been.calledWith('/users/1')
+    })
+  })
+
+  describe('.list', () => {
+    beforeEach(() => { spy(ranger.client, 'get') })
+
+    it('triggers a get request through the client', () => {
+      ranger.list('users')
+      expect(ranger.client.get).to.have.been.calledOnce
+    })
+
+    it('transforms remaining parameters from path into query', () => {
+      ranger.list('users', { only: 'logged' })
+      expect(ranger.client.get).to.have.been.calledWith('users?only=logged')
     })
   })
 })

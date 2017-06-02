@@ -11,7 +11,7 @@ class RailsRouteBuilder {
   // RESTful Actions
   //
   index (...args) {
-    this.list(args)
+    return this.list(...args)
   }
 
   list (resource, params) {
