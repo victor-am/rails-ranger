@@ -40,7 +40,7 @@ class RailsRouteBuilder {
   }
 
   new (resource, params) {
-    let path = `${resource}/:id/new`
+    let path = `${resource}/new`
     return this.pathBuilder.get(path, params)
   }
 
