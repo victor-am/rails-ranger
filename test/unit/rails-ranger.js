@@ -1,11 +1,13 @@
 import RailsRanger from '../../src/rails-ranger'
+import MockClient  from '../mock-client'
 
 describe('RailsRanger', () => {
   let ranger = null
 
   beforeEach(() => {
     // Defines a new RailsRanger instance to be used in each test
-    ranger = new RailsRanger()
+    ranger        = new RailsRanger()
+    ranger.client = new MockClient()
   })
 
   describe('.get', () => {
