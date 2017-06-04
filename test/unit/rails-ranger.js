@@ -107,135 +107,108 @@ describe('RailsRanger', () => {
     })
 
     it('calls the client with the right parameters', () => {
-      ranger.list('/users/:id', { id: 1, name: 'John' })
-      expect(ranger.client.get).to.have.been.calledWith('/users/1?name=John')
-    })
-
-    it('triggers a get request through the client', () => {
-      ranger.list('users')
-      expect(ranger.client.get).to.have.been.calledOnce
-    })
-
-    it('triggers a get request with the correct path', () => {
-      ranger.list('users')
-      expect(ranger.client.get).to.have.been.calledWith('users')
-    })
-
-    it('transforms remaining parameters from path into query', () => {
-      ranger.list('users', { only: 'logged' })
-      expect(ranger.client.get).to.have.been.calledWith('users?only=logged')
+      ranger.list('users', { flag: true })
+      expect(ranger.client.get).to.have.been.calledWith('users?flag=true')
     })
   })
 
   describe('.show', () => {
-    beforeEach(() => { spy(ranger.client, 'get') })
-
-    it('triggers a get request through the client', () => {
-      ranger.show('users', { id: 1 })
-      expect(ranger.client.get).to.have.been.calledOnce
+    beforeEach(() => {
+      spy(ranger.client, 'get')
+      spy(ranger.route, 'show')
     })
 
-    it('triggers a get request with the correct path', () => {
-      ranger.show('users', { id: 1 })
-      expect(ranger.client.get).to.have.been.calledWith('users/1')
+    it('calls the route builder', () => {
+      ranger.show('users', { id: 1, flag: true })
+      expect(ranger.route.show).to.have.been.calledWith('users', { id: 1, flag: true })
     })
 
-    it('transforms remaining parameters from path into query', () => {
+    it('calls the client with the right parameters', () => {
       ranger.show('users', { id: 1, flag: true })
       expect(ranger.client.get).to.have.been.calledWith('users/1?flag=true')
     })
   })
 
   describe('.create', () => {
-    beforeEach(() => { spy(ranger.client, 'post') })
-
-    it('triggers a post request through the client', () => {
-      ranger.create('users', { name: 'John', email: 'john@doe.com' })
-      expect(ranger.client.post).to.have.been.calledOnce
+    beforeEach(() => {
+      spy(ranger.client, 'post')
+      spy(ranger.route, 'create')
     })
 
-    it('triggers a post request with the correct path', () => {
-      ranger.create('users', { name: 'John', email: 'john@doe.com' })
-      expect(ranger.client.post).to.have.been.calledWith('users')
+    it('calls the route builder', () => {
+      ranger.create('users', { name: 'John' })
+      expect(ranger.route.create).to.have.been.calledWith('users', { name: 'John' })
     })
 
-    it('sends parameters through the request body', () => {
-      ranger.create('users', { name: 'John', email: 'john@doe.com' })
-      expect(ranger.client.post).to.have.been.calledWith('users', { name: 'John', email: 'john@doe.com' })
+    it('calls the client with the right parameters', () => {
+      ranger.create('users', { name: 'John' })
+      expect(ranger.client.post).to.have.been.calledWith('users', { name: 'John' })
     })
   })
 
   describe('.update', () => {
-    beforeEach(() => { spy(ranger.client, 'patch') })
-
-    it('triggers a patch request through the client', () => {
-      ranger.update('users', { id: 1, name: 'Johny' })
-      expect(ranger.client.patch).to.have.been.calledOnce
+    beforeEach(() => {
+      spy(ranger.client, 'patch')
+      spy(ranger.route, 'update')
     })
 
-    it('triggers a patch request with the correct path', () => {
-      ranger.update('users', { id: 1, name: 'Johny' })
-      expect(ranger.client.patch).to.have.been.calledWith('users/1')
+    it('calls the route builder', () => {
+      ranger.update('users', { id: 1, name: 'John' })
+      expect(ranger.route.update).to.have.been.calledWith('users', { id: 1, name: 'John' })
     })
 
-    it('sends parameters through the request body', () => {
-      ranger.update('users', { id: 1, name: 'Johny' })
-      expect(ranger.client.patch).to.have.been.calledWith('users/1', { name: 'Johny' })
+    it('calls the client with the right parameters', () => {
+      ranger.update('users', { id: 1, name: 'John' })
+      expect(ranger.client.patch).to.have.been.calledWith('users/1', { name: 'John' })
     })
   })
 
   describe('.destroy', () => {
-    beforeEach(() => { spy(ranger.client, 'delete') })
-
-    it('triggers a delete request through the client', () => {
-      ranger.destroy('users', { id: 1 })
-      expect(ranger.client.delete).to.have.been.calledOnce
+    beforeEach(() => {
+      spy(ranger.client, 'delete')
+      spy(ranger.route, 'destroy')
     })
 
-    it('triggers a delete request with the correct path', () => {
-      ranger.destroy('users', { id: 1 })
-      expect(ranger.client.delete).to.have.been.calledWith('users/1')
+    it('calls the route builder', () => {
+      ranger.destroy('users', { id: 1, flag: true })
+      expect(ranger.route.destroy).to.have.been.calledWith('users', { id: 1, flag: true })
     })
 
-    it('transforms remaining parameters from path into query', () => {
+    it('calls the client with the right parameters', () => {
       ranger.destroy('users', { id: 1, flag: true })
       expect(ranger.client.delete).to.have.been.calledWith('users/1?flag=true')
     })
   })
 
   describe('.new', () => {
-    beforeEach(() => { spy(ranger.client, 'get') })
-
-    it('triggers a get request through the client', () => {
-      ranger.new('users')
-      expect(ranger.client.get).to.have.been.calledOnce
+    beforeEach(() => {
+      spy(ranger.client, 'get')
+      spy(ranger.route, 'new')
     })
 
-    it('triggers a get request with the correct path', () => {
-      ranger.new('users')
-      expect(ranger.client.get).to.have.been.calledWith('users/new')
+    it('calls the route builder', () => {
+      ranger.new('users', { flag: true })
+      expect(ranger.route.new).to.have.been.calledWith('users', { flag: true })
     })
 
-    it('transforms remaining parameters from path into query', () => {
+    it('calls the client with the right parameters', () => {
       ranger.new('users', { flag: true })
       expect(ranger.client.get).to.have.been.calledWith('users/new?flag=true')
     })
   })
 
   describe('.edit', () => {
-    beforeEach(() => { spy(ranger.client, 'get') })
-
-    it('triggers a get request through the client', () => {
-      ranger.edit('users', { id: 1 })
-      expect(ranger.client.get).to.have.been.calledOnce
+    beforeEach(() => {
+      spy(ranger.client, 'get')
+      spy(ranger.route, 'edit')
     })
 
-    it('triggers a get request with the correct path', () => {
-      ranger.edit('users', { id: 1 })
-      expect(ranger.client.get).to.have.been.calledWith('users/1/edit')
+    it('calls the route builder', () => {
+      ranger.edit('users', { id: 1, flag: true })
+      expect(ranger.route.edit).to.have.been.calledWith('users', { id: 1, flag: true })
     })
 
-    it('transforms remaining parameters from path into query', () => {
+    it('calls the client with the right parameters', () => {
       ranger.edit('users', { id: 1, flag: true })
       expect(ranger.client.get).to.have.been.calledWith('users/1/edit?flag=true')
     })
