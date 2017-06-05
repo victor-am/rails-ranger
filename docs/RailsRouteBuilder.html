@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>RailsRanger - Documentation</title>
+    <title>RailsRouteBuilder - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">RailsRanger</h1>
+    <h1 class="page-title">RailsRouteBuilder</h1>
     
 
     
@@ -42,7 +42,7 @@
 <header>
     
         <h2>
-        RailsRanger
+        RailsRouteBuilder
         </h2>
         
     
@@ -56,7 +56,7 @@
 
     
 
-    <h4 class="name" id="RailsRanger"><span class="type-signature"></span>new RailsRanger<span class="signature">(configs)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="RailsRouteBuilder"><span class="type-signature"></span>new RailsRouteBuilder<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -99,7 +99,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line11">line 11</a>
+        <a href="rails-route-builder.js.html">rails-route-builder.js</a>, <a href="rails-route-builder.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -116,58 +116,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>configs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Configurations to be handed to Axios.</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -216,7 +164,7 @@
 
 
 <div class="description">
-    <p>Makes a POST request to the <strong>create path</strong> of the given resource</p>
+    <p>Returns a path and params to the create action of a given resource</p>
 </div>
 
 
@@ -252,7 +200,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line149">line 149</a>
+        <a href="rails-route-builder.js.html">rails-route-builder.js</a>, <a href="rails-route-builder.js.html#line78">line 78</a>
     </li></ul></dd>
     
 
@@ -313,7 +261,7 @@
             
 
             <td class="description last">
-                <p>The base path of the request</p>
+                <p>A resource name</p>
                 
             </td>
         </tr>
@@ -339,7 +287,7 @@
             
 
             <td class="description last">
-                <p>The parameters to be injected in the path as query</p>
+                <p>Any parameters for the request</p>
                 
             </td>
         </tr>
@@ -387,200 +335,9 @@
 <div class="section-examples">
 <h5>Example</h5>
 
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.create('users', { email: 'john@doe.com', password: 123456 })
-//=> POST request to '/users' path with the { email: 'john@doe.com', password: 123456 } parameters</code></pre>
-
-</div>
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="delete"><span class="type-signature"></span>delete<span class="signature">(path, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Makes a DELETE request to the given path with the given parameters</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line87">line 87</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The base path of the request</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The parameters to be injected in the path (as query or replacing path segments)</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-<div class="section-examples">
-<h5>Example</h5>
-
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.delete('/users/:id', { id: 1, flag: true })
-//=> DELETE request to '/users/1?flag=true' path</code></pre>
+    <pre class="prettyprint"><code>let routes = new RailsRouteBuilder
+routes.create('users', { email: 'john@doe.com' })
+//=> { path: '/users', params: { email: 'john@doe.com' } }</code></pre>
 
 </div>
 
@@ -598,7 +355,7 @@ api.delete('/users/:id', { id: 1, flag: true })
 
 
 <div class="description">
-    <p>Makes a DELETE request to the <strong>destroy path</strong> of the given resource</p>
+    <p>Returns a path and params to the destroy action of a given resource</p>
 </div>
 
 
@@ -634,7 +391,7 @@ api.delete('/users/:id', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line134">line 134</a>
+        <a href="rails-route-builder.js.html">rails-route-builder.js</a>, <a href="rails-route-builder.js.html#line63">line 63</a>
     </li></ul></dd>
     
 
@@ -695,7 +452,7 @@ api.delete('/users/:id', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The base path of the request</p>
+                <p>A resource name</p>
                 
             </td>
         </tr>
@@ -721,7 +478,7 @@ api.delete('/users/:id', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The parameters to be injected in the path as query</p>
+                <p>Any parameters for the request</p>
                 
                     
 
@@ -823,9 +580,9 @@ api.delete('/users/:id', { id: 1, flag: true })
 <div class="section-examples">
 <h5>Example</h5>
 
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.destroy('users', { id: 1, flag: true })
-//=> DELETE request to '/users/1?flag=true' path</code></pre>
+    <pre class="prettyprint"><code>let routes = new RailsRouteBuilder
+routes.destroy('users', { id: 1 })
+//=> { path: '/users/1', params: {} }</code></pre>
 
 </div>
 
@@ -843,7 +600,7 @@ api.destroy('users', { id: 1, flag: true })
 
 
 <div class="description">
-    <p>Makes a GET request to the edit path of the given resource</p>
+    <p>Returns a path and params to the edit action of a given resource</p>
 </div>
 
 
@@ -879,7 +636,7 @@ api.destroy('users', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line196">line 196</a>
+        <a href="rails-route-builder.js.html">rails-route-builder.js</a>, <a href="rails-route-builder.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -940,7 +697,7 @@ api.destroy('users', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The base path of the request</p>
+                <p>A resource name</p>
                 
             </td>
         </tr>
@@ -966,7 +723,7 @@ api.destroy('users', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The parameters to be injected in the path as query</p>
+                <p>Any parameters for the request</p>
                 
                     
 
@@ -1068,9 +825,9 @@ api.destroy('users', { id: 1, flag: true })
 <div class="section-examples">
 <h5>Example</h5>
 
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.edit('users', { id: 1, flag: true })
-//=> GET request to '/users/1/edit?flag=true' path</code></pre>
+    <pre class="prettyprint"><code>let routes = new RailsRouteBuilder
+routes.edit('users', { id: 1 })
+//=> { path: '/users/1', params: {} }</code></pre>
 
 </div>
 
@@ -1081,14 +838,14 @@ api.edit('users', { id: 1, flag: true })
 
     
 
-    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(path, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="index"><span class="type-signature"></span>index<span class="signature">(resource, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Makes a GET request to the given path with the given parameters</p>
+    <p>Returns a path and params to the index action of a given resource</p>
 </div>
 
 
@@ -1124,198 +881,7 @@ api.edit('users', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line27">line 27</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The base path of the request</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The parameters to be injected in the path (as query or replacing path segments)</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-<div class="section-examples">
-<h5>Example</h5>
-
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.get('/users/:id', { id: 1, flag: true })
-//=> GET request to '/users/1?flag=true' path</code></pre>
-
-</div>
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="list"><span class="type-signature"></span>list<span class="signature">(resource, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Makes a GET request to the <strong>index path</strong> of the given resource</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line102">line 102</a>
+        <a href="rails-route-builder.js.html">rails-route-builder.js</a>, <a href="rails-route-builder.js.html#line24">line 24</a>
     </li></ul></dd>
     
 
@@ -1376,7 +942,7 @@ api.get('/users/:id', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The base path of the request</p>
+                <p>A resource name</p>
                 
             </td>
         </tr>
@@ -1402,7 +968,7 @@ api.get('/users/:id', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The parameters to be injected in the path as query</p>
+                <p>Any parameters for the request</p>
                 
             </td>
         </tr>
@@ -1450,11 +1016,94 @@ api.get('/users/:id', { id: 1, flag: true })
 <div class="section-examples">
 <h5>Example</h5>
 
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.index('users', { flag: true })
-//=> GET request to '/users?flag=true' path</code></pre>
+    <pre class="prettyprint"><code>let routes = new RailsRouteBuilder
+routes.index('users')
+//=> { path: '/users', params: {} }</code></pre>
 
 </div>
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="list"><span class="type-signature"></span>list<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>An alias for the <a href="RailsRouteBuilder.html#index"><code>RailsRouteBuilder#index</code></a> function</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="rails-route-builder.js.html">rails-route-builder.js</a>, <a href="rails-route-builder.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </div>
         
@@ -1470,7 +1119,7 @@ api.index('users', { flag: true })
 
 
 <div class="description">
-    <p>Makes a GET request to the new path of the given resource</p>
+    <p>Returns a path and params to the new action of a given resource</p>
 </div>
 
 
@@ -1506,7 +1155,7 @@ api.index('users', { flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line180">line 180</a>
+        <a href="rails-route-builder.js.html">rails-route-builder.js</a>, <a href="rails-route-builder.js.html#line109">line 109</a>
     </li></ul></dd>
     
 
@@ -1567,7 +1216,7 @@ api.index('users', { flag: true })
             
 
             <td class="description last">
-                <p>The base path of the request</p>
+                <p>A resource name</p>
                 
             </td>
         </tr>
@@ -1593,7 +1242,7 @@ api.index('users', { flag: true })
             
 
             <td class="description last">
-                <p>The parameters to be injected in the path as query</p>
+                <p>Any parameters for the request</p>
                 
             </td>
         </tr>
@@ -1641,582 +1290,9 @@ api.index('users', { flag: true })
 <div class="section-examples">
 <h5>Example</h5>
 
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.new('users', { flag: true })
-//=> GET request to '/users/new?flag=true' path</code></pre>
-
-</div>
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="patch"><span class="type-signature"></span>patch<span class="signature">(path, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Makes a PATCH request to the given path with the given parameters</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line57">line 57</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The base path of the request</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The parameters to be injected in the path or sent in the request payload</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-<div class="section-examples">
-<h5>Example</h5>
-
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.patch('/users/:id', { id: 1, flag: true })
-//=> PATCH request to '/users/1' path with { flag: true } parameters</code></pre>
-
-</div>
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="post"><span class="type-signature"></span>post<span class="signature">(path, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Makes a POST request to the given path with the given parameters</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line42">line 42</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The base path of the request</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The parameters to be injected in the path or sent in the request payload</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-<div class="section-examples">
-<h5>Example</h5>
-
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.post('/users/:id', { id: 1, flag: true })
-//=> POST request to '/users/1' path with { flag: true } parameters</code></pre>
-
-</div>
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="put"><span class="type-signature"></span>put<span class="signature">(path, params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Makes a PUT request to the given path with the given parameters</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line72">line 72</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The base path of the request</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>object</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>The parameters to be injected in the path or sent in the request payload</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise</code></span>
-
-
-    </dd>
-</dl>
-
-
-    
-</div>
-
-
-
-<div class="section-examples">
-<h5>Example</h5>
-
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.put('/users/:id', { id: 1, flag: true })
-//=> PUT request to '/users/1' path with { flag: true } parameters</code></pre>
+    <pre class="prettyprint"><code>let routes = new RailsRouteBuilder
+routes.new('users')
+//=> { path: '/users', params: {} }</code></pre>
 
 </div>
 
@@ -2234,7 +1310,7 @@ api.put('/users/:id', { id: 1, flag: true })
 
 
 <div class="description">
-    <p>Makes a GET request to the <strong>show path</strong> of the given resource</p>
+    <p>Returns a path and params to the show action of a given resource</p>
 </div>
 
 
@@ -2270,7 +1346,7 @@ api.put('/users/:id', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line118">line 118</a>
+        <a href="rails-route-builder.js.html">rails-route-builder.js</a>, <a href="rails-route-builder.js.html#line47">line 47</a>
     </li></ul></dd>
     
 
@@ -2331,7 +1407,7 @@ api.put('/users/:id', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The base path of the request</p>
+                <p>A resource name</p>
                 
             </td>
         </tr>
@@ -2357,7 +1433,7 @@ api.put('/users/:id', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The parameters to be injected in the path as query</p>
+                <p>Any parameters for the request</p>
                 
                     
 
@@ -2459,9 +1535,9 @@ api.put('/users/:id', { id: 1, flag: true })
 <div class="section-examples">
 <h5>Example</h5>
 
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.show('users', { id: 1, flag: true })
-//=> GET request to '/users/1?flag=true' path</code></pre>
+    <pre class="prettyprint"><code>let routes = new RailsRouteBuilder
+routes.show('users', { id: 1 })
+//=> { path: '/users/1', params: {} }</code></pre>
 
 </div>
 
@@ -2479,7 +1555,7 @@ api.show('users', { id: 1, flag: true })
 
 
 <div class="description">
-    <p>Makes a PATCH request to the update path of the given resource</p>
+    <p>Returns a path and params to the update action of a given resource</p>
 </div>
 
 
@@ -2515,7 +1591,7 @@ api.show('users', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line165">line 165</a>
+        <a href="rails-route-builder.js.html">rails-route-builder.js</a>, <a href="rails-route-builder.js.html#line94">line 94</a>
     </li></ul></dd>
     
 
@@ -2576,7 +1652,7 @@ api.show('users', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The base path of the request</p>
+                <p>A resource name</p>
                 
             </td>
         </tr>
@@ -2602,7 +1678,7 @@ api.show('users', { id: 1, flag: true })
             
 
             <td class="description last">
-                <p>The parameters to be injected in the path as query</p>
+                <p>Any parameters for the request</p>
                 
                     
 
@@ -2704,9 +1780,9 @@ api.show('users', { id: 1, flag: true })
 <div class="section-examples">
 <h5>Example</h5>
 
-    <pre class="prettyprint"><code>let api = new RailsRanger
-api.update('users', { id: 1, email: 'elton@doe.com' })
-//=> PATCH request to '/users/1' path with the { email: 'elton@doe.com' } parameters</code></pre>
+    <pre class="prettyprint"><code>let routes = new RailsRouteBuilder
+routes.update('users', { id: 1, email: 'john@doe.com' })
+//=> { path: '/users/1', params: { email: 'john@doe.com' } }</code></pre>
 
 </div>
 
