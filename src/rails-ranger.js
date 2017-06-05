@@ -11,7 +11,7 @@ class RailsRanger {
   constructor (configs = {}) {
     this.client       = Axios.create(configs)
     this.route        = new RailsRouteBuilder()
-    this._pathBuilder = new PathBuilder()
+    this.pathBuilder  = new PathBuilder()
   }
 
   /**
@@ -25,7 +25,7 @@ class RailsRanger {
   * //=> GET request to '/users/1?flag=true' path
   */
   get (path, params) {
-    let request = this._pathBuilder.get(path, params)
+    let request = this.pathBuilder.get(path, params)
     return this.client.get(request.path)
   }
 
@@ -40,7 +40,7 @@ class RailsRanger {
   * //=> POST request to '/users/1' path with { flag: true } parameters
   */
   post (path, params) {
-    let request = this._pathBuilder.post(path, params)
+    let request = this.pathBuilder.post(path, params)
     return this.client.post(request.path, request.params)
   }
 
@@ -55,7 +55,7 @@ class RailsRanger {
   * //=> PATCH request to '/users/1' path with { flag: true } parameters
   */
   patch (path, params) {
-    let request = this._pathBuilder.patch(path, params)
+    let request = this.pathBuilder.patch(path, params)
     return this.client.patch(request.path, request.params)
   }
 
@@ -70,7 +70,7 @@ class RailsRanger {
   * //=> PUT request to '/users/1' path with { flag: true } parameters
   */
   put (path, params) {
-    let request = this._pathBuilder.put(path, params)
+    let request = this.pathBuilder.put(path, params)
     return this.client.put(request.path, request.params)
   }
 
@@ -85,7 +85,7 @@ class RailsRanger {
   * //=> DELETE request to '/users/1?flag=true' path
   */
   delete (path, params) {
-    let request = this._pathBuilder.delete(path, params)
+    let request = this.pathBuilder.delete(path, params)
     return this.client.delete(request.path, request.params)
   }
 
