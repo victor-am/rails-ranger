@@ -98,12 +98,12 @@ describe('RailsRanger', () => {
   describe('.list', () => {
     beforeEach(() => {
       spy(ranger.client, 'get')
-      spy(ranger.route, 'list')
+      spy(ranger.route, 'index')
     })
 
     it('calls the route builder', () => {
       ranger.list('users', { flag: true })
-      expect(ranger.route.list).to.have.been.calledWith('users', { flag: true })
+      expect(ranger.route.index).to.have.been.calledWith('users', { flag: true })
     })
 
     it('calls the client with the right parameters', () => {

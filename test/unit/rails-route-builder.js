@@ -14,6 +14,13 @@ describe('RailsRouteBuilder', () => {
     })
   })
 
+  describe('.index', () => {
+    it('returns the right path', () => {
+      let request = routeBuilder.index('users', { flag: true })
+      expect(request.path).to.eq('users?flag=true')
+    })
+  })
+
   describe('.show', () => {
     it('returns the right path', () => {
       let request = routeBuilder.show('users', { id: 1, flag: true })
