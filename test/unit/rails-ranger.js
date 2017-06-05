@@ -10,6 +10,18 @@ describe('RailsRanger', () => {
     ranger.client = new MockClient()
   })
 
+  describe('constructor', () => {
+    it('instantiates RailsRanger with a pathBuilder', () => {
+      let railsRanger = new RailsRanger()
+      expect(railsRanger.pathBuilder).to.be.an('object')
+    })
+
+    it('instantiates RailsRanger with a routeBuilder', () => {
+      let railsRanger = new RailsRanger()
+      expect(railsRanger.routeBuilder).to.be.an('object')
+    })
+  })
+
   describe('.get', () => {
     beforeEach(() => {
       spy(ranger.client, 'get')
@@ -98,12 +110,12 @@ describe('RailsRanger', () => {
   describe('.list', () => {
     beforeEach(() => {
       spy(ranger.client, 'get')
-      spy(ranger.route, 'index')
+      spy(ranger.routeBuilder, 'index')
     })
 
     it('calls the route builder', () => {
       ranger.list('users', { flag: true })
-      expect(ranger.route.index).to.have.been.calledWith('users', { flag: true })
+      expect(ranger.routeBuilder.index).to.have.been.calledWith('users', { flag: true })
     })
 
     it('calls the client with the right parameters', () => {
@@ -115,12 +127,12 @@ describe('RailsRanger', () => {
   describe('.show', () => {
     beforeEach(() => {
       spy(ranger.client, 'get')
-      spy(ranger.route, 'show')
+      spy(ranger.routeBuilder, 'show')
     })
 
     it('calls the route builder', () => {
       ranger.show('users', { id: 1, flag: true })
-      expect(ranger.route.show).to.have.been.calledWith('users', { id: 1, flag: true })
+      expect(ranger.routeBuilder.show).to.have.been.calledWith('users', { id: 1, flag: true })
     })
 
     it('calls the client with the right parameters', () => {
@@ -132,12 +144,12 @@ describe('RailsRanger', () => {
   describe('.create', () => {
     beforeEach(() => {
       spy(ranger.client, 'post')
-      spy(ranger.route, 'create')
+      spy(ranger.routeBuilder, 'create')
     })
 
     it('calls the route builder', () => {
       ranger.create('users', { name: 'John' })
-      expect(ranger.route.create).to.have.been.calledWith('users', { name: 'John' })
+      expect(ranger.routeBuilder.create).to.have.been.calledWith('users', { name: 'John' })
     })
 
     it('calls the client with the right parameters', () => {
@@ -149,12 +161,12 @@ describe('RailsRanger', () => {
   describe('.update', () => {
     beforeEach(() => {
       spy(ranger.client, 'patch')
-      spy(ranger.route, 'update')
+      spy(ranger.routeBuilder, 'update')
     })
 
     it('calls the route builder', () => {
       ranger.update('users', { id: 1, name: 'John' })
-      expect(ranger.route.update).to.have.been.calledWith('users', { id: 1, name: 'John' })
+      expect(ranger.routeBuilder.update).to.have.been.calledWith('users', { id: 1, name: 'John' })
     })
 
     it('calls the client with the right parameters', () => {
@@ -166,12 +178,12 @@ describe('RailsRanger', () => {
   describe('.destroy', () => {
     beforeEach(() => {
       spy(ranger.client, 'delete')
-      spy(ranger.route, 'destroy')
+      spy(ranger.routeBuilder, 'destroy')
     })
 
     it('calls the route builder', () => {
       ranger.destroy('users', { id: 1, flag: true })
-      expect(ranger.route.destroy).to.have.been.calledWith('users', { id: 1, flag: true })
+      expect(ranger.routeBuilder.destroy).to.have.been.calledWith('users', { id: 1, flag: true })
     })
 
     it('calls the client with the right parameters', () => {
@@ -183,12 +195,12 @@ describe('RailsRanger', () => {
   describe('.new', () => {
     beforeEach(() => {
       spy(ranger.client, 'get')
-      spy(ranger.route, 'new')
+      spy(ranger.routeBuilder, 'new')
     })
 
     it('calls the route builder', () => {
       ranger.new('users', { flag: true })
-      expect(ranger.route.new).to.have.been.calledWith('users', { flag: true })
+      expect(ranger.routeBuilder.new).to.have.been.calledWith('users', { flag: true })
     })
 
     it('calls the client with the right parameters', () => {
@@ -200,12 +212,12 @@ describe('RailsRanger', () => {
   describe('.edit', () => {
     beforeEach(() => {
       spy(ranger.client, 'get')
-      spy(ranger.route, 'edit')
+      spy(ranger.routeBuilder, 'edit')
     })
 
     it('calls the route builder', () => {
       ranger.edit('users', { id: 1, flag: true })
-      expect(ranger.route.edit).to.have.been.calledWith('users', { id: 1, flag: true })
+      expect(ranger.routeBuilder.edit).to.have.been.calledWith('users', { id: 1, flag: true })
     })
 
     it('calls the client with the right parameters', () => {

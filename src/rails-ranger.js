@@ -10,7 +10,7 @@ class RailsRanger {
   */
   constructor (configs = {}) {
     this.client       = Axios.create(configs)
-    this.route        = new RailsRouteBuilder()
+    this.routeBuilder = new RailsRouteBuilder()
     this.pathBuilder  = new PathBuilder()
   }
 
@@ -100,7 +100,7 @@ class RailsRanger {
   * //=> GET request to '/users?flag=true' path
   */
   list (resource, params) {
-    let request = this.route.index(resource, params)
+    let request = this.routeBuilder.index(resource, params)
     return this.client.get(request.path)
   }
 
@@ -116,7 +116,7 @@ class RailsRanger {
   * //=> GET request to '/users/1?flag=true' path
   */
   show (resource, params) {
-    let request = this.route.show(resource, params)
+    let request = this.routeBuilder.show(resource, params)
     return this.client.get(request.path)
   }
 
@@ -132,7 +132,7 @@ class RailsRanger {
   * //=> DELETE request to '/users/1?flag=true' path
   */
   destroy (resource, params) {
-    let request = this.route.destroy(resource, params)
+    let request = this.routeBuilder.destroy(resource, params)
     return this.client.delete(request.path)
   }
 
@@ -147,7 +147,7 @@ class RailsRanger {
   * //=> POST request to '/users' path with the { email: 'john@doe.com', password: 123456 } parameters
   */
   create (resource, params) {
-    let request = this.route.create(resource, params)
+    let request = this.routeBuilder.create(resource, params)
     return this.client.post(request.path, request.params)
   }
 
@@ -163,7 +163,7 @@ class RailsRanger {
   * //=> PATCH request to '/users/1' path with the { email: 'elton@doe.com' } parameters
   */
   update (resource, params) {
-    let request = this.route.update(resource, params)
+    let request = this.routeBuilder.update(resource, params)
     return this.client.patch(request.path, request.params)
   }
 
@@ -178,7 +178,7 @@ class RailsRanger {
   * //=> GET request to '/users/new?flag=true' path
   */
   new (resource, params) {
-    let request = this.route.new(resource, params)
+    let request = this.routeBuilder.new(resource, params)
     return this.client.get(request.path)
   }
 
@@ -194,7 +194,7 @@ class RailsRanger {
   * //=> GET request to '/users/1/edit?flag=true' path
   */
   edit (resource, params) {
-    let request = this.route.edit(resource, params)
+    let request = this.routeBuilder.edit(resource, params)
     return this.client.get(request.path)
   }
 }

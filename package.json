@@ -9,7 +9,6 @@
     "test-browser": "gulp test-browser",
     "watch": "gulp watch",
     "build": "gulp build",
-    "coverage": "gulp coverage",
     "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc-conf.json --verbose"
   },
   "repository": {
@@ -40,7 +39,6 @@
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
     "gulp-filter": "^5.0.0",
-    "gulp-istanbul": "^1.1.1",
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.2.4",
     "gulp-mocha": "^4.3.1",
