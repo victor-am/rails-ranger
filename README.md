@@ -13,26 +13,55 @@
 Rails Ranger is a thin layer on top of [Axios](https://github.com/mzabriskie/axios), which gives you an opinionated interface to query APIs built with Ruby on Rails.
 
 ## Installation
-**TODO**
+```javascript
+npm install rails-ranger
+```
+<br>
 
-## Usage
+## How does it work? (pending)
+
+The following should serve as a simple illustration of the library API:
 
 ```javascript
 import RailsRanger from 'rails-ranger'
 let api = new RailsRanger
 
-api.list('users')
-//=> GET /users
-
-api.show('users', { id: 1 })
-//=> GET /users/1
-
-api.create('users', { name: 'John Doe', email: 'john@doe.com' })
-//=> POST /users
-
-api.get('/users/:id', { id: 1, format: 'basic' })
-//=> GET /users/1?format=basic
+api.list('users').then((response) => {
+  const users = response.body
+  alert(users.length + ' users found!')
+})
 ```
 
-## Features
-**TODO**
+The `list` method above will make a request to the **index** path of the **users** resource, following Rails routing conventions. This means a `GET` request to the `/users` path.
+
+> **Observation:** `api.index('users')` would work as well. The `list` method is just an alias.
+<br>
+<br>
+
+### A sightly more complex example:
+
+```javascript
+api.show('users', { id: 1, expanded: false })
+```
+
+The example above would translate to a GET request to the following URL `/users/1?expanded=false`.
+<br>
+
+## Actions (pending)
+
+- list/index
+- show
+- new
+- create
+- edit
+- update
+<br>
+
+## Methods (pending)
+
+- GET
+- POST
+- PATCH
+- PUT
+- DELETE
+<br>
