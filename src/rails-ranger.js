@@ -2,6 +2,16 @@ import Axios             from 'axios'
 import PathBuilder       from './path-builder'
 import RailsRouteBuilder from './rails-route-builder'
 
+const ACTION_METHODS = {
+  index:   'get',
+  show:    'get',
+  new:     'get',
+  create:  'post',
+  edit:    'get',
+  update:  'patch',
+  destroy: 'delete'
+}
+
 class RailsRanger {
   /**
   * RailsRanger object constructor
@@ -25,8 +35,7 @@ class RailsRanger {
   * //=> GET request to '/users/1?flag=true' path
   */
   get (path, params) {
-    let request = this.pathBuilder.get(path, params)
-    return this.client.get(request.path)
+    return this._rawRequest({ method: 'get', path, params })
   }
 
   /**
@@ -40,8 +49,7 @@ class RailsRanger {
   * //=> POST request to '/users/1' path with { flag: true } parameters
   */
   post (path, params) {
-    let request = this.pathBuilder.post(path, params)
-    return this.client.post(request.path, request.params)
+    return this._rawRequest({ method: 'post', path, params })
   }
 
   /**
@@ -55,8 +63,7 @@ class RailsRanger {
   * //=> PATCH request to '/users/1' path with { flag: true } parameters
   */
   patch (path, params) {
-    let request = this.pathBuilder.patch(path, params)
-    return this.client.patch(request.path, request.params)
+    return this._rawRequest({ method: 'patch', path, params })
   }
 
   /**
@@ -70,8 +77,7 @@ class RailsRanger {
   * //=> PUT request to '/users/1' path with { flag: true } parameters
   */
   put (path, params) {
-    let request = this.pathBuilder.put(path, params)
-    return this.client.put(request.path, request.params)
+    return this._rawRequest({ method: 'put', path, params })
   }
 
   /**
@@ -85,8 +91,7 @@ class RailsRanger {
   * //=> DELETE request to '/users/1?flag=true' path
   */
   delete (path, params) {
-    let request = this.pathBuilder.delete(path, params)
-    return this.client.delete(request.path, request.params)
+    return this._rawRequest({ method: 'delete', path, params })
   }
 
   /**
@@ -96,12 +101,11 @@ class RailsRanger {
   * @returns {Promise}
   * @example
   * let api = new RailsRanger
-  * api.index('users', { flag: true })
+  * api.list('users', { flag: true })
   * //=> GET request to '/users?flag=true' path
   */
   list (resource, params) {
-    let request = this.routeBuilder.index(resource, params)
-    return this.client.get(request.path)
+    return this._actionRequest({ action: 'index', resource, params })
   }
 
   /**
@@ -116,8 +120,7 @@ class RailsRanger {
   * //=> GET request to '/users/1?flag=true' path
   */
   show (resource, params) {
-    let request = this.routeBuilder.show(resource, params)
-    return this.client.get(request.path)
+    return this._actionRequest({ action: 'show', resource, params })
   }
 
   /**
@@ -132,8 +135,7 @@ class RailsRanger {
   * //=> DELETE request to '/users/1?flag=true' path
   */
   destroy (resource, params) {
-    let request = this.routeBuilder.destroy(resource, params)
-    return this.client.delete(request.path)
+    return this._actionRequest({ action: 'destroy', resource, params })
   }
 
   /**
@@ -147,8 +149,7 @@ class RailsRanger {
   * //=> POST request to '/users' path with the { email: 'john@doe.com', password: 123456 } parameters
   */
   create (resource, params) {
-    let request = this.routeBuilder.create(resource, params)
-    return this.client.post(request.path, request.params)
+    return this._actionRequest({ action: 'create', resource, params })
   }
 
   /**
@@ -163,8 +164,7 @@ class RailsRanger {
   * //=> PATCH request to '/users/1' path with the { email: 'elton@doe.com' } parameters
   */
   update (resource, params) {
-    let request = this.routeBuilder.update(resource, params)
-    return this.client.patch(request.path, request.params)
+    return this._actionRequest({ action: 'update', resource, params })
   }
 
   /**
@@ -178,8 +178,7 @@ class RailsRanger {
   * //=> GET request to '/users/new?flag=true' path
   */
   new (resource, params) {
-    let request = this.routeBuilder.new(resource, params)
-    return this.client.get(request.path)
+    return this._actionRequest({ action: 'new', resource, params })
   }
 
   /**
@@ -194,8 +193,20 @@ class RailsRanger {
   * //=> GET request to '/users/1/edit?flag=true' path
   */
   edit (resource, params) {
-    let request = this.routeBuilder.edit(resource, params)
-    return this.client.get(request.path)
+    return this._actionRequest({ action: 'edit', resource, params })
+  }
+
+  _rawRequest ({ method, path, params }) {
+    const request = this.pathBuilder[method](path, params)
+
+    return this.client[method](request.path, request.params)
+  }
+
+  _actionRequest ({ action, resource, params }) {
+    const request = this.routeBuilder[action](resource, params)
+    const method  = ACTION_METHODS[action]
+
+    return this.client[method](request.path, request.params)
   }
 }
 
