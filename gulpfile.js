@@ -59,4 +59,4 @@ gulp.task('clean', cleanDist)
 gulp.task('clean-tmp', cleanTmp)
 
 // Build two versions of the library
-gulp.task('build', ['lint', 'clean'], build)
+gulp.task('build', ['clean'], build)
