@@ -18,7 +18,7 @@ npm install rails-ranger
 ```
 <br>
 
-## How does it work? (pending)
+## How does it work?
 
 The following should serve as a simple illustration of the library API:
 
@@ -27,25 +27,61 @@ import RailsRanger from 'rails-ranger'
 let api = new RailsRanger
 
 api.list('users').then((response) => {
-  const users = response.body
+  const users = response.data
   alert(users.length + ' users found!')
 })
+// => GET request to /users
 ```
 
 The `list` method above will make a request to the **index** path of the **users** resource, following Rails routing conventions. This means a `GET` request to the `/users` path.
 
-> **Observation:** `api.index('users')` would work as well. The `list` method is just an alias.
-<br>
+> **Observation:** you can use `api.index('users')` as well. The `list` function is just an alias for it.
 <br>
 
 ### A sightly more complex example:
 
 ```javascript
 api.show('users', { id: 1, expanded: false })
+// => GET request to /users/1?expanded=false
+```
+<br>
+
+## Passing options to Axios
+As the first argument when creating a new instance of Rails Ranger, you can pass an object of options that will be handled to Axios. Some examples:
+
+### Base URL
+```javascript
+const api = new RailsRanger({ baseUrl: 'http://myapp.com/api' })
+
+api.list('users')
+// => GET request to http://myapp.com/api/users
 ```
 
-The example above would translate to a GET request to the following URL `/users/1?expanded=false`.
+### Timeout
+```javascript
+const api = new RailsRanger({ timeout: 3000 })
+
+api.list('users') // => Will timeout within 3000 miliseconds
+```
+
+### See more in the [Axios documentation](https://github.com/mzabriskie/axios#request-config)
 <br>
+
+## Using Rails Ranger just for building routes
+You don't need to use Rails Ranger as an ajax client if you don't want to. It can also be used just to generate the routes from your resources. To use Rails Ranger this way you can do the following:
+
+```javascript
+import { RouteBuilder } from RailsRanger
+
+RouteBuilder.create('users', { name: 'John' })
+// => { path: '/users', params: { name: 'John' }, method: 'post' }
+ 
+RouteBuilder.show('users', { id: 1, hidePassword: true })
+// => { path: '/users/1?hide_password=true', params: {}, method: 'get' }
+
+RouteBuilder.get('/:api/documentation', { api: 'v1', page: 3 })
+// => { path: 'v1/documentation?page=3', params: {}, method: 'get' }
+```
 
 ## Actions (pending)
 
