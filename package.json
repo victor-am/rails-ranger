@@ -3,28 +3,37 @@
   "version": "0.1.0",
   "description": "A Rails API client",
   "main": "dist/rails-ranger.js",
+
   "scripts": {
-    "test": "gulp test",
-    "lint": "gulp lint",
-    "test-browser": "gulp test-browser",
-    "watch": "gulp watch",
-    "build": "gulp build",
-    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc-conf.json --verbose"
+    "test": "NODE_ENV=test nyc mocha test/unit --require test/setup.js",
+    "generate-docs": "jsdoc --configure .jsdoc-conf.json --verbose",
+    "build": "gulp build"
   },
+
+  "nyc": {
+    "require": ["babel-register"],
+    "sourceMap": false,
+    "instrument": true
+  },
+
   "repository": {
     "type": "git",
     "url": "https://github.com/victor-am/rails-ranger.git"
   },
+
   "keywords": [],
   "author": "Victor A.M. <victor@victoryam.com.br>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/victor-am/rails-ranger/issues"
   },
+
   "homepage": "https://github.com/victor-am/rails-ranger",
+
   "devDependencies": {
     "babel-core": "^6.24.0",
     "babel-loader": "^7.0.0",
+    "babel-plugin-istanbul": "^4.1.4",
     "babel-polyfill": "^6.13.0",
     "babel-preset-latest": "^6.14.0",
     "babel-register": "^6.14.0",
@@ -51,6 +60,7 @@
     "json-loader": "^0.5.4",
     "minami": "^1.2.3",
     "mocha": "^3.4.2",
+    "nyc": "^11.0.2",
     "sinon": "^2.3.2",
     "sinon-chai": "^2.10.0",
     "webpack": "1.13.2",
