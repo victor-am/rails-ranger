@@ -4,13 +4,11 @@
 
 #### [Github Repository](https://github.com/victor-am/rails-ranger) | [Documentation](https://victor-am.github.io/rails-ranger)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/562e26fd8c8e48ec8206430b42b9dc75)](https://www.codacy.com/app/victor-am/rails-ranger?utm_source=github.com&utm_medium=referral&utm_content=victor-am/rails-ranger&utm_campaign=badger)
+[![npm version](https://badge.fury.io/js/rails-ranger.svg)](https://badge.fury.io/js/rails-ranger)
 [![Travis build status](http://img.shields.io/travis/victor-am/rails-ranger.svg?style=flat)](https://travis-ci.org/victor-am/rails-ranger)
-[![Code Climate](https://codeclimate.com/github/victor-am/rails-ranger/badges/gpa.svg)](https://codeclimate.com/github/victor-am/rails-ranger)
 [![Test Coverage](https://codeclimate.com/github/victor-am/rails-ranger/badges/coverage.svg)](https://codeclimate.com/github/victor-am/rails-ranger)
 [![Dependency Status](https://david-dm.org/victor-am/rails-ranger.svg)](https://david-dm.org/victor-am/rails-ranger)
 [![devDependency Status](https://david-dm.org/victor-am/rails-ranger/dev-status.svg)](https://david-dm.org/victor-am/rails-ranger#info=devDependencies)
-[![Ebert](https://ebertapp.io/github/victor-am/rails-ranger.svg)](https://ebertapp.io/github/victor-am/rails-ranger)
 
 Rails Ranger is a thin layer on top of [Axios](https://github.com/mzabriskie/axios), which gives you an opinionated interface to query APIs built with Ruby on Rails.
 
