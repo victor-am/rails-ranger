@@ -1,5 +1,6 @@
 {
-  "presets": ["latest"],
+  "presets": ["babel-preset-es2015"],
+  "plugins": ["lodash"],
   "env": {
     "test": { "plugins": ["istanbul"] }
   }
