@@ -1,3 +1,5 @@
+import { snakeCase, cloneDeep } from 'lodash'
+
 class PathBuilder {
   get (path, params) {
     return this._injectParamsAndQuery(path, params)
@@ -39,7 +41,7 @@ class PathBuilder {
   //
   _injectParams (path = '', params = {}) {
     let processedPath = path
-    let processedParams = deepClone(params)
+    let processedParams = cloneDeep(params)
 
     for (let key in params) {
       // Skipping inherited proprieties
@@ -61,19 +63,12 @@ class PathBuilder {
 
   _injectQuery (path, params) {
     let keyValuePairs = Object.entries(params)
-    let stringParams  = keyValuePairs.map((pair) => `${pair[0]}=${pair[1]}`)
+    let stringParams  = keyValuePairs.map((pair) => `${snakeCase(pair[0])}=${pair[1]}`)
     let query         = stringParams.join('&')
 
     let querifiedPath = query ? `${path}?${query}` : path
     return { path: querifiedPath, params: {} }
   }
-}
-
-//
-// Returns a deep clone from a given object
-//
-const deepClone = function (object) {
-  return JSON.parse(JSON.stringify(object))
 }
 
 export default PathBuilder

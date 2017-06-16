@@ -18,9 +18,14 @@ describe('PathBuilder', () => {
       expect(request.path).to.eq('/users/?id=1')
     })
 
-    it('inject remaining parameters into the query', () => {
+    it('injects remaining parameters into the query', () => {
       let request = pathBuilder.get('/users/:id', { id: 1, only: 'logged' })
       expect(request.path).to.eq('/users/1?only=logged')
+    })
+
+    it('converts camel case params in the query to snake case', () => {
+      let request = pathBuilder.get('/users/:id', { id: 1, hideAvatar: true })
+      expect(request.path).to.eq('/users/1?hide_avatar=true')
     })
   })
 
@@ -72,7 +77,7 @@ describe('PathBuilder', () => {
       expect(request.path).to.eq('/users/1')
     })
 
-    it('inject remaining parameters into the query', () => {
+    it('injects remaining parameters into the query', () => {
       let request = pathBuilder.delete('/users/:id', { id: 1, only: 'logged' })
       expect(request.path).to.eq('/users/1?only=logged')
     })
