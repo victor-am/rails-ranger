@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "description": "A Ruby on Rails REST client",
   "main": "dist/rails-ranger.js",
-
   "scripts": {
     "test": "NODE_ENV=test nyc mocha test/unit --require test/setup.js",
     "generate-docs": "jsdoc --configure .jsdoc-conf.json --verbose",
     "build": "gulp build"
   },
-
   "nyc": {
-    "require": ["babel-register"],
+    "require": [
+      "babel-register"
+    ],
     "sourceMap": false,
     "instrument": true,
     "reporter": [
@@ -19,21 +19,17 @@
       "html"
     ]
   },
-
   "repository": {
     "type": "git",
     "url": "https://github.com/victor-am/rails-ranger.git"
   },
-
   "keywords": [],
   "author": "Victor A.M. <victor@victoryam.com.br>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/victor-am/rails-ranger/issues"
   },
-
   "homepage": "https://github.com/victor-am/rails-ranger",
-
   "devDependencies": {
     "babel-core": "^6.24.0",
     "babel-loader": "^7.0.0",
@@ -51,6 +47,7 @@
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-filter": "^5.0.0",
+    "gulp-load-plugins": "^1.5.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^3.0.0",
@@ -68,6 +65,7 @@
     "mainVarName": "railsRanger"
   },
   "dependencies": {
-    "axios": "^0.16.1"
+    "axios": "^0.16.1",
+    "lodash": "^4.17.4"
   }
 }
