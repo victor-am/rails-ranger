@@ -72,14 +72,15 @@ You don't need to use Rails Ranger as an ajax client if you don't want to. It ca
 
 ```javascript
 import { RouteBuilder } from RailsRanger
+const route = new RouteBuilder
 
-RouteBuilder.create('users', { name: 'John' })
+route.create('users', { name: 'John' })
 // => { path: '/users', params: { name: 'John' }, method: 'post' }
  
-RouteBuilder.show('users', { id: 1, hidePassword: true })
+route.show('users', { id: 1, hidePassword: true })
 // => { path: '/users/1?hide_password=true', params: {}, method: 'get' }
 
-RouteBuilder.get('/:api/documentation', { api: 'v1', page: 3 })
+route.get('/:api/documentation', { api: 'v1', page: 3 })
 // => { path: 'v1/documentation?page=3', params: {}, method: 'get' }
 ```
 
