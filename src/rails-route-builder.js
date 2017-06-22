@@ -1,4 +1,5 @@
 import PathBuilder from './path-builder'
+import { MissingRequiredParameterError } from './exceptions'
 
 class RailsRouteBuilder {
   /**
@@ -45,6 +46,7 @@ class RailsRouteBuilder {
   * //=> { path: '/users/1', params: {} }
   */
   show (resource, params) {
+    this._validateIdPresence(params)
     let path = `${resource}/:id`
     return this.pathBuilder.get(path, params)
   }
@@ -61,6 +63,7 @@ class RailsRouteBuilder {
   * //=> { path: '/users/1', params: {} }
   */
   destroy (resource, params) {
+    this._validateIdPresence(params)
     let path = `${resource}/:id`
     return this.pathBuilder.delete(path, params)
   }
@@ -92,6 +95,7 @@ class RailsRouteBuilder {
   * //=> { path: '/users/1', params: { email: 'john@doe.com' } }
   */
   update (resource, params) {
+    this._validateIdPresence(params)
     let path = `${resource}/:id`
     return this.pathBuilder.patch(path, params)
   }
@@ -123,8 +127,15 @@ class RailsRouteBuilder {
   * //=> { path: '/users/1', params: {} }
   */
   edit (resource, params) {
+    this._validateIdPresence(params)
     let path = `${resource}/:id/edit`
     return this.pathBuilder.get(path, params)
+  }
+
+  _validateIdPresence (params) {
+    if (!params.id) {
+      throw new MissingRequiredParameterError('id')
+    }
   }
 }
 
