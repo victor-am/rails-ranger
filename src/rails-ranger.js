@@ -1,16 +1,6 @@
-import Axios             from 'axios'
-import PathBuilder       from './path-builder'
-import RailsRouteBuilder from './rails-route-builder'
-
-const ACTION_METHODS = {
-  index:   'get',
-  show:    'get',
-  new:     'get',
-  create:  'post',
-  edit:    'get',
-  update:  'patch',
-  destroy: 'delete'
-}
+import Axios        from 'axios'
+import PathBuilder  from './path-builder'
+import RouteBuilder from './rails-route-builder'
 
 class RailsRanger {
   /**
@@ -20,7 +10,7 @@ class RailsRanger {
   */
   constructor (configs = {}) {
     this.client       = Axios.create(configs)
-    this.routeBuilder = new RailsRouteBuilder()
+    this.routeBuilder = new RouteBuilder()
     this.pathBuilder  = new PathBuilder()
   }
 
@@ -204,9 +194,8 @@ class RailsRanger {
 
   _actionRequest ({ action, resource, params }) {
     const request = this.routeBuilder[action](resource, params)
-    const method  = ACTION_METHODS[action]
 
-    return this.client[method](request.path, request.params)
+    return this.client[request.method](request.path, request.params)
   }
 }
 
