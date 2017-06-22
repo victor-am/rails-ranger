@@ -1,27 +1,29 @@
-import { snakeCase, cloneDeep } from 'lodash'
+import { snakeCase, cloneDeep, merge } from 'lodash'
 
 class PathBuilder {
   get (path, params) {
-    return this._injectParamsAndQuery(path, params)
+    const request = this._injectParamsAndQuery(path, params)
+    return merge(request, { method: 'get' })
   }
 
   post (path, params) {
-    let request = this._injectParams(path, params)
-    return request
+    const request = this._injectParams(path, params)
+    return merge(request, { method: 'post' })
   }
 
   patch (path, params) {
-    let request = this._injectParams(path, params)
-    return request
+    const request = this._injectParams(path, params)
+    return merge(request, { method: 'patch' })
   }
 
   put (path, params) {
-    let request = this._injectParams(path, params)
-    return request
+    const request = this._injectParams(path, params)
+    return merge(request, { method: 'put' })
   }
 
   delete (path, params) {
-    return this._injectParamsAndQuery(path, params)
+    const request = this._injectParamsAndQuery(path, params)
+    return merge(request, { method: 'delete' })
   }
 
   _injectParamsAndQuery (path, params) {
@@ -31,14 +33,6 @@ class PathBuilder {
     return request
   }
 
-  //
-  // Replaces incidencies of params in the path provided
-  // and return the processed path and the params left out
-  // of the path
-  //
-  // injectParams('users/:id', { id: 1 })
-  // => { path: 'users/1', params {} }
-  //
   _injectParams (path = '', params = {}) {
     let processedPath = path
     let processedParams = cloneDeep(params)
@@ -62,11 +56,11 @@ class PathBuilder {
   }
 
   _injectQuery (path, params) {
-    let keyValuePairs = Object.entries(params)
-    let stringParams  = keyValuePairs.map((pair) => `${snakeCase(pair[0])}=${pair[1]}`)
-    let query         = stringParams.join('&')
+    const keyValuePairs = Object.entries(params)
+    const stringParams  = keyValuePairs.map((pair) => `${snakeCase(pair[0])}=${pair[1]}`)
+    const query         = stringParams.join('&')
 
-    let querifiedPath = query ? `${path}?${query}` : path
+    const querifiedPath = query ? `${path}?${query}` : path
     return { path: querifiedPath, params: {} }
   }
 }
