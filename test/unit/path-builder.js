@@ -19,8 +19,8 @@ describe('PathBuilder', () => {
     })
 
     it('injects remaining parameters into the query', () => {
-      let request = pathBuilder.get('/users/:id', { id: 1, only: 'logged' })
-      expect(request.path).to.eq('/users/1?only=logged')
+      let request = pathBuilder.get('/users/:id', { id: 1, summary: true })
+      expect(request.path).to.eq('/users/1?summary=true')
     })
 
     it('converts camel case params in the query to snake case', () => {
@@ -78,8 +78,13 @@ describe('PathBuilder', () => {
     })
 
     it('injects remaining parameters into the query', () => {
-      let request = pathBuilder.delete('/users/:id', { id: 1, only: 'logged' })
-      expect(request.path).to.eq('/users/1?only=logged')
+      let request = pathBuilder.delete('/users/:id', { id: 1, cascade: true })
+      expect(request.path).to.eq('/users/1?cascade=true')
+    })
+
+    it('converts camel case params in the query to snake case', () => {
+      let request = pathBuilder.delete('/users/:id', { id: 1, cascadeDelete: true })
+      expect(request.path).to.eq('/users/1?cascade_delete=true')
     })
   })
 })
