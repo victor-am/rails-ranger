@@ -51,29 +51,63 @@
         <article><h1>Rails Ranger</h1><h3>Exploring the routes and paths of Rails APIs</h3><blockquote>
 <p>This library development is in a very early stage and the API is <strong>VERY</strong> unstable</p>
 </blockquote>
-<h4><a href="https://github.com/victor-am/rails-ranger">Github Repository</a> | <a href="https://victor-am.github.io/rails-ranger">Documentation</a></h4><p><a href="https://www.codacy.com/app/victor-am/rails-ranger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=victor-am/rails-ranger&amp;utm_campaign=badger"><img src="https://api.codacy.com/project/badge/Grade/562e26fd8c8e48ec8206430b42b9dc75" alt="Codacy Badge"></a>
+<h4><a href="https://github.com/victor-am/rails-ranger">Github Repository</a> | <a href="https://victor-am.github.io/rails-ranger">Documentation</a></h4><p><a href="https://badge.fury.io/js/rails-ranger"><img src="https://badge.fury.io/js/rails-ranger.svg" alt="npm version"></a>
 <a href="https://travis-ci.org/victor-am/rails-ranger"><img src="http://img.shields.io/travis/victor-am/rails-ranger.svg?style=flat" alt="Travis build status"></a>
-<a href="https://codeclimate.com/github/victor-am/rails-ranger"><img src="https://codeclimate.com/github/victor-am/rails-ranger/badges/gpa.svg" alt="Code Climate"></a>
 <a href="https://codeclimate.com/github/victor-am/rails-ranger"><img src="https://codeclimate.com/github/victor-am/rails-ranger/badges/coverage.svg" alt="Test Coverage"></a>
 <a href="https://david-dm.org/victor-am/rails-ranger"><img src="https://david-dm.org/victor-am/rails-ranger.svg" alt="Dependency Status"></a>
-<a href="https://david-dm.org/victor-am/rails-ranger#info=devDependencies"><img src="https://david-dm.org/victor-am/rails-ranger/dev-status.svg" alt="devDependency Status"></a>
-<a href="https://ebertapp.io/github/victor-am/rails-ranger"><img src="https://ebertapp.io/github/victor-am/rails-ranger.svg" alt="Ebert"></a></p>
+<a href="https://david-dm.org/victor-am/rails-ranger#info=devDependencies"><img src="https://david-dm.org/victor-am/rails-ranger/dev-status.svg" alt="devDependency Status"></a></p>
 <p>Rails Ranger is a thin layer on top of <a href="https://github.com/mzabriskie/axios">Axios</a>, which gives you an opinionated interface to query APIs built with Ruby on Rails.</p>
-<h2>Installation</h2><p><strong>TODO</strong></p>
-<h2>Usage</h2><pre class="prettyprint source lang-javascript"><code>import RailsRanger from 'rails-ranger'
+<h2>Installation</h2><pre class="prettyprint source lang-javascript"><code>npm install rails-ranger</code></pre><p><br></p>
+<h2>How does it work?</h2><p>The following should serve as a simple illustration of the library API:</p>
+<pre class="prettyprint source lang-javascript"><code>import RailsRanger from 'rails-ranger'
 let api = new RailsRanger
 
+api.list('users').then((response) => {
+  const users = response.data
+  alert(users.length + ' users found!')
+})
+// => GET request to /users</code></pre><p>The <code>list</code> method above will make a request to the <strong>index</strong> path of the <strong>users</strong> resource, following Rails routing conventions. This means a <code>GET</code> request to the <code>/users</code> path.</p>
+<blockquote>
+<p><strong>Observation:</strong> you can use <code>api.index('users')</code> as well. The <code>list</code> function is just an alias for it.
+<br></p>
+</blockquote>
+<h3>A sightly more complex example:</h3><pre class="prettyprint source lang-javascript"><code>api.show('users', { id: 1, expanded: false })
+// => GET request to /users/1?expanded=false</code></pre><p><br></p>
+<h2>Passing options to Axios</h2><p>As the first argument when creating a new instance of Rails Ranger, you can pass an object of options that will be handled to Axios. Some examples:</p>
+<h3>Base URL</h3><pre class="prettyprint source lang-javascript"><code>const api = new RailsRanger({ baseUrl: 'http://myapp.com/api' })
+
 api.list('users')
-//=> GET /users
+// => GET request to http://myapp.com/api/users</code></pre><h3>Timeout</h3><pre class="prettyprint source lang-javascript"><code>const api = new RailsRanger({ timeout: 3000 })
 
-api.show('users', { id: 1 })
-//=> GET /users/1
+api.list('users') // => Will timeout within 3000 miliseconds</code></pre><h3>See more in the <a href="https://github.com/mzabriskie/axios#request-config">Axios documentation</a></h3><p><br></p>
+<h2>Using Rails Ranger just for building routes</h2><p>You don't need to use Rails Ranger as an ajax client if you don't want to. It can also be used just to generate the routes from your resources. To use Rails Ranger this way you can do the following:</p>
+<pre class="prettyprint source lang-javascript"><code>import { RouteBuilder } from RailsRanger
+const route = new RouteBuilder
 
-api.create('users', { name: 'John Doe', email: 'john@doe.com' })
-//=> POST /users
+route.create('users', { name: 'John' })
+// => { path: '/users', params: { name: 'John' }, method: 'post' }
 
-api.get('/users/:id', { id: 1, format: 'basic' })
-//=> GET /users/1?format=basic</code></pre><h2>Features</h2><p><strong>TODO</strong></p></article>
+route.show('users', { id: 1, hidePassword: true })
+// => { path: '/users/1?hide_password=true', params: {}, method: 'get' }
+
+route.get('/:api/documentation', { api: 'v1', page: 3 })
+// => { path: 'v1/documentation?page=3', params: {}, method: 'get' }</code></pre><h2>Actions (pending)</h2><ul>
+<li>list/index</li>
+<li>show</li>
+<li>new</li>
+<li>create</li>
+<li>edit</li>
+<li>update
+<br></li>
+</ul>
+<h2>Methods (pending)</h2><ul>
+<li>GET</li>
+<li>POST</li>
+<li>PATCH</li>
+<li>PUT</li>
+<li>DELETE
+<br></li>
+</ul></article>
     </section>
 
 
@@ -86,7 +120,7 @@ api.get('/users/:id', { id: 1, format: 'basic' })
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 14 2017 02:09:44 GMT-0300 (-03) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 22 2017 23:22:05 GMT-0300 (-03) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
