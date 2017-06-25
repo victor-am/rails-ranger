@@ -76,7 +76,7 @@ const route = new RouteBuilder
 
 route.create('users', { name: 'John' })
 // => { path: '/users', params: { name: 'John' }, method: 'post' }
- 
+
 route.show('users', { id: 1, hidePassword: true })
 // => { path: '/users/1?hide_password=true', params: {}, method: 'get' }
 
@@ -93,6 +93,20 @@ route.get('/:api/documentation', { api: 'v1', page: 3 })
 - edit
 - update
 <br>
+
+## Custom actions
+
+```javascript
+  const publish = {
+    action:   'publish',
+    on:       'member',
+    method:   'post'
+  }
+
+  api.do(publish, 'blog_posts', { id: 1 }).then((response) => {
+    console.log(response.data)
+  })
+```
 
 ## Methods (pending)
 
