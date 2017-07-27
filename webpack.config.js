@@ -4,12 +4,15 @@ var config = {
   context: __dirname + '/src',
 
   entry: {
-    railsRanger: './rails-ranger.js',
+    'rails-ranger':     './rails-ranger.js',
+    'rails-ranger.min': './rails-ranger.js'
   },
+
+  devtool: 'source-map',
 
   output: {
     path: __dirname + '/dist',
-    filename: 'rails-ranger.js'
+    filename: '[name].js'
   },
 
   module: {
@@ -20,7 +23,14 @@ var config = {
         query: { presets: ['babel-preset-es2015'].map(require.resolve) }
       }
     ]
-  }
+  },
+
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      include: /\.min\.js$/,
+      minimize: true
+    })
+  ]
 }
 
 module.exports = config;
