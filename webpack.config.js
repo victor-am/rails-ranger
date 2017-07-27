@@ -11,14 +11,16 @@ var config = {
   devtool: 'source-map',
 
   output: {
-    path: __dirname + '/dist',
-    filename: '[name].js'
+    path:          __dirname + '/dist',
+    filename:      '[name].js',
+    library:       '',
+    libraryTarget: 'commonjs-module'
   },
 
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test:   /\.js$/,
         loader: 'babel-loader',
         query: { presets: ['babel-preset-es2015'].map(require.resolve) }
       }
@@ -27,7 +29,7 @@ var config = {
 
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
+      include:  /\.min\.js$/,
       minimize: true
     })
   ]
