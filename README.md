@@ -53,25 +53,42 @@ api.show('users', { id: 1, expanded: false })
 ```
 <br>
 
-## Passing options to Axios
-As the first argument when creating a new instance of Rails Ranger, you can pass an object of options that will be handled to Axios. Some examples:
+## Options
+As the first argument when creating a new instance of Rails Ranger you can pass an object of options to customize the behavior of Rails Ranger.
 
-### Base URL
+### dataTransform
+**default: true**
+
+By default RailsRanger will convert camelCased keys in your jsons to snake_case when sending a request to Rails, and will convert the Rails response from snake_case to camelCase for you to use in your front-end.
+
+You can disable this behavior by setting `dataTransform` to false:
+
 ```javascript
-const api = new RailsRanger({ baseUrl: 'http://myapp.com/api' })
+const api = new RailsRanger({ dataTransform: false })
+```
+
+### axios
+**default: {}**
+
+Any object passed to the `axios` option will be handled to **Axios**.
+Here are some usage examples:
+
+#### Base URL
+```javascript
+const api = new RailsRanger({ axios: { baseUrl: 'http://myapp.com/api' } })
 
 api.list('users')
 // => GET request to http://myapp.com/api/users
 ```
 
-### Timeout
+#### Timeout
 ```javascript
-const api = new RailsRanger({ timeout: 3000 })
+const api = new RailsRanger({ axios: { timeout: 3000 } })
 
 api.list('users') // => Will timeout within 3000 miliseconds
 ```
 
-### See more in the [Axios documentation](https://github.com/mzabriskie/axios#request-config)
+#### See more in the [Axios documentation](https://github.com/mzabriskie/axios#request-config)
 <br>
 
 ## Using Rails Ranger just for building routes
@@ -83,7 +100,7 @@ const route = new RouteBuilder
 
 route.create('users', { name: 'John' })
 // => { path: '/users', params: { name: 'John' }, method: 'post' }
- 
+
 route.show('users', { id: 1, hidePassword: true })
 // => { path: '/users/1?hide_password=true', params: {}, method: 'get' }
 
