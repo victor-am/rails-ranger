@@ -14,8 +14,14 @@
 Rails Ranger is a thin layer on top of [Axios](https://github.com/mzabriskie/axios), which gives you an opinionated interface to query APIs built with Ruby on Rails.
 
 ## Installation
-```javascript
-npm install rails-ranger
+```bash
+npm install --save rails-ranger
+```
+
+**or**
+
+```bash
+yarn add rails-ranger
 ```
 <br>
 
