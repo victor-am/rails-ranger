@@ -20,6 +20,18 @@ describe('RailsRanger', () => {
       let railsRanger = new RailsRanger()
       expect(railsRanger.routeBuilder).to.be.an('object')
     })
+
+    describe('transformData', () => {
+      it('sets the options.transformData to the correct default when no argument is provided', () => {
+        let railsRanger = new RailsRanger()
+        expect(railsRanger.options.transformData).to.eq(true)
+      })
+
+      it('sets the options.transformData when provided the correct argument', () => {
+        let railsRanger = new RailsRanger({ transformData: false })
+        expect(railsRanger.options.transformData).to.eq(false)
+      })
+    })
   })
 
   describe('.get', () => {

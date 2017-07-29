@@ -9,15 +9,24 @@ class RailsRanger {
   * @constructor
   * @param {object} configs - Configurations to be handed to Axios.
   */
-  constructor (userConfigs = {}) {
-    const baseConfigs = {
-      transformRequest:  [DataTransformations.prepareRequest],
-      transformResponse: [DataTransformations.prepareResponse]
+  constructor (configs = { transformData: true, axios: {} }) {
+    this.options = {
+      transformData: configs.transformData
     }
 
-    const configs = Object.assign({}, baseConfigs, userConfigs)
+    const baseClientConfigs = {}
 
-    this.client       = Axios.create(configs)
+    if (this.options.transformData) {
+      const dataTransformations = {
+        transformRequest:  [DataTransformations.prepareRequest],
+        transformResponse: [DataTransformations.prepareResponse]
+      }
+      Object.assign(baseClientConfigs, dataTransformations)
+    }
+
+    const clientConfigs = Object.assign({}, baseClientConfigs, configs.axios)
+
+    this.client       = Axios.create(clientConfigs)
     this.routeBuilder = new RouteBuilder()
     this.pathBuilder  = new PathBuilder()
   }
