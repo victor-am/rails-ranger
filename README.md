@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/victor-am/rails-ranger.png?label=ready&title=Ready)](https://waffle.io/victor-am/rails-ranger?utm_source=badge)
 # Rails Ranger
 ### Exploring the routes and paths of Rails APIs
 > This library development is in a very early stage and the API is **VERY** unstable
