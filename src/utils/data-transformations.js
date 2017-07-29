@@ -1,11 +1,12 @@
 import { camelizeKeys, decamelizeKeys } from 'humps'
+import Axios                            from 'axios'
 
 const DataTransformations = {
   prepareRequest (data, headers) {
-    if (headers && headers['Content-Type'] === undefined) {
-      headers['Content-Type'] = 'application/json;charset=utf-8'
-    }
-    return JSON.stringify(this.railsFormat(data))
+    const defaultTransformRequest = Axios.defaults.transformRequest[0]
+    const railsData               = this.railsFormat(data)
+
+    return defaultTransformRequest(railsData, headers)
   },
 
   prepareResponse (data, _headers) {
