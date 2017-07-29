@@ -1,6 +1,7 @@
-import Axios        from 'axios'
-import PathBuilder  from './path-builder'
-import RouteBuilder from './rails-route-builder'
+import Axios               from 'axios'
+import PathBuilder         from './path-builder'
+import RouteBuilder        from './rails-route-builder'
+import DataTransformations from './utils/data-transformations'
 
 class RailsRanger {
   /**
@@ -8,7 +9,14 @@ class RailsRanger {
   * @constructor
   * @param {object} configs - Configurations to be handed to Axios.
   */
-  constructor (configs = {}) {
+  constructor (userConfigs = {}) {
+    const baseConfigs = {
+      transformRequest:  [DataTransformations.prepareRequest],
+      transformResponse: [DataTransformations.prepareResponse]
+    }
+
+    const configs = Object.assign({}, baseConfigs, userConfigs)
+
     this.client       = Axios.create(configs)
     this.routeBuilder = new RouteBuilder()
     this.pathBuilder  = new PathBuilder()
