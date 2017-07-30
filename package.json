@@ -1,6 +1,6 @@
 {
   "name": "rails-ranger",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A Ruby on Rails REST client",
   "main": "index.js",
   "scripts": {
