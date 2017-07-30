@@ -1351,47 +1351,66 @@ var PathBuilder = function () {
 
   _createClass(PathBuilder, [{
     key: 'get',
-    value: function get(path, params) {
-      var request = this._injectParamsAndQuery(path, params);
-      return (0, _merge3.default)(request, { method: 'get' });
+    value: function get(path) {
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var requestInfo = this._interpolateInPath(path, params);
+      return (0, _merge3.default)(requestInfo, { method: 'get' });
     }
   }, {
     key: 'post',
-    value: function post(path, params) {
-      var request = this._injectParams(path, params);
-      return (0, _merge3.default)(request, { method: 'post' });
+    value: function post(path) {
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var requestInfo = this._interpolateInPath(path, params, { skipQuery: true });
+      return (0, _merge3.default)(requestInfo, { method: 'post' });
     }
   }, {
     key: 'patch',
-    value: function patch(path, params) {
-      var request = this._injectParams(path, params);
-      return (0, _merge3.default)(request, { method: 'patch' });
+    value: function patch(path) {
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var requestInfo = this._interpolateInPath(path, params, { skipQuery: true });
+      return (0, _merge3.default)(requestInfo, { method: 'patch' });
     }
   }, {
     key: 'put',
-    value: function put(path, params) {
-      var request = this._injectParams(path, params);
-      return (0, _merge3.default)(request, { method: 'put' });
+    value: function put(path) {
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var requestInfo = this._interpolateInPath(path, params, { skipQuery: true });
+      return (0, _merge3.default)(requestInfo, { method: 'put' });
     }
   }, {
     key: 'delete',
-    value: function _delete(path, params) {
-      var request = this._injectParamsAndQuery(path, params);
-      return (0, _merge3.default)(request, { method: 'delete' });
-    }
-  }, {
-    key: '_injectParamsAndQuery',
-    value: function _injectParamsAndQuery(path, params) {
-      var request = { path: path, params: params };
-      request = this._injectParams(request.path, request.params);
-      request = this._injectQuery(request.path, request.params);
-      return request;
-    }
-  }, {
-    key: '_injectParams',
-    value: function _injectParams() {
-      var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    value: function _delete(path) {
       var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var requestInfo = this._interpolateInPath(path, params);
+      return (0, _merge3.default)(requestInfo, { method: 'delete' });
+    }
+  }, {
+    key: '_interpolateInPath',
+    value: function _interpolateInPath(path, params) {
+      var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+          _ref$skipQuery = _ref.skipQuery,
+          skipQuery = _ref$skipQuery === undefined ? false : _ref$skipQuery;
+
+      var requestInfo = { path: path, params: params };
+
+      requestInfo = this._interpolateParamsInPath(requestInfo);
+
+      if (!skipQuery) {
+        requestInfo = this._injectQueryInPath(requestInfo);
+      }
+
+      return requestInfo;
+    }
+  }, {
+    key: '_interpolateParamsInPath',
+    value: function _interpolateParamsInPath(_ref2) {
+      var path = _ref2.path,
+          params = _ref2.params;
 
       var processedPath = path;
       var processedParams = (0, _cloneDeep3.default)(params);
@@ -1402,24 +1421,27 @@ var PathBuilder = function () {
           continue;
         }
 
+        var symbol = ':' + key;
         // Skipping if the param wasn't found in the path
-        if (!processedPath.match(key)) {
+        if (!path.includes(symbol)) {
           continue;
         }
 
         // Replaces the symbol in the path with the param value
-        processedPath = path.replace(':' + key, params[key]
+        processedPath = path.replace(symbol, params[key]
 
-        // If the key was used in the path, it shouldn't be sent as
-        // a query parameter
+        // If the key was used in the path, it shouldn't be sent asa query parameter
         );delete processedParams[key];
       }
 
       return { path: processedPath, params: processedParams };
     }
   }, {
-    key: '_injectQuery',
-    value: function _injectQuery(path, params) {
+    key: '_injectQueryInPath',
+    value: function _injectQueryInPath(_ref3) {
+      var path = _ref3.path,
+          params = _ref3.params;
+
       var keyValuePairs = Object.entries(params);
       var stringParams = keyValuePairs.map(function (pair) {
         return (0, _snakeCase3.default)(pair[0]) + '=' + pair[1];
@@ -2619,8 +2641,6 @@ var RailsRouteBuilder = function () {
   function RailsRouteBuilder() {
     _classCallCheck(this, RailsRouteBuilder);
 
-    // TODO
-    // Make an option for switching to GET for destroy actions
     this.pathBuilder = new _pathBuilder2.default();
   }
 
@@ -2802,12 +2822,26 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var DataTransformations = {
+  /**
+  * Data transformation function to be used by Axios to process POST, PATCH and PUT requests data
+  * @param {object} data - The data being sent through the request
+  * @param {object} headers - The headers being sent with the request
+  * @returns {string}
+  */
   prepareRequest: function prepareRequest(data, headers) {
     var defaultTransformRequest = _axios2.default.defaults.transformRequest[0];
     var railsData = DataTransformations.railsFormat(data);
 
     return defaultTransformRequest(railsData, headers);
   },
+
+
+  /**
+  * Data transformation function to be used by Axios to process response data
+  * @param {object} data - The data received through the request response in raw format
+  * @param {object} headers - The headers received with the response
+  * @returns {object}
+  */
   prepareResponse: function prepareResponse(data, headers) {
     var defaultTransformResponse = _axios2.default.defaults.transformResponse[0];
     var jsonData = defaultTransformResponse(data, headers);
@@ -7200,7 +7234,9 @@ var RailsRanger = function () {
   /**
   * RailsRanger object constructor
   * @constructor
-  * @param {object} configs - Configurations to be handed to Axios.
+  * @param {object} options - Configurations of the new RailsRanger instance
+  * @param {boolean} options.transformData - Sets response/request data transformations on/off
+  * @param {object} options.axios - Configurations that will be handed down to Axios
   */
   function RailsRanger() {
     var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
