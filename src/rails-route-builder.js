@@ -7,8 +7,6 @@ class RailsRouteBuilder {
   * @constructor
   */
   constructor () {
-    // TODO
-    // Make an option for switching to GET for destroy actions
     this.pathBuilder = new PathBuilder()
   }
 

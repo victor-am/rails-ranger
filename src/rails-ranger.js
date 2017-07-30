@@ -7,7 +7,9 @@ class RailsRanger {
   /**
   * RailsRanger object constructor
   * @constructor
-  * @param {object} configs - Configurations to be handed to Axios.
+  * @param {object} options - Configurations of the new RailsRanger instance
+  * @param {boolean} options.transformData - Sets response/request data transformations on/off
+  * @param {object} options.axios - Configurations that will be handed down to Axios
   */
   constructor ({ transformData = true, axios = {} } = {}) {
     this.options = {
