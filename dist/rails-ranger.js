@@ -2804,12 +2804,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var DataTransformations = {
   prepareRequest: function prepareRequest(data, headers) {
     var defaultTransformRequest = _axios2.default.defaults.transformRequest[0];
-    var railsData = this.railsFormat(data);
+    var railsData = DataTransformations.railsFormat(data);
 
     return defaultTransformRequest(railsData, headers);
   },
-  prepareResponse: function prepareResponse(data, _headers) {
-    return this.jsFormat(data);
+  prepareResponse: function prepareResponse(data, headers) {
+    var defaultTransformResponse = _axios2.default.defaults.transformResponse[0];
+    var jsonData = defaultTransformResponse(data, headers);
+
+    return DataTransformations.jsFormat(jsonData);
   },
   railsFormat: function railsFormat(data) {
     return (0, _humps.decamelizeKeys)(data);
@@ -7200,25 +7203,29 @@ var RailsRanger = function () {
   * @param {object} configs - Configurations to be handed to Axios.
   */
   function RailsRanger() {
-    var configs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { transformData: true, axios: {} };
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        _ref$transformData = _ref.transformData,
+        transformData = _ref$transformData === undefined ? true : _ref$transformData,
+        _ref$axios = _ref.axios,
+        axios = _ref$axios === undefined ? {} : _ref$axios;
 
     _classCallCheck(this, RailsRanger);
 
     this.options = {
-      transformData: configs.transformData
+      transformData: transformData
     };
 
-    var baseClientConfigs = {};
+    var clientConfigs = {};
 
     if (this.options.transformData) {
       var dataTransformations = {
         transformRequest: [_dataTransformations2.default.prepareRequest],
         transformResponse: [_dataTransformations2.default.prepareResponse]
       };
-      Object.assign(baseClientConfigs, dataTransformations);
+      Object.assign(clientConfigs, dataTransformations);
     }
 
-    var clientConfigs = Object.assign({}, baseClientConfigs, configs.axios);
+    Object.assign(clientConfigs, axios);
 
     this.client = _axios2.default.create(clientConfigs);
     this.routeBuilder = new _railsRouteBuilder2.default();
@@ -7435,10 +7442,10 @@ var RailsRanger = function () {
     }
   }, {
     key: '_rawRequest',
-    value: function _rawRequest(_ref) {
-      var method = _ref.method,
-          path = _ref.path,
-          params = _ref.params;
+    value: function _rawRequest(_ref2) {
+      var method = _ref2.method,
+          path = _ref2.path,
+          params = _ref2.params;
 
       var request = this.pathBuilder[method](path, params);
 
@@ -7446,10 +7453,10 @@ var RailsRanger = function () {
     }
   }, {
     key: '_actionRequest',
-    value: function _actionRequest(_ref2) {
-      var action = _ref2.action,
-          resource = _ref2.resource,
-          params = _ref2.params;
+    value: function _actionRequest(_ref3) {
+      var action = _ref3.action,
+          resource = _ref3.resource,
+          params = _ref3.params;
 
       var request = this.routeBuilder[action](resource, params);
 
