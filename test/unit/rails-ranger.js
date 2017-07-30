@@ -12,23 +12,23 @@ describe('RailsRanger', () => {
 
   describe('constructor', () => {
     it('instantiates RailsRanger with a pathBuilder', () => {
-      let railsRanger = new RailsRanger()
+      const railsRanger = new RailsRanger()
       expect(railsRanger.pathBuilder).to.be.an('object')
     })
 
     it('instantiates RailsRanger with a routeBuilder', () => {
-      let railsRanger = new RailsRanger()
+      const railsRanger = new RailsRanger()
       expect(railsRanger.routeBuilder).to.be.an('object')
     })
 
     describe('transformData', () => {
       it('sets the options.transformData to the correct default when no argument is provided', () => {
-        let railsRanger = new RailsRanger()
+        const railsRanger = new RailsRanger({})
         expect(railsRanger.options.transformData).to.eq(true)
       })
 
       it('sets the options.transformData when provided the correct argument', () => {
-        let railsRanger = new RailsRanger({ transformData: false })
+        const railsRanger = new RailsRanger({ transformData: false })
         expect(railsRanger.options.transformData).to.eq(false)
       })
     })
