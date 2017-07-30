@@ -56,7 +56,7 @@
 
     
 
-    <h4 class="name" id="RailsRanger"><span class="type-signature"></span>new RailsRanger<span class="signature">(configs)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="RailsRanger"><span class="type-signature"></span>new RailsRanger<span class="signature">(options)</span><span class="type-signature"></span></h4>
 
     
 
@@ -99,7 +99,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line11">line 11</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -143,7 +143,7 @@
 
         <tr>
             
-                <td class="name"><code>configs</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
@@ -160,7 +160,84 @@
             
 
             <td class="description last">
-                <p>Configurations to be handed to Axios.</p>
+                <p>Configurations of the new RailsRanger instance</p>
+                
+                    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>transformData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>boolean</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Sets response/request data transformations on/off</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>axios</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Configurations that will be handed down to Axios</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
                 
             </td>
         </tr>
@@ -252,7 +329,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line141">line 141</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line160">line 160</a>
     </li></ul></dd>
     
 
@@ -443,7 +520,7 @@ api.create('users', { email: 'john@doe.com', password: 123456 })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line83">line 83</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line102">line 102</a>
     </li></ul></dd>
     
 
@@ -634,7 +711,7 @@ api.delete('/users/:id', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line127">line 127</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line146">line 146</a>
     </li></ul></dd>
     
 
@@ -879,7 +956,7 @@ api.destroy('users', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line185">line 185</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line204">line 204</a>
     </li></ul></dd>
     
 
@@ -1124,7 +1201,7 @@ api.edit('users', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line27">line 27</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -1315,7 +1392,7 @@ api.get('/users/:id', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line97">line 97</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -1506,7 +1583,7 @@ api.list('users', { flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line170">line 170</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line189">line 189</a>
     </li></ul></dd>
     
 
@@ -1697,7 +1774,7 @@ api.new('users', { flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line55">line 55</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -1888,7 +1965,7 @@ api.patch('/users/:id', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line41">line 41</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -2079,7 +2156,7 @@ api.post('/users/:id', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line69">line 69</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -2270,7 +2347,7 @@ api.put('/users/:id', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line112">line 112</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -2515,7 +2592,7 @@ api.show('users', { id: 1, flag: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line156">line 156</a>
+        <a href="rails-ranger.js.html">rails-ranger.js</a>, <a href="rails-ranger.js.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -2729,7 +2806,7 @@ api.update('users', { id: 1, email: 'elton@doe.com' })
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jul 26 2017 23:11:39 GMT-0300 (-03) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Jul 29 2017 22:00:03 GMT-0300 (-03) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

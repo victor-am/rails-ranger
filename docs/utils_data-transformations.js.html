@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>rails-route-builder.js - Documentation</title>
+    <title>utils/data-transformations.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">rails-route-builder.js</h1>
+    <h1 class="page-title">utils/data-transformations.js</h1>
     
 
     
@@ -39,146 +39,46 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import PathBuilder from './path-builder'
-import { MissingRequiredParameterError } from './exceptions'
+            <pre class="prettyprint source linenums"><code>import { camelizeKeys, decamelizeKeys } from 'humps'
+import Axios                            from 'axios'
 
-class RailsRouteBuilder {
+const DataTransformations = {
   /**
-  * RailsRanger object constructor
-  * @constructor
+  * Data transformation function to be used by Axios to process POST, PATCH and PUT requests data
+  * @param {object} data - The data being sent through the request
+  * @param {object} headers - The headers being sent with the request
+  * @returns {string}
   */
-  constructor () {
-    this.pathBuilder = new PathBuilder()
-  }
+  prepareRequest (data, headers) {
+    const defaultTransformRequest = Axios.defaults.transformRequest[0]
+    const railsData               = DataTransformations.railsFormat(data)
 
-  /**
-  * Returns a path and params to the index action of a given resource
-  * @param {string} resource - A resource name
-  * @param {object} params - Any parameters for the request
-  * @returns {Promise}
-  * @example
-  * let routes = new RailsRouteBuilder
-  * routes.index('users')
-  * //=> { path: '/users', params: {} }
-  */
-  index (resource, params) {
-    let path = resource
-    return this.pathBuilder.get(path, params)
-  }
+    return defaultTransformRequest(railsData, headers)
+  },
 
   /**
-  * An alias for the {@link RailsRouteBuilder#index} function
+  * Data transformation function to be used by Axios to process response data
+  * @param {object} data - The data received through the request response in raw format
+  * @param {object} headers - The headers received with the response
+  * @returns {object}
   */
-  list (...args) {
-    return this.index(...args)
-  }
+  prepareResponse (data, headers) {
+    const defaultTransformResponse = Axios.defaults.transformResponse[0]
+    const jsonData                 = defaultTransformResponse(data, headers)
 
-  /**
-  * Returns a path and params to the show action of a given resource
-  * @param {string} resource - A resource name
-  * @param {object} params - Any parameters for the request
-  * @param {number|string} params.id - The id of the resource
-  * @returns {Promise}
-  * @example
-  * let routes = new RailsRouteBuilder
-  * routes.show('users', { id: 1 })
-  * //=> { path: '/users/1', params: {} }
-  */
-  show (resource, params) {
-    this._validateIdPresence(params)
-    let path = `${resource}/:id`
-    return this.pathBuilder.get(path, params)
-  }
+    return DataTransformations.jsFormat(jsonData)
+  },
 
-  /**
-  * Returns a path and params to the destroy action of a given resource
-  * @param {string} resource - A resource name
-  * @param {object} params - Any parameters for the request
-  * @param {number|string} params.id - The id of the resource
-  * @returns {Promise}
-  * @example
-  * let routes = new RailsRouteBuilder
-  * routes.destroy('users', { id: 1 })
-  * //=> { path: '/users/1', params: {} }
-  */
-  destroy (resource, params) {
-    this._validateIdPresence(params)
-    let path = `${resource}/:id`
-    return this.pathBuilder.delete(path, params)
-  }
+  railsFormat (data) {
+    return decamelizeKeys(data)
+  },
 
-  /**
-  * Returns a path and params to the create action of a given resource
-  * @param {string} resource - A resource name
-  * @param {object} params - Any parameters for the request
-  * @returns {Promise}
-  * @example
-  * let routes = new RailsRouteBuilder
-  * routes.create('users', { email: 'john@doe.com' })
-  * //=> { path: '/users', params: { email: 'john@doe.com' } }
-  */
-  create (resource, params) {
-    let path = resource
-    return this.pathBuilder.post(path, params)
-  }
-
-  /**
-  * Returns a path and params to the update action of a given resource
-  * @param {string} resource - A resource name
-  * @param {object} params - Any parameters for the request
-  * @param {number|string} params.id - The id of the resource
-  * @returns {Promise}
-  * @example
-  * let routes = new RailsRouteBuilder
-  * routes.update('users', { id: 1, email: 'john@doe.com' })
-  * //=> { path: '/users/1', params: { email: 'john@doe.com' } }
-  */
-  update (resource, params) {
-    this._validateIdPresence(params)
-    let path = `${resource}/:id`
-    return this.pathBuilder.patch(path, params)
-  }
-
-  /**
-  * Returns a path and params to the new action of a given resource
-  * @param {string} resource - A resource name
-  * @param {object} params - Any parameters for the request
-  * @returns {Promise}
-  * @example
-  * let routes = new RailsRouteBuilder
-  * routes.new('users')
-  * //=> { path: '/users', params: {} }
-  */
-  new (resource, params) {
-    let path = `${resource}/new`
-    return this.pathBuilder.get(path, params)
-  }
-
-  /**
-  * Returns a path and params to the edit action of a given resource
-  * @param {string} resource - A resource name
-  * @param {object} params - Any parameters for the request
-  * @param {number|string} params.id - The id of the resource
-  * @returns {Promise}
-  * @example
-  * let routes = new RailsRouteBuilder
-  * routes.edit('users', { id: 1 })
-  * //=> { path: '/users/1', params: {} }
-  */
-  edit (resource, params) {
-    this._validateIdPresence(params)
-    let path = `${resource}/:id/edit`
-    return this.pathBuilder.get(path, params)
-  }
-
-  _validateIdPresence (params) {
-    if (!params.id) {
-      throw new MissingRequiredParameterError('id')
-    }
+  jsFormat (data) {
+    return camelizeKeys(data)
   }
 }
 
-export default RailsRouteBuilder
+export default DataTransformations
 </code></pre>
         </article>
     </section>
