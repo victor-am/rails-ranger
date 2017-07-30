@@ -4,13 +4,16 @@ import Axios                            from 'axios'
 const DataTransformations = {
   prepareRequest (data, headers) {
     const defaultTransformRequest = Axios.defaults.transformRequest[0]
-    const railsData               = this.railsFormat(data)
+    const railsData               = DataTransformations.railsFormat(data)
 
     return defaultTransformRequest(railsData, headers)
   },
 
-  prepareResponse (data, _headers) {
-    return this.jsFormat(data)
+  prepareResponse (data, headers) {
+    const defaultTransformResponse = Axios.defaults.transformResponse[0]
+    const jsonData                 = defaultTransformResponse(data, headers)
+
+    return DataTransformations.jsFormat(jsonData)
   },
 
   railsFormat (data) {
