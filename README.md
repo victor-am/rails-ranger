@@ -31,13 +31,31 @@ The following should serve as a simple illustration of the library API:
 
 ```javascript
 import RailsRanger from 'rails-ranger'
-let api = new RailsRanger
+
+const api = new RailsRanger({
+  axios: { baseURL: 'http://api.myapp.com' }
+})
 
 api.list('users').then((response) => {
   const users = response.data
-  alert(users.length + ' users found!')
 })
-// => GET request to /users
+```
+
+And here is a commented version:
+
+```javascript
+import RailsRanger from 'rails-ranger'
+
+const api = new RailsRanger({
+  // The options below will be handed down to the Axios library
+  axios: { baseURL: 'http://api.myapp.com' }
+})
+
+// This makes a GET request to http://api.myapp.com/users/
+api.list('users').then((response) => {
+  // Your JSON keys were already converted to camelCase, ready for use ;)
+  const users = response.data
+})
 ```
 
 The `list` method above will make a request to the **index** path of the **users** resource, following Rails routing conventions. This means a `GET` request to the `/users` path.
