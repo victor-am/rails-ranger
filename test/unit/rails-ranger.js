@@ -132,7 +132,7 @@ describe('RailsRanger', () => {
 
     it('calls the client with the right parameters', () => {
       ranger.list('users', { flag: true })
-      expect(ranger.client.get).to.have.been.calledWith('users?flag=true')
+      expect(ranger.client.get).to.have.been.calledWith('/users?flag=true')
     })
   })
 
@@ -149,7 +149,7 @@ describe('RailsRanger', () => {
 
     it('calls the client with the right parameters', () => {
       ranger.show('users', { id: 1, flag: true })
-      expect(ranger.client.get).to.have.been.calledWith('users/1?flag=true')
+      expect(ranger.client.get).to.have.been.calledWith('/users/1?flag=true')
     })
   })
 
@@ -166,7 +166,7 @@ describe('RailsRanger', () => {
 
     it('calls the client with the right parameters', () => {
       ranger.create('users', { name: 'John' })
-      expect(ranger.client.post).to.have.been.calledWith('users', { name: 'John' })
+      expect(ranger.client.post).to.have.been.calledWith('/users', { name: 'John' })
     })
   })
 
@@ -183,7 +183,7 @@ describe('RailsRanger', () => {
 
     it('calls the client with the right parameters', () => {
       ranger.update('users', { id: 1, name: 'John' })
-      expect(ranger.client.patch).to.have.been.calledWith('users/1', { name: 'John' })
+      expect(ranger.client.patch).to.have.been.calledWith('/users/1', { name: 'John' })
     })
   })
 
@@ -200,7 +200,7 @@ describe('RailsRanger', () => {
 
     it('calls the client with the right parameters', () => {
       ranger.destroy('users', { id: 1, flag: true })
-      expect(ranger.client.delete).to.have.been.calledWith('users/1?flag=true')
+      expect(ranger.client.delete).to.have.been.calledWith('/users/1?flag=true')
     })
   })
 
@@ -217,7 +217,7 @@ describe('RailsRanger', () => {
 
     it('calls the client with the right parameters', () => {
       ranger.new('users', { flag: true })
-      expect(ranger.client.get).to.have.been.calledWith('users/new?flag=true')
+      expect(ranger.client.get).to.have.been.calledWith('/users/new?flag=true')
     })
   })
 
@@ -234,7 +234,7 @@ describe('RailsRanger', () => {
 
     it('calls the client with the right parameters', () => {
       ranger.edit('users', { id: 1, flag: true })
-      expect(ranger.client.get).to.have.been.calledWith('users/1/edit?flag=true')
+      expect(ranger.client.get).to.have.been.calledWith('/users/1/edit?flag=true')
     })
   })
 })

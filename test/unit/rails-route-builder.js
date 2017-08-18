@@ -8,10 +8,21 @@ describe('RailsRouteBuilder', () => {
     routeBuilder = new RailsRouteBuilder()
   })
 
+  describe('.do', () => {
+    it('returns the right path', () => {
+    })
+
+    it('returns the right method when left to the default', () => {
+    })
+
+    it('returns the right method when given an specific method', () => {
+    })
+  })
+
   describe('.list', () => {
     it('returns the right path', () => {
       let request = routeBuilder.list('users', { flag: true })
-      expect(request.path).to.eq('users?flag=true')
+      expect(request.path).to.eq('/users?flag=true')
     })
 
     it('returns the right method', () => {
@@ -23,7 +34,7 @@ describe('RailsRouteBuilder', () => {
   describe('.index', () => {
     it('returns the right path', () => {
       let request = routeBuilder.index('users', { flag: true })
-      expect(request.path).to.eq('users?flag=true')
+      expect(request.path).to.eq('/users?flag=true')
     })
 
     it('returns the right method', () => {
@@ -35,7 +46,7 @@ describe('RailsRouteBuilder', () => {
   describe('.show', () => {
     it('returns the right path', () => {
       let request = routeBuilder.show('users', { id: 1, flag: true })
-      expect(request.path).to.eq('users/1?flag=true')
+      expect(request.path).to.eq('/users/1?flag=true')
     })
 
     it('returns the right method', () => {
@@ -52,7 +63,7 @@ describe('RailsRouteBuilder', () => {
   describe('.create', () => {
     it('returns the right path', () => {
       let request = routeBuilder.create('users', { flag: true })
-      expect(request.path).to.eq('users')
+      expect(request.path).to.eq('/users')
     })
 
     it('returns the right parameters', () => {
@@ -69,7 +80,7 @@ describe('RailsRouteBuilder', () => {
   describe('.update', () => {
     it('returns the right path', () => {
       let request = routeBuilder.update('users', { id: 1, flag: true })
-      expect(request.path).to.eq('users/1')
+      expect(request.path).to.eq('/users/1')
     })
 
     it('returns the right parameters', () => {
@@ -91,7 +102,7 @@ describe('RailsRouteBuilder', () => {
   describe('.destroy', () => {
     it('returns the right path', () => {
       let request = routeBuilder.destroy('users', { id: 1, flag: true })
-      expect(request.path).to.eq('users/1?flag=true')
+      expect(request.path).to.eq('/users/1?flag=true')
     })
 
     it('returns the right method', () => {
@@ -108,7 +119,7 @@ describe('RailsRouteBuilder', () => {
   describe('.new', () => {
     it('returns the right path', () => {
       let request = routeBuilder.new('users', { flag: true })
-      expect(request.path).to.eq('users/new?flag=true')
+      expect(request.path).to.eq('/users/new?flag=true')
     })
 
     it('returns the right method', () => {
@@ -120,7 +131,7 @@ describe('RailsRouteBuilder', () => {
   describe('.edit', () => {
     it('returns the right path', () => {
       let request = routeBuilder.edit('users', { id: 1, flag: true })
-      expect(request.path).to.eq('users/1/edit?flag=true')
+      expect(request.path).to.eq('/users/1/edit?flag=true')
     })
 
     it('returns the right method', () => {

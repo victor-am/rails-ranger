@@ -121,6 +121,20 @@ route.get('/:api/documentation', { api: 'v1', page: 3 })
 - update
 <br>
 
+## Custom actions
+
+```javascript
+  const publish = {
+    action:   'publish',
+    on:       'member',
+    method:   'post'
+  }
+
+  api.do(publish, 'blog_posts', { id: 1 }).then((response) => {
+    console.log(response.data)
+  })
+```
+
 ## Methods (pending)
 
 - GET

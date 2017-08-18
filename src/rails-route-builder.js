@@ -1,6 +1,16 @@
 import PathBuilder from './path-builder'
 import { MissingRequiredParameterError } from './exceptions'
 
+const REST_ACTIONS = {
+  index:   { path: '/:resource', method: 'get' },
+  show:    { path: '/:resource/:id', method: 'get' },
+  create:  { path: '/:resource', method: 'post' },
+  update:  { path: '/:resource/:id', method: 'patch' },
+  destroy: { path: '/:resource/:id', method: 'delete' },
+  new:     { path: '/:resource/new', method: 'get' },
+  edit:    { path: '/:resource/:id/edit', method: 'get' }
+}
+
 class RailsRouteBuilder {
   /**
   * RailsRanger object constructor
@@ -8,6 +18,29 @@ class RailsRouteBuilder {
   */
   constructor () {
     this.pathBuilder = new PathBuilder()
+  }
+
+  /**
+  * Returns a path and params to the show action of a given resource
+  * @param {string} resource - A resource name
+  * @param {object} params - Any parameters for the request
+  * @param {number|string} params.id - The id of the resource
+  * @returns {Promise}
+  * @example
+  * let routes = new RailsRouteBuilder
+  * routes.show('users', { id: 1 })
+  * //=> { path: '/users/1', params: {} }
+  */
+  do ({ action, on, method }, resource, params = {}) {
+    let path
+    path = this._pathForAction(action, on)
+    path = path.replace(':resource', resource)
+
+    if (!method) {
+      method = REST_ACTIONS[action].method
+    }
+
+    return this.pathBuilder[method](path, params)
   }
 
   /**
@@ -21,8 +54,7 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: {} }
   */
   index (resource, params) {
-    let path = resource
-    return this.pathBuilder.get(path, params)
+    return this.do({ action: 'index' }, resource, params)
   }
 
   /**
@@ -45,8 +77,7 @@ class RailsRouteBuilder {
   */
   show (resource, params) {
     this._validateIdPresence(params)
-    let path = `${resource}/:id`
-    return this.pathBuilder.get(path, params)
+    return this.do({ action: 'show' }, resource, params)
   }
 
   /**
@@ -62,8 +93,7 @@ class RailsRouteBuilder {
   */
   destroy (resource, params) {
     this._validateIdPresence(params)
-    let path = `${resource}/:id`
-    return this.pathBuilder.delete(path, params)
+    return this.do({ action: 'destroy' }, resource, params)
   }
 
   /**
@@ -77,8 +107,7 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: { email: 'john@doe.com' } }
   */
   create (resource, params) {
-    let path = resource
-    return this.pathBuilder.post(path, params)
+    return this.do({ action: 'create' }, resource, params)
   }
 
   /**
@@ -94,8 +123,7 @@ class RailsRouteBuilder {
   */
   update (resource, params) {
     this._validateIdPresence(params)
-    let path = `${resource}/:id`
-    return this.pathBuilder.patch(path, params)
+    return this.do({ action: 'update' }, resource, params)
   }
 
   /**
@@ -109,8 +137,7 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: {} }
   */
   new (resource, params) {
-    let path = `${resource}/new`
-    return this.pathBuilder.get(path, params)
+    return this.do({ action: 'new' }, resource, params)
   }
 
   /**
@@ -126,13 +153,31 @@ class RailsRouteBuilder {
   */
   edit (resource, params) {
     this._validateIdPresence(params)
-    let path = `${resource}/:id/edit`
-    return this.pathBuilder.get(path, params)
+    return this.do({ action: 'edit' }, resource, params)
   }
 
+  /**
+  * Private
+  */
   _validateIdPresence (params) {
     if (!params.id) {
       throw new MissingRequiredParameterError('id')
+    }
+  }
+
+  _pathForAction (action, on) {
+    let restAction = REST_ACTIONS[action]
+
+    if (restAction) {
+      return restAction.path
+
+    } else if (on === 'member') {
+      this._validateIdPresence(params)
+      return `:resource/:id/${action}`
+
+    } else if (on === 'collection') {
+      return `:resource/${action}`
+
     }
   }
 }
