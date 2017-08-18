@@ -1,6 +1,6 @@
 {
   "name": "rails-ranger",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A Ruby on Rails REST client",
   "main": "index.js",
   "scripts": {
@@ -54,6 +54,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "humps": "^2.0.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "qs": "^6.5.0"
   }
 }

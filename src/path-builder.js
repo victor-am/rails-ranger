@@ -1,44 +1,46 @@
-import { snakeCase, cloneDeep, merge } from 'lodash'
+import qs from 'qs'
+import { cloneDeep, merge } from 'lodash'
+import deepSnakeCaseKeys from './utils/deep-snake-case-keys'
 
 class PathBuilder {
   get (path, params = {}) {
-    const requestInfo = this._interpolateInPath(path, params)
+    const requestInfo = this._injectPathParams(path, params)
     return merge(requestInfo, { method: 'get' })
   }
 
   post (path, params = {}) {
-    const requestInfo = this._interpolateInPath(path, params, { skipQuery: true })
+    const requestInfo = this._injectPathParams(path, params, { skipQuery: true })
     return merge(requestInfo, { method: 'post' })
   }
 
   patch (path, params = {}) {
-    const requestInfo = this._interpolateInPath(path, params, { skipQuery: true })
+    const requestInfo = this._injectPathParams(path, params, { skipQuery: true })
     return merge(requestInfo, { method: 'patch' })
   }
 
   put (path, params = {}) {
-    const requestInfo = this._interpolateInPath(path, params, { skipQuery: true })
+    const requestInfo = this._injectPathParams(path, params, { skipQuery: true })
     return merge(requestInfo, { method: 'put' })
   }
 
   delete (path, params = {}) {
-    const requestInfo = this._interpolateInPath(path, params)
+    const requestInfo = this._injectPathParams(path, params)
     return merge(requestInfo, { method: 'delete' })
   }
 
-  _interpolateInPath (path, params, { skipQuery = false } = {}) {
+  _injectPathParams (path, params, { skipQuery = false } = {}) {
     let requestInfo = { path, params }
 
-    requestInfo = this._interpolateParamsInPath(requestInfo)
+    requestInfo = this._paramsToPath(requestInfo)
 
     if (!skipQuery) {
-      requestInfo = this._injectQueryInPath(requestInfo)
+      requestInfo = this._paramsToQuery(requestInfo)
     }
 
     return requestInfo
   }
 
-  _interpolateParamsInPath ({ path, params }) {
+  _paramsToPath ({ path, params }) {
     let processedPath   = path
     let processedParams = cloneDeep(params)
 
@@ -60,13 +62,12 @@ class PathBuilder {
     return { path: processedPath, params: processedParams }
   }
 
-  _injectQueryInPath ({ path, params }) {
-    const keyValuePairs = Object.entries(params)
-    const stringParams  = keyValuePairs.map((pair) => `${snakeCase(pair[0])}=${pair[1]}`)
-    const query         = stringParams.join('&')
+  _paramsToQuery ({ path, params }) {
+    const snakeCaseParams = deepSnakeCaseKeys(params)
+    const query = qs.stringify(snakeCaseParams, { encode: false })
+    const pathWithQuery = query ? `${path}?${query}` : path
 
-    const querifiedPath = query ? `${path}?${query}` : path
-    return { path: querifiedPath, params: {} }
+    return { path: pathWithQuery, params: {} }
   }
 }
 
