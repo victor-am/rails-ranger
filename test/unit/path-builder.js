@@ -27,6 +27,11 @@ describe('PathBuilder', () => {
       let request = pathBuilder.get('/users/:id', { id: 1, hideAvatar: true })
       expect(request.path).to.eq('/users/1?hide_avatar=true')
     })
+
+    it('converts nested objects inside the query', () => {
+      let request = pathBuilder.get('/users', { filters: { birthday: 15 } })
+      expect(request.path).to.eq('/users?filters[birthday]=15')
+    })
   })
 
   describe('.post', () => {
@@ -85,6 +90,11 @@ describe('PathBuilder', () => {
     it('converts camel case params in the query to snake case', () => {
       let request = pathBuilder.delete('/users/:id', { id: 1, cascadeDelete: true })
       expect(request.path).to.eq('/users/1?cascade_delete=true')
+    })
+
+    it('converts nested objects inside the query', () => {
+      let request = pathBuilder.delete('/users/:id', { id: 1, filters: { birthday: 15 } })
+      expect(request.path).to.eq('/users/1?filters[birthday]=15')
     })
   })
 })
