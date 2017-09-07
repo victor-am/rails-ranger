@@ -18,6 +18,11 @@ describe('RailsRouteBuilder', () => {
       let request = routeBuilder.list('users', { flag: true })
       expect(request.method).to.eq('get')
     })
+
+    it('converts resource name from camelCase to snake_case', () => {
+      let request = routeBuilder.list('userPosts')
+      expect(request.path).to.eq('user_posts')
+    })
   })
 
   describe('.index', () => {
@@ -29,6 +34,11 @@ describe('RailsRouteBuilder', () => {
     it('returns the right method', () => {
       let request = routeBuilder.index('users', { flag: true })
       expect(request.method).to.eq('get')
+    })
+
+    it('converts resource name from camelCase to snake_case', () => {
+      let request = routeBuilder.index('userPosts')
+      expect(request.path).to.eq('user_posts')
     })
   })
 
@@ -47,6 +57,11 @@ describe('RailsRouteBuilder', () => {
       let route = () => { routeBuilder.show('users', { flag: true }) }
       expect(route).to.throw(Error)
     })
+
+    it('converts resource name from camelCase to snake_case', () => {
+      let request = routeBuilder.show('userPosts', { id: 1 })
+      expect(request.path).to.eq('user_posts/1')
+    })
   })
 
   describe('.create', () => {
@@ -63,6 +78,11 @@ describe('RailsRouteBuilder', () => {
     it('returns the right method', () => {
       let request = routeBuilder.create('users', { flag: true })
       expect(request.method).to.eq('post')
+    })
+
+    it('converts resource name from camelCase to snake_case', () => {
+      let request = routeBuilder.create('userPosts')
+      expect(request.path).to.eq('user_posts')
     })
   })
 
@@ -86,6 +106,11 @@ describe('RailsRouteBuilder', () => {
       let route = () => { routeBuilder.update('users', { flag: true }) }
       expect(route).to.throw(Error)
     })
+
+    it('converts resource name from camelCase to snake_case', () => {
+      let request = routeBuilder.update('userPosts', { id: 1 })
+      expect(request.path).to.eq('user_posts/1')
+    })
   })
 
   describe('.destroy', () => {
@@ -103,6 +128,11 @@ describe('RailsRouteBuilder', () => {
       let route = () => { routeBuilder.destroy('users', { flag: true }) }
       expect(route).to.throw(Error)
     })
+
+    it('converts resource name from camelCase to snake_case', () => {
+      let request = routeBuilder.destroy('userPosts', { id: 1 })
+      expect(request.path).to.eq('user_posts/1')
+    })
   })
 
   describe('.new', () => {
@@ -114,6 +144,11 @@ describe('RailsRouteBuilder', () => {
     it('returns the right method', () => {
       let request = routeBuilder.new('users', { flag: true })
       expect(request.method).to.eq('get')
+    })
+
+    it('converts resource name from camelCase to snake_case', () => {
+      let request = routeBuilder.new('userPosts')
+      expect(request.path).to.eq('user_posts/new')
     })
   })
 
@@ -131,6 +166,11 @@ describe('RailsRouteBuilder', () => {
     it ('throws an exception when no id is provided', () => {
       let route = () => { routeBuilder.edit('users', { flag: true }) }
       expect(route).to.throw(Error)
+    })
+
+    it('converts resource name from camelCase to snake_case', () => {
+      let request = routeBuilder.edit('userPosts', { id: 1 })
+      expect(request.path).to.eq('user_posts/1/edit')
     })
   })
 })

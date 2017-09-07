@@ -1,3 +1,4 @@
+import { snakeCase } from 'lodash'
 import PathBuilder from './path-builder'
 import { MissingRequiredParameterError } from './exceptions'
 
@@ -21,7 +22,7 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: {} }
   */
   index (resource, params) {
-    let path = resource
+    let path = snakeCase(resource)
     return this.pathBuilder.get(path, params)
   }
 
@@ -45,7 +46,7 @@ class RailsRouteBuilder {
   */
   show (resource, params) {
     this._validateIdPresence(params)
-    let path = `${resource}/:id`
+    let path = `${snakeCase(resource)}/:id`
     return this.pathBuilder.get(path, params)
   }
 
@@ -62,7 +63,7 @@ class RailsRouteBuilder {
   */
   destroy (resource, params) {
     this._validateIdPresence(params)
-    let path = `${resource}/:id`
+    let path = `${snakeCase(resource)}/:id`
     return this.pathBuilder.delete(path, params)
   }
 
@@ -77,7 +78,7 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: { email: 'john@doe.com' } }
   */
   create (resource, params) {
-    let path = resource
+    let path = snakeCase(resource)
     return this.pathBuilder.post(path, params)
   }
 
@@ -94,7 +95,7 @@ class RailsRouteBuilder {
   */
   update (resource, params) {
     this._validateIdPresence(params)
-    let path = `${resource}/:id`
+    let path = `${snakeCase(resource)}/:id`
     return this.pathBuilder.patch(path, params)
   }
 
@@ -109,7 +110,7 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: {} }
   */
   new (resource, params) {
-    let path = `${resource}/new`
+    let path = `${snakeCase(resource)}/new`
     return this.pathBuilder.get(path, params)
   }
 
@@ -126,7 +127,8 @@ class RailsRouteBuilder {
   */
   edit (resource, params) {
     this._validateIdPresence(params)
-    let path = `${resource}/:id/edit`
+
+    let path = `${snakeCase(resource)}/:id/edit`
     return this.pathBuilder.get(path, params)
   }
 
