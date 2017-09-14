@@ -2024,9 +2024,9 @@ mimic-fn@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-1.1.0.tgz#e667783d92e89dbd342818b5230b9d62a672ad18"
 
-minami@^1.2.3:
+minami@victor-am/minami:
   version "1.2.3"
-  resolved "https://registry.yarnpkg.com/minami/-/minami-1.2.3.tgz#99b6dcdfb2f0a54da1c9c8f7aa3a327787aaf9f8"
+  resolved "https://codeload.github.com/victor-am/minami/tar.gz/cd5b63b4bf4997e9d5fa9cd1cf245226a8290777"
 
 minimalistic-assert@^1.0.0:
   version "1.0.0"
