@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test nyc mocha test/unit --recursive --require test/setup.js",
-    "generate-docs": "jsdoc --recurse --configure .jsdoc-conf.json --verbose",
+    "doc": "jsdoc --recurse --configure .jsdoc-conf.json --verbose",
     "build": "webpack"
   },
   "nyc": {
