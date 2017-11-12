@@ -61,7 +61,7 @@
 
     <section class="readme">
         <article><h1>Rails Ranger</h1><h3>Exploring the routes and paths of Rails APIs</h3><blockquote>
-<p>This library development is in a very early stage and the API is <strong>VERY</strong> unstable</p>
+<p>This library development is in an early stage and the API is unstable</p>
 </blockquote>
 <h4><a href="https://github.com/victor-am/rails-ranger">Github Repository</a> | <a href="https://victor-am.github.io/rails-ranger">Documentation</a></h4><p><a href="https://badge.fury.io/js/rails-ranger"><img src="https://badge.fury.io/js/rails-ranger.svg" alt="npm version"></a>
 <a href="https://travis-ci.org/victor-am/rails-ranger"><img src="http://img.shields.io/travis/victor-am/rails-ranger.svg?style=flat" alt="Travis build status"></a>
@@ -70,14 +70,22 @@
 <a href="https://david-dm.org/victor-am/rails-ranger#info=devDependencies"><img src="https://david-dm.org/victor-am/rails-ranger/dev-status.svg" alt="devDependency Status"></a>
 <a href="https://waffle.io/victor-am/rails-ranger?utm_source=badge"><img src="https://badge.waffle.io/victor-am/rails-ranger.png?label=ready&amp;title=Ready" alt="Stories in Ready"></a></p>
 <p>Rails Ranger is a thin layer on top of <a href="https://github.com/mzabriskie/axios">Axios</a>, which gives you an opinionated interface to query APIs built with Ruby on Rails.</p>
+<h2>Main features</h2><ul>
+<li>URL building following Ruby on Rails routes conventions</li>
+<li>Automatic transformation of camelCase into snake_case and back to camelCase when exchanging data between the front-end and the API</li>
+</ul>
 <h2>Installation</h2><pre class="prettyprint source lang-bash"><code>npm install --save rails-ranger</code></pre><p><strong>or</strong></p>
 <pre class="prettyprint source lang-bash"><code>yarn add rails-ranger</code></pre><p><br></p>
-<h2>How does it work?</h2><p>The following should serve as a simple illustration of the library API:</p>
-<pre class="prettyprint source lang-javascript"><code>import RailsRanger from 'rails-ranger'
+<h2>How does it work?</h2><p>The following example illustrates a simple usage of the library:</p>
+<pre class="prettyprint source lang-javascript"><code>// api-client.js
+import RailsRanger from 'rails-ranger'
 
-const api = new RailsRanger({
+const config = {
   axios: { baseURL: 'http://api.myapp.com' }
-})
+}
+
+export default new RailsRanger(config)</code></pre><pre class="prettyprint source lang-javascript"><code>// some-front-end-component.js
+import api from 'api-client'
 
 api.list('users').then((response) => {
   const users = response.data
@@ -87,49 +95,74 @@ api.list('users').then((response) => {
 <p><strong>Observation:</strong> you can use <code>api.index('users')</code> as well. The <code>list</code> function is just an alias for it.
 <br></p>
 </blockquote>
-<h3>A slightly more complex example:</h3><pre class="prettyprint source lang-javascript"><code>api.show('users', { id: 1, expanded: false })
-// => GET request to /users/1?expanded=false</code></pre><p><br></p>
-<h2>Options</h2><p>As the first argument when creating a new instance of Rails Ranger you can pass an object of options to customize the behavior of Rails Ranger.</p>
+<h3>A slightly more advanced example:</h3><pre class="prettyprint source lang-javascript"><code>api.show('users', { id: 1, someParameter: false })
+// => GET request to /users/1?some_parameter=false</code></pre><p><br></p>
+<h3>Build your own client object</h3><p>You can build your own client object to centralize the API routes used by your front-end app.</p>
+<p>This is indeed <strong>highly recommended</strong> for non-trivial applications, to avoid duplication, get better control of the API client interface and make your life easier in the event of you wanting to remove/replace this dependency from your project.</p>
+<pre class="prettyprint source lang-javascript"><code>// api-client.js
+import RailsRanger from 'rails-ranger'
+
+const client = new RailsRanger
+
+export default {
+  client,
+
+  users: {
+    list(params) {
+      return this.client.list('users', params)
+    }
+  }
+
+  blogPosts: {
+    list(params) {
+      return this.client.list('blogPosts', params)
+    }
+  }
+}</code></pre><pre class="prettyprint source lang-javascript"><code>// some-front-end-component.js
+import api from 'api-client'
+
+api.users.list({ limit: 3 }).then((response) => {
+  const users = response.data
+})</code></pre><p><br></p>
+<h2>Options</h2><p>As the first argument when creating a new instance of Rails Ranger you can pass an object of options to customize the behavior of the client.</p>
 <h3>dataTransform</h3><p><strong>default: true</strong></p>
-<p>By default RailsRanger will convert camelCased keys in your jsons to snake_case when sending a request to Rails, and will convert the Rails response from snake_case to camelCase for you to use in your front-end.</p>
+<p>By default RailsRanger will convert camelCased keys in your jsons to snake_case when sending a request to Rails, and will convert the Rails response back from snake_case to camelCase for better usage within your javascript code.</p>
 <p>You can disable this behavior by setting <code>dataTransform</code> to false:</p>
-<pre class="prettyprint source lang-javascript"><code>const api = new RailsRanger({ dataTransform: false })</code></pre><h3>axios</h3><p><strong>default: {}</strong></p>
+<pre class="prettyprint source lang-javascript"><code>const api = new RailsRanger({ dataTransform: false })</code></pre><hr>
+<h3>axios</h3><p><strong>default: {}</strong></p>
 <p>Any object passed to the <code>axios</code> option will be handled to <strong>Axios</strong>.
-Here are some usage examples:</p>
-<h4>Base URL</h4><pre class="prettyprint source lang-javascript"><code>const api = new RailsRanger({ axios: { baseUrl: 'http://myapp.com/api' } })
+Here an example using the <code>baseUrl</code> configuration of Axios:</p>
+<pre class="prettyprint source lang-javascript"><code>const api = new RailsRanger({ axios: { baseUrl: 'http://myapp.com/api/v1' } })
 
 api.list('users')
-// => GET request to http://myapp.com/api/users</code></pre><h4>Timeout</h4><pre class="prettyprint source lang-javascript"><code>const api = new RailsRanger({ axios: { timeout: 3000 } })
-
-api.list('users') // => Will timeout within 3000 miliseconds</code></pre><h4>See more in the <a href="https://github.com/mzabriskie/axios#request-config">Axios documentation</a></h4><p><br></p>
-<h2>Using Rails Ranger just for building routes</h2><p>You don't need to use Rails Ranger as an ajax client if you don't want to. It can also be used just to generate the routes from your resources. To use Rails Ranger this way you can do the following:</p>
+// => GET request to http://myapp.com/api/users</code></pre><h4>See more configuration options in the <a href="https://github.com/mzabriskie/axios#request-config">Axios documentation</a></h4><p><br></p>
+<h2>Using Rails Ranger just for building routes</h2><p>You don't need to use Rails Ranger as an ajax client if you don't want to. It can also be used just to generate the routes from your resources. Using the library this way you can do the following:</p>
 <pre class="prettyprint source lang-javascript"><code>import { RouteBuilder } from RailsRanger
-const route = new RouteBuilder
+const routeFor = new RouteBuilder
 
-route.create('users', { name: 'John' })
+routeFor.create('users', { name: 'John' })
 // => { path: '/users', params: { name: 'John' }, method: 'post' }
 
-route.show('users', { id: 1, hidePassword: true })
+routeFor.show('users', { id: 1, hidePassword: true })
 // => { path: '/users/1?hide_password=true', params: {}, method: 'get' }
 
-route.get('/:api/documentation', { api: 'v1', page: 3 })
-// => { path: 'v1/documentation?page=3', params: {}, method: 'get' }</code></pre><h2>Actions (pending)</h2><ul>
-<li>list/index</li>
-<li>show</li>
-<li>new</li>
-<li>create</li>
-<li>edit</li>
-<li>update
-<br></li>
-</ul>
-<h2>Methods (pending)</h2><ul>
-<li>GET</li>
-<li>POST</li>
-<li>PATCH</li>
-<li>PUT</li>
-<li>DELETE
-<br></li>
-</ul></article>
+routeFor.get('/:api/documentation', { api: 'v1', page: 3 })
+// => { path: 'v1/documentation?page=3', params: {}, method: 'get' }</code></pre><h2>Available actions</h2><h3>List/Index</h3><pre class="prettyprint source lang-javascript"><code>api.list('users', { limit: 3 })
+// => GET request to /users?limit=3
+
+api.index('users', { limit: 3 })
+// => GET request to /users?limit=3</code></pre><h3>Show</h3><pre class="prettyprint source lang-javascript"><code>api.show('users', { id: 1 })
+// => GET request to /users/1</code></pre><h3>New</h3><pre class="prettyprint source lang-javascript"><code>api.new('users')
+// => GET request to /users/new</code></pre><h3>Create</h3><pre class="prettyprint source lang-javascript"><code>api.create('users', { email: 'john@doe.com' })
+// => POST request to /users</code></pre><h3>Edit</h3><pre class="prettyprint source lang-javascript"><code>api.edit('users', { id: 1 })
+// => GET request to /users/1/edit</code></pre><h3>Update</h3><pre class="prettyprint source lang-javascript"><code>api.update('users', { id: 1, name: 'John Doe' })
+// => PATCH request to /users/1</code></pre><p><br></p>
+<h2>Available HTTP methods</h2><h3>GET</h3><pre class="prettyprint source lang-javascript"><code>api.get('users/:id', { id: 1, hidePassword: true })
+// => GET request to users/1&hide_password=true</code></pre><h3>POST</h3><pre class="prettyprint source lang-javascript"><code>api.post('users/:id', { id: 1, name: 'John' })
+// => POST request to users/1 with a JSON payload containing: { &quot;name&quot;: &quot;John&quot; }</code></pre><h3>PATCH</h3><pre class="prettyprint source lang-javascript"><code>api.patch('users/:id', { id: 1, name: 'John' })
+// => PATCH request to users/1 with a JSON payload containing: { &quot;name&quot;: &quot;John&quot; }</code></pre><h3>PUT</h3><pre class="prettyprint source lang-javascript"><code>api.put('users/:id', { id: 1, name: 'John' })
+// => PUT request to users/1 with a JSON payload containing: { &quot;name&quot;: &quot;John&quot; }</code></pre><h3>DELETE</h3><pre class="prettyprint source lang-javascript"><code>api.delete('users/:id', { id: 1, hidePassword: true })
+// => DELETE request to users/1&hide_password=true</code></pre><p><br></p></article>
     </section>
 
 
@@ -142,7 +175,7 @@ route.get('/:api/documentation', { api: 'v1', page: 3 })
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Sep 14 2017 00:27:42 GMT-0300 (-03) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Nov 12 2017 01:30:31 GMT-0200 (-02) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
