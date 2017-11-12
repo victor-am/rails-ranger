@@ -73,6 +73,8 @@ You can build your own client object to centralize the API routes used by your f
 
 This is indeed **highly recommended** for non-trivial applications, to avoid duplication, get better control of the API client interface and make your life easier in the event of you wanting to remove/replace this dependency from your project.
 
+Below is an example of such implementation:
+
 ```javascript
 // api-client.js
 import RailsRanger from 'rails-ranger'
@@ -137,22 +139,23 @@ api.list('users')
 #### See more configuration options in the [Axios documentation](https://github.com/mzabriskie/axios#request-config)
 <br>
 
-## Using Rails Ranger just for building routes
-You don't need to use Rails Ranger as an ajax client if you don't want to. It can also be used just to generate the routes from your resources. Using the library this way you can do the following:
+## Use Rails Ranger just for path building
+You don't need to use Rails Ranger as an ajax client if you don't want to. It can also be used just to generate the resource routes and then make the request with another tool. The following is an example of this usage:
 
 ```javascript
 import { RouteBuilder } from RailsRanger
-const routeFor = new RouteBuilder
+const routes = new RouteBuilder
 
-routeFor.create('users', { name: 'John' })
+routes.create('users', { name: 'John' })
 // => { path: '/users', params: { name: 'John' }, method: 'post' }
 
-routeFor.show('users', { id: 1, hidePassword: true })
+routes.show('users', { id: 1, hidePassword: true })
 // => { path: '/users/1?hide_password=true', params: {}, method: 'get' }
 
-routeFor.get('/:api/documentation', { api: 'v1', page: 3 })
+routes.get('/:api/documentation', { api: 'v1', page: 3 })
 // => { path: 'v1/documentation?page=3', params: {}, method: 'get' }
 ```
+<br>
 
 ## Available actions
 
