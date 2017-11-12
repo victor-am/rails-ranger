@@ -195,6 +195,11 @@ api.update('users', { id: 1, name: 'John Doe' })
 // => PATCH request to /users/1
 ```
 
+### Destroy
+```javascript
+api.destroy('users', { id: 1 })
+// => DELETE request to /users/1
+```
 <br>
 
 ## Available HTTP methods
