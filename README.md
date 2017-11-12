@@ -156,12 +156,45 @@ routeFor.get('/:api/documentation', { api: 'v1', page: 3 })
 
 ## Available actions
 
-- list/index
-- show
-- new
-- create
-- edit
-- update
+### List/Index
+```javascript
+api.list('users', { limit: 3 })
+// => GET request to /users?limit=3
+
+api.index('users', { limit: 3 })
+// => GET request to /users?limit=3
+```
+
+### Show
+```javascript
+api.show('users', { id: 1 })
+// => GET request to /users/1
+```
+
+### New
+```javascript
+api.new('users')
+// => GET request to /users/new
+```
+
+### Create
+```javascript
+api.create('users', { email: 'john@doe.com' })
+// => POST request to /users
+```
+
+### Edit
+```javascript
+api.edit('users', { id: 1 })
+// => GET request to /users/1/edit
+```
+
+### Update
+```javascript
+api.update('users', { id: 1, name: 'John Doe' })
+// => PATCH request to /users/1
+```
+
 <br>
 
 ## Available HTTP methods
