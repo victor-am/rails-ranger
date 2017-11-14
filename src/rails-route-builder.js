@@ -1,4 +1,4 @@
-import { snakeCase }                     from 'lodash'
+import { snakeCase, clone }              from 'lodash'
 import PathBuilder                       from './path-builder'
 import { MissingRequiredParameterError } from './exceptions'
 
@@ -8,7 +8,30 @@ class RailsRouteBuilder {
   * @constructor
   */
   constructor () {
-    this.pathBuilder = new PathBuilder()
+    this.pathBuilder  = new PathBuilder()
+    this.chainedPaths = []
+  }
+
+  /**
+  * Defines a namespace to be used in the next route of the chain
+  * @param {string} resource - the name of the resource to be used as namespace
+  * @param {integer} id - the ID of the resource, can be left empty
+  * @example
+  * const routes = new RailsRouteBuilder
+  * routes.resource('users', 1).list('blogPosts')
+  * //=> { path: '/users/1/blog_posts', params: {} }
+  */
+  resource (resource, id = null) {
+    const newInstance = clone(this)
+    const path        = id ? `${snakeCase(resource)}/${id}` : resource
+
+    // Duplicates the chainedPaths as a new object
+    newInstance.chainedPaths = clone(this.chainedPaths)
+
+    // Pushes the new namespace to the chainedPaths
+    newInstance.chainedPaths.push(path)
+
+    return newInstance
   }
 
   /**
@@ -22,7 +45,9 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: {} }
   */
   index (resource, params) {
-    let path = snakeCase(resource)
+    const indexPath = snakeCase(resource)
+    const path      = this._mergeChainPaths(indexPath)
+
     return this.pathBuilder.get(path, params)
   }
 
@@ -40,13 +65,16 @@ class RailsRouteBuilder {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * let routes = new RailsRouteBuilder
+  * const routes = new RailsRouteBuilder
   * routes.show('users', { id: 1 })
   * //=> { path: '/users/1', params: {} }
   */
   show (resource, params) {
     this._validateIdPresence(params)
-    let path = `${snakeCase(resource)}/:id`
+
+    const showPath = `${snakeCase(resource)}/:id`
+    const path     = this._mergeChainPaths(showPath)
+
     return this.pathBuilder.get(path, params)
   }
 
@@ -57,13 +85,16 @@ class RailsRouteBuilder {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * let routes = new RailsRouteBuilder
+  * const routes = new RailsRouteBuilder
   * routes.destroy('users', { id: 1 })
   * //=> { path: '/users/1', params: {} }
   */
   destroy (resource, params) {
     this._validateIdPresence(params)
-    let path = `${snakeCase(resource)}/:id`
+
+    const destroyPath = `${snakeCase(resource)}/:id`
+    const path        = this._mergeChainPaths(destroyPath)
+
     return this.pathBuilder.delete(path, params)
   }
 
@@ -73,12 +104,14 @@ class RailsRouteBuilder {
   * @param {object} params - Any parameters for the request
   * @returns {Promise}
   * @example
-  * let routes = new RailsRouteBuilder
+  * const routes = new RailsRouteBuilder
   * routes.create('users', { email: 'john@doe.com' })
   * //=> { path: '/users', params: { email: 'john@doe.com' } }
   */
   create (resource, params) {
-    let path = snakeCase(resource)
+    const createPath = snakeCase(resource)
+    const path       = this._mergeChainPaths(createPath)
+
     return this.pathBuilder.post(path, params)
   }
 
@@ -89,13 +122,16 @@ class RailsRouteBuilder {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * let routes = new RailsRouteBuilder
+  * const routes = new RailsRouteBuilder
   * routes.update('users', { id: 1, email: 'john@doe.com' })
   * //=> { path: '/users/1', params: { email: 'john@doe.com' } }
   */
   update (resource, params) {
     this._validateIdPresence(params)
-    let path = `${snakeCase(resource)}/:id`
+
+    const updatePath = `${snakeCase(resource)}/:id`
+    const path       = this._mergeChainPaths(updatePath)
+
     return this.pathBuilder.patch(path, params)
   }
 
@@ -105,12 +141,14 @@ class RailsRouteBuilder {
   * @param {object} params - Any parameters for the request
   * @returns {Promise}
   * @example
-  * let routes = new RailsRouteBuilder
+  * const routes = new RailsRouteBuilder
   * routes.new('users')
   * //=> { path: '/users', params: {} }
   */
   new (resource, params) {
-    let path = `${snakeCase(resource)}/new`
+    const newPath = `${snakeCase(resource)}/new`
+    const path    = this._mergeChainPaths(newPath)
+
     return this.pathBuilder.get(path, params)
   }
 
@@ -121,14 +159,16 @@ class RailsRouteBuilder {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * let routes = new RailsRouteBuilder
+  * const routes = new RailsRouteBuilder
   * routes.edit('users', { id: 1 })
   * //=> { path: '/users/1', params: {} }
   */
   edit (resource, params) {
     this._validateIdPresence(params)
 
-    let path = `${snakeCase(resource)}/:id/edit`
+    const editPath = `${snakeCase(resource)}/:id/edit`
+    const path     = this._mergeChainPaths(editPath)
+
     return this.pathBuilder.get(path, params)
   }
 
@@ -136,6 +176,16 @@ class RailsRouteBuilder {
     if (!params.id) {
       throw new MissingRequiredParameterError('id')
     }
+  }
+
+  _mergeChainPaths (mainPath) {
+    const paths = this.chainedPaths
+
+    if (paths === []) { return mainPath }
+
+    const chainPaths = paths.reduce((mergedPath, path) => mergedPath + path + '/', '')
+
+    return chainPaths + mainPath
   }
 }
 

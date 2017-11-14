@@ -173,4 +173,63 @@ describe('RailsRouteBuilder', () => {
       expect(request.path).to.eq('user_posts/1/edit')
     })
   })
+
+  describe('.resource', () => {
+    it('does not taint the original instance', () => {
+      routeBuilder.resource('users')
+      expect(routeBuilder.chainedPaths).to.be.empty
+    })
+
+    context('resource without id', () => {
+      context('single call to .resource', () => {
+        it('returns a new RailsRouteBuilder instance', () => {
+          let returnedValue = routeBuilder.resource('users')
+          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+        })
+
+        it('pushes the right data into the chainedPaths attribute', () => {
+          let newInstance = routeBuilder.resource('users')
+          expect(newInstance.chainedPaths).to.have.same.members(['users'])
+        })
+      })
+
+      context('chained calls to .resource', () => {
+        it('returns a new RailsRouteBuilder instance', () => {
+          let returnedValue = routeBuilder.resource('users').resource('blogPost')
+          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+        })
+
+        it('pushes the right data into the chainedPaths list', () => {
+          let newInstance = routeBuilder.resource('users').resource('blogPosts')
+          expect(newInstance.chainedPaths).to.have.same.members(['users', 'blogPosts'])
+        })
+      })
+    })
+
+    context('resource with id', () => {
+      context('single call to .resource', () => {
+        it('returns a new RailsRouteBuilder instance', () => {
+          let returnedValue = routeBuilder.resource('users', 1)
+          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+        })
+
+        it('pushes the right data into the chainedPaths attribute', () => {
+          let newInstance = routeBuilder.resource('users', 1)
+          expect(newInstance.chainedPaths).to.have.same.members(['users/1'])
+        })
+      })
+
+      context('chained calls to .resource', () => {
+        it('returns a new RailsRouteBuilder instance', () => {
+          let returnedValue = routeBuilder.resource('users', 1).resource('blogPost', 2)
+          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+        })
+
+        it('pushes the right data into the chainedPaths list', () => {
+          let newInstance = routeBuilder.resource('users', 1).resource('blogPosts', 2)
+          expect(newInstance.chainedPaths).to.have.same.members(['users/1', 'blog_posts/2'])
+        })
+      })
+    })
+  })
 })

@@ -1,4 +1,5 @@
 import Axios               from 'axios'
+import { clone }           from 'lodash'
 import PathBuilder         from './path-builder'
 import RouteBuilder        from './rails-route-builder'
 import DataTransformations from './utils/data-transformations'
@@ -31,6 +32,24 @@ class RailsRanger {
     this.client       = Axios.create(clientConfigs)
     this.routeBuilder = new RouteBuilder()
     this.pathBuilder  = new PathBuilder()
+  }
+
+  /**
+  * Defines a namespace to be used in the next request of the chain
+  * @param {string} resource - the name of the resource to be used as namespace
+  * @param {integer} id - the ID of the resource, can be left empty
+  * @example
+  * const api = new RailsRanger
+  * api.resource('users', 1).list('blogPosts')
+  * //=> GET request to '/users/1/blog_posts' path
+  */
+  resource (resource, id = null) {
+    const newInstance     = clone(this)
+    const newRouteBuilder = this.routeBuilder.resource(resource, id)
+
+    newInstance.routeBuilder = newRouteBuilder
+
+    return newInstance
   }
 
   /**
