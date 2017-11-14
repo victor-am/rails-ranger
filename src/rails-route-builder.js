@@ -1,5 +1,5 @@
-import { snakeCase } from 'lodash'
-import PathBuilder from './path-builder'
+import { snakeCase }                     from 'lodash'
+import PathBuilder                       from './path-builder'
 import { MissingRequiredParameterError } from './exceptions'
 
 class RailsRouteBuilder {
@@ -17,7 +17,7 @@ class RailsRouteBuilder {
   * @param {object} params - Any parameters for the request
   * @returns {Promise}
   * @example
-  * let routes = new RailsRouteBuilder
+  * const routes = new RailsRouteBuilder
   * routes.index('users')
   * //=> { path: '/users', params: {} }
   */

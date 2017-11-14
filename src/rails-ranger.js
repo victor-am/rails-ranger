@@ -8,8 +8,8 @@ class RailsRanger {
   * RailsRanger object constructor
   * @constructor
   * @param {object} options - Configurations of the new RailsRanger instance
-  * @param {boolean} options.transformData - Sets response/request data transformations on/off
-  * @param {object} options.axios - Configurations that will be handed down to Axios
+  * @param {boolean} options.transformData - Sets the response/request data transformations on/off
+  * @param {object} options.axios - Configurations to be be handed down to Axios
   */
   constructor ({ transformData = true, axios = {} } = {}) {
     this.options = {
@@ -39,7 +39,7 @@ class RailsRanger {
   * @param {object} params - The parameters to be injected in the path (as query or replacing path segments)
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.get('/users/:id', { id: 1, flag: true })
   * //=> GET request to '/users/1?flag=true' path
   */
@@ -53,7 +53,7 @@ class RailsRanger {
   * @param {object} params - The parameters to be injected in the path or sent in the request payload
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.post('/users/:id', { id: 1, flag: true })
   * //=> POST request to '/users/1' path with { flag: true } parameters
   */
@@ -67,7 +67,7 @@ class RailsRanger {
   * @param {object} params - The parameters to be injected in the path or sent in the request payload
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.patch('/users/:id', { id: 1, flag: true })
   * //=> PATCH request to '/users/1' path with { flag: true } parameters
   */
@@ -81,7 +81,7 @@ class RailsRanger {
   * @param {object} params - The parameters to be injected in the path or sent in the request payload
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.put('/users/:id', { id: 1, flag: true })
   * //=> PUT request to '/users/1' path with { flag: true } parameters
   */
@@ -95,7 +95,7 @@ class RailsRanger {
   * @param {object} params - The parameters to be injected in the path (as query or replacing path segments)
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.delete('/users/:id', { id: 1, flag: true })
   * //=> DELETE request to '/users/1?flag=true' path
   */
@@ -109,7 +109,7 @@ class RailsRanger {
   * @param {object} params - The parameters to be injected in the path as query
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.list('users', { flag: true })
   * //=> GET request to '/users?flag=true' path
   */
@@ -124,7 +124,7 @@ class RailsRanger {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.show('users', { id: 1, flag: true })
   * //=> GET request to '/users/1?flag=true' path
   */
@@ -139,7 +139,7 @@ class RailsRanger {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.destroy('users', { id: 1, flag: true })
   * //=> DELETE request to '/users/1?flag=true' path
   */
@@ -153,7 +153,7 @@ class RailsRanger {
   * @param {object} params - The parameters to be injected in the path as query
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.create('users', { email: 'john@doe.com', password: 123456 })
   * //=> POST request to '/users' path with the { email: 'john@doe.com', password: 123456 } parameters
   */
@@ -168,7 +168,7 @@ class RailsRanger {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.update('users', { id: 1, email: 'elton@doe.com' })
   * //=> PATCH request to '/users/1' path with the { email: 'elton@doe.com' } parameters
   */
@@ -182,7 +182,7 @@ class RailsRanger {
   * @param {object} params - The parameters to be injected in the path as query
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.new('users', { flag: true })
   * //=> GET request to '/users/new?flag=true' path
   */
@@ -197,7 +197,7 @@ class RailsRanger {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * let api = new RailsRanger
+  * const api = new RailsRanger
   * api.edit('users', { id: 1, flag: true })
   * //=> GET request to '/users/1/edit?flag=true' path
   */
