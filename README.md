@@ -168,6 +168,7 @@ api.resource('users').list('blogPosts')
 api.resource('users', 1).list('blogPosts')
 //=> GET request to /users/1/blog_posts
 ```
+<br>
 
 ## Available actions
 
