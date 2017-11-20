@@ -134,6 +134,11 @@ describe('RailsRanger', () => {
       ranger.list('users', { flag: true })
       expect(ranger.client.get).to.have.been.calledWith('users?flag=true')
     })
+
+    it('works with a resource namespace', () => {
+      ranger.resource('projects', 1).list('users', { flag: true })
+      expect(ranger.client.get).to.have.been.calledWith('projects/1/users?flag=true')
+    })
   })
 
   describe('.show', () => {
@@ -150,6 +155,11 @@ describe('RailsRanger', () => {
     it('calls the client with the right parameters', () => {
       ranger.show('users', { id: 1, flag: true })
       expect(ranger.client.get).to.have.been.calledWith('users/1?flag=true')
+    })
+
+    it('works with a resource namespace', () => {
+      ranger.resource('projects', 1).show('users', { id: 2 })
+      expect(ranger.client.get).to.have.been.calledWith('projects/1/users/2')
     })
   })
 
@@ -168,6 +178,11 @@ describe('RailsRanger', () => {
       ranger.create('users', { name: 'John' })
       expect(ranger.client.post).to.have.been.calledWith('users', { name: 'John' })
     })
+
+    it('works with a resource namespace', () => {
+      ranger.resource('projects', 1).create('users', { name: 'John' })
+      expect(ranger.client.post).to.have.been.calledWith('projects/1/users', { name: 'John' })
+    })
   })
 
   describe('.update', () => {
@@ -184,6 +199,11 @@ describe('RailsRanger', () => {
     it('calls the client with the right parameters', () => {
       ranger.update('users', { id: 1, name: 'John' })
       expect(ranger.client.patch).to.have.been.calledWith('users/1', { name: 'John' })
+    })
+
+    it('works with a resource namespace', () => {
+      ranger.resource('projects', 1).update('users', { id: 2, name: 'John' })
+      expect(ranger.client.patch).to.have.been.calledWith('projects/1/users/2', { name: 'John' })
     })
   })
 
@@ -202,6 +222,11 @@ describe('RailsRanger', () => {
       ranger.destroy('users', { id: 1, flag: true })
       expect(ranger.client.delete).to.have.been.calledWith('users/1?flag=true')
     })
+
+    it('works with a resource namespace', () => {
+      ranger.resource('projects', 1).destroy('users', { id: 2 })
+      expect(ranger.client.delete).to.have.been.calledWith('projects/1/users/2')
+    })
   })
 
   describe('.new', () => {
@@ -219,6 +244,11 @@ describe('RailsRanger', () => {
       ranger.new('users', { flag: true })
       expect(ranger.client.get).to.have.been.calledWith('users/new?flag=true')
     })
+
+    it('works with a resource namespace', () => {
+      ranger.resource('projects', 1).new('users')
+      expect(ranger.client.get).to.have.been.calledWith('projects/1/users/new')
+    })
   })
 
   describe('.edit', () => {
@@ -235,6 +265,42 @@ describe('RailsRanger', () => {
     it('calls the client with the right parameters', () => {
       ranger.edit('users', { id: 1, flag: true })
       expect(ranger.client.get).to.have.been.calledWith('users/1/edit?flag=true')
+    })
+
+    it('works with a resource namespace', () => {
+      ranger.resource('projects', 1).edit('users', { id: 2 })
+      expect(ranger.client.get).to.have.been.calledWith('projects/1/users/2/edit')
+    })
+  })
+
+  describe('.resource', () => {
+    it('does not taint the original instance', () => {
+      ranger.resource('users')
+      expect(ranger.routeBuilder.chainedPaths).to.be.empty
+    })
+
+    context('resource without id', () => {
+      it('returns a new RailsRanger instance when resource is chained once', () => {
+        let returnedValue = ranger.resource('users')
+        expect(returnedValue).to.be.an.instanceOf(RailsRanger)
+      })
+
+      it('returns a new RailsRanger instance when resource is chained twice', () => {
+        let returnedValue = ranger.resource('users').resource('blogPost')
+        expect(returnedValue).to.be.an.instanceOf(RailsRanger)
+      })
+    })
+
+    context('resource with id', () => {
+      it('returns a new RailsRanger instance when resource is chained once', () => {
+        let returnedValue = ranger.resource('users', 1)
+        expect(returnedValue).to.be.an.instanceOf(RailsRanger)
+      })
+
+      it('returns a new RailsRanger instance when resource is chained twice', () => {
+        let returnedValue = ranger.resource('users', 1).resource('blogPost', 2)
+        expect(returnedValue).to.be.an.instanceOf(RailsRanger)
+      })
     })
   })
 })
