@@ -224,6 +224,9 @@ class RailsRanger {
     return this._actionRequest({ action: 'edit', resource, params })
   }
 
+  /**
+   * Private functions
+   */
   _rawRequest ({ method, path, params }) {
     const request = this.pathBuilder[method](path, params)
 

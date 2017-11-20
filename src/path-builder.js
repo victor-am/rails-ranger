@@ -28,6 +28,9 @@ class PathBuilder {
     return merge(requestInfo, { method: 'delete' })
   }
 
+  /**
+   * Private functions
+   */
   _injectPathParams (path, params, { skipQuery = false } = {}) {
     let requestInfo = { path, params }
 

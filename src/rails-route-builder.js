@@ -45,10 +45,8 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: {} }
   */
   index (resource, params) {
-    const indexPath = snakeCase(resource)
-    const path      = this._mergeChainPaths(indexPath)
-
-    return this.pathBuilder.get(path, params)
+    const path = snakeCase(resource)
+    return this._buildPath('get', path, params)
   }
 
   /**
@@ -72,10 +70,8 @@ class RailsRouteBuilder {
   show (resource, params) {
     this._validateIdPresence(params)
 
-    const showPath = `${snakeCase(resource)}/:id`
-    const path     = this._mergeChainPaths(showPath)
-
-    return this.pathBuilder.get(path, params)
+    const path = `${snakeCase(resource)}/:id`
+    return this._buildPath('get', path, params)
   }
 
   /**
@@ -92,10 +88,8 @@ class RailsRouteBuilder {
   destroy (resource, params) {
     this._validateIdPresence(params)
 
-    const destroyPath = `${snakeCase(resource)}/:id`
-    const path        = this._mergeChainPaths(destroyPath)
-
-    return this.pathBuilder.delete(path, params)
+    const path = `${snakeCase(resource)}/:id`
+    return this._buildPath('delete', path, params)
   }
 
   /**
@@ -109,10 +103,8 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: { email: 'john@doe.com' } }
   */
   create (resource, params) {
-    const createPath = snakeCase(resource)
-    const path       = this._mergeChainPaths(createPath)
-
-    return this.pathBuilder.post(path, params)
+    const path = snakeCase(resource)
+    return this._buildPath('post', path, params)
   }
 
   /**
@@ -129,10 +121,8 @@ class RailsRouteBuilder {
   update (resource, params) {
     this._validateIdPresence(params)
 
-    const updatePath = `${snakeCase(resource)}/:id`
-    const path       = this._mergeChainPaths(updatePath)
-
-    return this.pathBuilder.patch(path, params)
+    const path = `${snakeCase(resource)}/:id`
+    return this._buildPath('patch', path, params)
   }
 
   /**
@@ -146,10 +136,8 @@ class RailsRouteBuilder {
   * //=> { path: '/users', params: {} }
   */
   new (resource, params) {
-    const newPath = `${snakeCase(resource)}/new`
-    const path    = this._mergeChainPaths(newPath)
-
-    return this.pathBuilder.get(path, params)
+    const path = `${snakeCase(resource)}/new`
+    return this._buildPath('get', path, params)
   }
 
   /**
@@ -166,22 +154,31 @@ class RailsRouteBuilder {
   edit (resource, params) {
     this._validateIdPresence(params)
 
-    const editPath = `${snakeCase(resource)}/:id/edit`
-    const path     = this._mergeChainPaths(editPath)
-
-    return this.pathBuilder.get(path, params)
+    const path = `${snakeCase(resource)}/:id/edit`
+    return this._buildPath('get', path, params)
   }
 
+  /**
+   * Private functions
+   */
   _validateIdPresence (params) {
     if (!params.id) {
       throw new MissingRequiredParameterError('id')
     }
   }
 
+  _buildPath (method, path, params) {
+    const pathWithNestedResources = this._mergeChainPaths(path)
+
+    return this.pathBuilder[method](pathWithNestedResources, params)
+  }
+
   _mergeChainPaths (mainPath) {
     const paths = this.chainedPaths
 
-    if (paths === []) { return mainPath }
+    if (paths === []) {
+      return mainPath
+    }
 
     const chainPaths = paths.reduce((mergedPath, path) => mergedPath + path + '/', '')
 
