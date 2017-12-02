@@ -227,6 +227,11 @@ describe('RailsRanger', () => {
       ranger.resource('projects', 1).destroy('users', { id: 2 })
       expect(ranger.client.delete).to.have.been.calledWith('projects/1/users/2')
     })
+
+    it('works with a namespace', () => {
+      ranger.namespace('blog_posts').destroy('users', { id: 2 })
+      expect(ranger.client.delete).to.have.been.calledWith('blog_posts/users/2')
+    })
   })
 
   describe('.new', () => {
@@ -249,6 +254,11 @@ describe('RailsRanger', () => {
       ranger.resource('projects', 1).new('users')
       expect(ranger.client.get).to.have.been.calledWith('projects/1/users/new')
     })
+
+    it('works with a namespace', () => {
+      ranger.namespace('blog_posts/:id', { id: 1 }).new('users')
+      expect(ranger.client.get).to.have.been.calledWith('blog_posts/1/users/new')
+    })
   })
 
   describe('.edit', () => {
@@ -270,6 +280,11 @@ describe('RailsRanger', () => {
     it('works with a resource namespace', () => {
       ranger.resource('projects', 1).edit('users', { id: 2 })
       expect(ranger.client.get).to.have.been.calledWith('projects/1/users/2/edit')
+    })
+
+    it('works with a namespace', () => {
+      ranger.namespace('blog_posts/:id', { id: 1 }).edit('users', { id: 2 })
+      expect(ranger.client.get).to.have.been.calledWith('blog_posts/1/users/2/edit')
     })
   })
 
