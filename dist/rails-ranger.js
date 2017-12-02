@@ -3756,14 +3756,42 @@ var RailsRouteBuilder = function () {
     value: function resource(_resource) {
       var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
+      var snakedResource = (0, _snakeCase3.default)(_resource);
+
+      if (id) {
+        return this.namespace(snakedResource + '/:id', { id: id });
+      } else {
+        return this.namespace(snakedResource);
+      }
+    }
+
+    /**
+    * Defines a namespace to be used in the next route of the chain
+    * @param {string} namespace - The path fragment to be used as the namespace
+    * @param {object} params - The parameters to be interpolated into the path, can be left empty
+    * @example
+    * const routes = new RailsRouteBuilder
+    * routes.namespace('admin').list('blogPosts')
+    * //=> { path: '/admin/blog_posts', params: {} }
+    */
+
+  }, {
+    key: 'namespace',
+    value: function namespace(_namespace) {
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
       var newInstance = (0, _clone3.default)(this);
-      var path = id ? (0, _snakeCase3.default)(_resource) + '/' + id : _resource;
 
       // Duplicates the chainedPaths as a new object
       newInstance.chainedPaths = (0, _clone3.default)(this.chainedPaths);
 
+      // Process the given namespace interpolating params on the path
+      // Ex:
+      // 'users/:id' with params { id: 1 } becomes 'users/1'
+      var pathAndParams = this.pathBuilder._paramsToPath({ path: _namespace, params: params });
+
       // Pushes the new namespace to the chainedPaths
-      newInstance.chainedPaths.push(path);
+      newInstance.chainedPaths.push(pathAndParams['path']);
 
       return newInstance;
     }
@@ -9413,12 +9441,29 @@ var RailsRanger = function () {
     value: function resource(_resource) {
       var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
-      var newInstance = (0, _clone3.default)(this);
       var newRouteBuilder = this.routeBuilder.resource(_resource, id);
 
-      newInstance.routeBuilder = newRouteBuilder;
+      return this._newInstanceWithNewRouteBuilder(newRouteBuilder);
+    }
 
-      return newInstance;
+    /**
+    * Defines a namespace to be used in the next request of the chain
+    * @param {string} namespace - The path fragment to be used as the namespace
+    * @param {object} params - The parameters to be interpolated into the path, can be left empty
+    * @example
+    * const api = new RailsRanger
+    * api.namespace('admin/:type', { type: 'super' }).list('blogPosts')
+    * //=> GET request to '/admin/super/blog_posts' path
+    */
+
+  }, {
+    key: 'namespace',
+    value: function namespace(_namespace) {
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var newRouteBuilder = this.routeBuilder.namespace(_namespace, params);
+
+      return this._newInstanceWithNewRouteBuilder(newRouteBuilder);
     }
 
     /**
@@ -9654,6 +9699,13 @@ var RailsRanger = function () {
       var request = this.routeBuilder[action](resource, params);
 
       return this.client[request.method](request.path, request.params);
+    }
+  }, {
+    key: '_newInstanceWithNewRouteBuilder',
+    value: function _newInstanceWithNewRouteBuilder(newRouteBuilder) {
+      var newInstance = (0, _clone3.default)(this);
+      newInstance.routeBuilder = newRouteBuilder;
+      return newInstance;
     }
   }]);
 
