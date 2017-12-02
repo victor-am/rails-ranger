@@ -170,6 +170,19 @@ api.resource('users', 1).list('blogPosts')
 ```
 <br>
 
+## Namespaced routes
+The `.namespace` function can help you to build a path nested within a Rails namespace:
+
+```javascript
+api.namespace('users').list('blogPosts')
+//=> GET request to /users/blog_posts
+
+
+api.namespace('admin_roles/:type', { type: 1 }).list('blogPosts')
+//=> GET request to /admin_roles/1/blog_posts
+```
+<br>
+
 ## Available actions
 
 ### List/Index

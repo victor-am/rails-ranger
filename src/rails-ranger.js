@@ -44,12 +44,24 @@ class RailsRanger {
   * //=> GET request to '/users/1/blog_posts' path
   */
   resource (resource, id = null) {
-    const newInstance     = clone(this)
     const newRouteBuilder = this.routeBuilder.resource(resource, id)
 
-    newInstance.routeBuilder = newRouteBuilder
+    return this._newInstanceWithNewRouteBuilder(newRouteBuilder)
+  }
 
-    return newInstance
+  /**
+  * Defines a namespace to be used in the next request of the chain
+  * @param {string} namespace - The path fragment to be used as the namespace
+  * @param {object} params - The parameters to be interpolated into the path, can be left empty
+  * @example
+  * const api = new RailsRanger
+  * api.namespace('admin/:type', { type: 'super' }).list('blogPosts')
+  * //=> GET request to '/admin/super/blog_posts' path
+  */
+  namespace (namespace, params = {}) {
+    const newRouteBuilder = this.routeBuilder.namespace(namespace, params)
+
+    return this._newInstanceWithNewRouteBuilder(newRouteBuilder)
   }
 
   /**
@@ -237,6 +249,12 @@ class RailsRanger {
     const request = this.routeBuilder[action](resource, params)
 
     return this.client[request.method](request.path, request.params)
+  }
+
+  _newInstanceWithNewRouteBuilder (newRouteBuilder) {
+    const newInstance        = clone(this)
+    newInstance.routeBuilder = newRouteBuilder
+    return newInstance
   }
 }
 

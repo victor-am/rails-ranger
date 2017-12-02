@@ -22,14 +22,37 @@ class RailsRouteBuilder {
   * //=> { path: '/users/1/blog_posts', params: {} }
   */
   resource (resource, id = null) {
+    const snakedResource = snakeCase(resource)
+
+    if (id) {
+      return this.namespace(`${snakedResource}/:id`, { id })
+    } else {
+      return this.namespace(snakedResource)
+    }
+  }
+
+  /**
+  * Defines a namespace to be used in the next route of the chain
+  * @param {string} namespace - The path fragment to be used as the namespace
+  * @param {object} params - The parameters to be interpolated into the path, can be left empty
+  * @example
+  * const routes = new RailsRouteBuilder
+  * routes.namespace('admin').list('blogPosts')
+  * //=> { path: '/admin/blog_posts', params: {} }
+  */
+  namespace (namespace, params = {}) {
     const newInstance = clone(this)
-    const path        = id ? `${snakeCase(resource)}/${id}` : resource
 
     // Duplicates the chainedPaths as a new object
     newInstance.chainedPaths = clone(this.chainedPaths)
 
+    // Process the given namespace interpolating params on the path
+    // Ex:
+    // 'users/:id' with params { id: 1 } becomes 'users/1'
+    const pathAndParams = this.pathBuilder._paramsToPath({ path: namespace, params })
+
     // Pushes the new namespace to the chainedPaths
-    newInstance.chainedPaths.push(path)
+    newInstance.chainedPaths.push(pathAndParams['path'])
 
     return newInstance
   }

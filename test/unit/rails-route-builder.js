@@ -201,7 +201,7 @@ describe('RailsRouteBuilder', () => {
 
         it('pushes the right data into the chainedPaths list', () => {
           let newInstance = routeBuilder.resource('users').resource('blogPosts')
-          expect(newInstance.chainedPaths).to.have.same.members(['users', 'blogPosts'])
+          expect(newInstance.chainedPaths).to.have.same.members(['users', 'blog_posts'])
         })
       })
     })
@@ -227,6 +227,65 @@ describe('RailsRouteBuilder', () => {
 
         it('pushes the right data into the chainedPaths list', () => {
           let newInstance = routeBuilder.resource('users', 1).resource('blogPosts', 2)
+          expect(newInstance.chainedPaths).to.have.same.members(['users/1', 'blog_posts/2'])
+        })
+      })
+    })
+  })
+
+  describe('.namespace', () => {
+    it('does not taint the original instance', () => {
+      routeBuilder.namespace('users')
+      expect(routeBuilder.chainedPaths).to.be.empty
+    })
+
+    context('namespace without params', () => {
+      context('single call to .namespace', () => {
+        it('returns a new RailsRouteBuilder instance', () => {
+          let returnedValue = routeBuilder.namespace('users')
+          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+        })
+
+        it('pushes the right data into the chainedPaths attribute', () => {
+          let newInstance = routeBuilder.namespace('users')
+          expect(newInstance.chainedPaths).to.have.same.members(['users'])
+        })
+      })
+
+      context('chained calls to .namespace', () => {
+        it('returns a new RailsRouteBuilder instance', () => {
+          let returnedValue = routeBuilder.namespace('users').namespace('blog_post')
+          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+        })
+
+        it('pushes the right data into the chainedPaths list', () => {
+          let newInstance = routeBuilder.namespace('users').namespace('blog_posts')
+          expect(newInstance.chainedPaths).to.have.same.members(['users', 'blog_posts'])
+        })
+      })
+    })
+
+    context('namespace with params', () => {
+      context('single call to .namespace', () => {
+        it('returns a new RailsRouteBuilder instance', () => {
+          let returnedValue = routeBuilder.namespace('users/:id', { id: 1 })
+          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+        })
+
+        it('pushes the right data into the chainedPaths attribute', () => {
+          let newInstance = routeBuilder.namespace('users/:id', { id: 1 })
+          expect(newInstance.chainedPaths).to.have.same.members(['users/1'])
+        })
+      })
+
+      context('chained calls to .namespace', () => {
+        it('returns a new RailsRouteBuilder instance', () => {
+          let returnedValue = routeBuilder.namespace('users/:id', { id: 1 }).namespace('blog_post/:id', { id: 2 })
+          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+        })
+
+        it('pushes the right data into the chainedPaths list', () => {
+          let newInstance = routeBuilder.namespace('users/:id', { id: 1 }).namespace('blog_posts/:id', { id: 2 })
           expect(newInstance.chainedPaths).to.have.same.members(['users/1', 'blog_posts/2'])
         })
       })
