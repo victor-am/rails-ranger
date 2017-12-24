@@ -1,6 +1,5 @@
 # Rails Ranger
 ### Exploring the routes and paths of Rails APIs
-> This library development is in an early stage and the API is unstable
 
 #### [Github Repository](https://github.com/victor-am/rails-ranger) | [Documentation](https://victor-am.github.io/rails-ranger)
 
