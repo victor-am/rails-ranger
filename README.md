@@ -1,5 +1,5 @@
 # Rails Ranger
-### Exploring the routes and paths of Rails APIs
+### Exploring the routes and paths of Ruby on Rails APIs
 
 #### [Github Repository](https://github.com/victor-am/rails-ranger) | [Documentation](https://victor-am.github.io/rails-ranger)
 
