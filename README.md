@@ -9,6 +9,7 @@
 [![Dependency Status](https://david-dm.org/victor-am/rails-ranger.svg)](https://david-dm.org/victor-am/rails-ranger)
 [![devDependency Status](https://david-dm.org/victor-am/rails-ranger/dev-status.svg)](https://david-dm.org/victor-am/rails-ranger#info=devDependencies)
 [![Stories in Ready](https://badge.waffle.io/victor-am/rails-ranger.png?label=ready&title=Ready)](https://waffle.io/victor-am/rails-ranger?utm_source=badge)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvictor-am%2Frails-ranger.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvictor-am%2Frails-ranger?ref=badge_shield)
 
 Rails Ranger is a thin layer on top of [Axios](https://github.com/mzabriskie/axios), which gives you an opinionated interface to query APIs built with Ruby on Rails.
 
@@ -262,3 +263,7 @@ api.delete('users/:id', { id: 1, hidePassword: true })
 // => DELETE request to users/1&hide_password=true
 ```
 <br>
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvictor-am%2Frails-ranger.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvictor-am%2Frails-ranger?ref=badge_large)
