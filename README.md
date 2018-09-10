@@ -16,6 +16,7 @@ Rails Ranger is a thin layer on top of [Axios](https://github.com/mzabriskie/axi
 - URL building following Ruby on Rails routes conventions
 - Automatic transformation of camelCase into snake_case and back to camelCase when exchanging data between the front-end and the API
 
+
 ## Installation
 ```bash
 npm install --save rails-ranger
@@ -28,7 +29,8 @@ yarn add rails-ranger
 ```
 <br>
 
-## How does it work?
+## Getting started
+If you prefer a blog post, checkout our [getting started guide here](https://alligator.io/js/rails-ranger/).
 
 The following example illustrates a simple usage of the library:
 
