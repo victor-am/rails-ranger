@@ -56,7 +56,8 @@ class PathBuilder {
       if (!path.includes(symbol)) { continue }
 
       // Replaces the symbol in the path with the param value
-      processedPath = processedPath.replace(symbol, params[key])
+      const symbolRegex = new RegExp(symbol, 'g')
+      processedPath = processedPath.replace(symbolRegex, params[key])
 
       // If the key was used in the path, it shouldn't be sent asa query parameter
       delete processedParams[key]
