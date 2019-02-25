@@ -56,7 +56,7 @@ class PathBuilder {
       if (!path.includes(symbol)) { continue }
 
       // Replaces the symbol in the path with the param value
-      processedPath = path.replace(symbol, params[key])
+      processedPath = processedPath.replace(symbol, params[key])
 
       // If the key was used in the path, it shouldn't be sent asa query parameter
       delete processedParams[key]
