@@ -13,6 +13,16 @@ describe('PathBuilder', () => {
       expect(request.path).to.eq('/users/1')
     })
 
+    it('interpolates more than one parameter into the path', () => {
+      let request = pathBuilder.get('/users/:role/:id', { role: 'admin', id: 1 })
+      expect(request.path).to.eq('/users/admin/1')
+    })
+
+    it('interpolates multiple instances of the same parameter into the path', () => {
+      let request = pathBuilder.get('/users/:id/:id', { id: 1 })
+      expect(request.path).to.eq('/users/1/1')
+    })
+
     it('interpolates parameters into the query', () => {
       let request = pathBuilder.get('/users/', { id: 1 })
       expect(request.path).to.eq('/users/?id=1')
