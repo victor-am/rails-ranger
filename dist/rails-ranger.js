@@ -1979,7 +1979,8 @@ var PathBuilder = function () {
         }
 
         // Replaces the symbol in the path with the param value
-        processedPath = path.replace(symbol, params[key]);
+        var symbolRegex = new RegExp(symbol, 'g');
+        processedPath = processedPath.replace(symbolRegex, params[key]);
 
         // If the key was used in the path, it shouldn't be sent asa query parameter
         delete processedParams[key];
