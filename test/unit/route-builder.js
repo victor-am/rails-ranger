@@ -1,11 +1,11 @@
-import RailsRouteBuilder from '../../src/rails-route-builder'
+import RouteBuilder from '../../src/route-builder'
 import { MissingRequiredParameterError } from '../../src/exceptions'
 
-describe('RailsRouteBuilder', () => {
+describe('RouteBuilder', () => {
   let routeBuilder = null
 
   beforeEach(() => {
-    routeBuilder = new RailsRouteBuilder()
+    routeBuilder = new RouteBuilder()
   })
 
   describe('.list', () => {
@@ -174,6 +174,76 @@ describe('RailsRouteBuilder', () => {
     })
   })
 
+  describe('.get', () => {
+    it('returns the right path and params', () => {
+      let request = routeBuilder.get('users', { flag: true })
+
+      expect(request.path).to.eq('users?flag=true')
+      expect(request.params).to.be.empty
+    })
+
+    it('returns the right method', () => {
+      let request = routeBuilder.get('users', { flag: true })
+      expect(request.method).to.eq('get')
+    })
+  })
+
+  describe('.post', () => {
+    it('returns the right path and params', () => {
+      let request = routeBuilder.post('users', { flag: true })
+
+      expect(request.path).to.eq('users')
+      expect(request.params).to.eql({ flag: true })
+    })
+
+    it('returns the right method', () => {
+      let request = routeBuilder.post('users', { flag: true })
+      expect(request.method).to.eq('post')
+    })
+  })
+
+  describe('.patch', () => {
+    it('returns the right path and params', () => {
+      let request = routeBuilder.patch('users', { flag: true })
+
+      expect(request.path).to.eq('users')
+      expect(request.params).to.eql({ flag: true })
+    })
+
+    it('returns the right method', () => {
+      let request = routeBuilder.patch('users', { flag: true })
+      expect(request.method).to.eq('patch')
+    })
+  })
+
+  describe('.put', () => {
+    it('returns the right path and params', () => {
+      let request = routeBuilder.put('users', { flag: true })
+
+      expect(request.path).to.eq('users')
+      expect(request.params).to.eql({ flag: true })
+    })
+
+    it('returns the right method', () => {
+      let request = routeBuilder.put('users', { flag: true })
+      expect(request.method).to.eq('put')
+    })
+  })
+
+  describe('.delete', () => {
+    it('returns the right path and params', () => {
+      let request = routeBuilder.delete('users', { flag: true })
+
+      expect(request.path).to.eq('users?flag=true')
+      expect(request.params).to.be.empty
+    })
+
+    it('returns the right method', () => {
+      let request = routeBuilder.delete('users', { flag: true })
+      expect(request.method).to.eq('delete')
+    })
+  })
+
   describe('.resource', () => {
     it('does not taint the original instance', () => {
       routeBuilder.resource('users')
@@ -182,9 +252,9 @@ describe('RailsRouteBuilder', () => {
 
     context('resource without id', () => {
       context('single call to .resource', () => {
-        it('returns a new RailsRouteBuilder instance', () => {
+        it('returns a new RouteBuilder instance', () => {
           let returnedValue = routeBuilder.resource('users')
-          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+          expect(returnedValue).to.be.an.instanceOf(RouteBuilder)
         })
 
         it('pushes the right data into the chainedPaths attribute', () => {
@@ -194,9 +264,9 @@ describe('RailsRouteBuilder', () => {
       })
 
       context('chained calls to .resource', () => {
-        it('returns a new RailsRouteBuilder instance', () => {
+        it('returns a new RouteBuilder instance', () => {
           let returnedValue = routeBuilder.resource('users').resource('blogPost')
-          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+          expect(returnedValue).to.be.an.instanceOf(RouteBuilder)
         })
 
         it('pushes the right data into the chainedPaths list', () => {
@@ -208,9 +278,9 @@ describe('RailsRouteBuilder', () => {
 
     context('resource with id', () => {
       context('single call to .resource', () => {
-        it('returns a new RailsRouteBuilder instance', () => {
+        it('returns a new RouteBuilder instance', () => {
           let returnedValue = routeBuilder.resource('users', 1)
-          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+          expect(returnedValue).to.be.an.instanceOf(RouteBuilder)
         })
 
         it('pushes the right data into the chainedPaths attribute', () => {
@@ -220,9 +290,9 @@ describe('RailsRouteBuilder', () => {
       })
 
       context('chained calls to .resource', () => {
-        it('returns a new RailsRouteBuilder instance', () => {
+        it('returns a new RouteBuilder instance', () => {
           let returnedValue = routeBuilder.resource('users', 1).resource('blogPost', 2)
-          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+          expect(returnedValue).to.be.an.instanceOf(RouteBuilder)
         })
 
         it('pushes the right data into the chainedPaths list', () => {
@@ -239,11 +309,16 @@ describe('RailsRouteBuilder', () => {
       expect(routeBuilder.chainedPaths).to.be.empty
     })
 
+    it('works with raw requests (ex: GET, POST, etc)', () => {
+      const route = routeBuilder.namespace('users')
+      expect(route.get('posts').path).to.eq('users/posts')
+    })
+
     context('namespace without params', () => {
       context('single call to .namespace', () => {
-        it('returns a new RailsRouteBuilder instance', () => {
+        it('returns a new RouteBuilder instance', () => {
           let returnedValue = routeBuilder.namespace('users')
-          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+          expect(returnedValue).to.be.an.instanceOf(RouteBuilder)
         })
 
         it('pushes the right data into the chainedPaths attribute', () => {
@@ -253,9 +328,9 @@ describe('RailsRouteBuilder', () => {
       })
 
       context('chained calls to .namespace', () => {
-        it('returns a new RailsRouteBuilder instance', () => {
+        it('returns a new RouteBuilder instance', () => {
           let returnedValue = routeBuilder.namespace('users').namespace('blog_post')
-          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+          expect(returnedValue).to.be.an.instanceOf(RouteBuilder)
         })
 
         it('pushes the right data into the chainedPaths list', () => {
@@ -267,9 +342,9 @@ describe('RailsRouteBuilder', () => {
 
     context('namespace with params', () => {
       context('single call to .namespace', () => {
-        it('returns a new RailsRouteBuilder instance', () => {
+        it('returns a new RouteBuilder instance', () => {
           let returnedValue = routeBuilder.namespace('users/:id', { id: 1 })
-          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+          expect(returnedValue).to.be.an.instanceOf(RouteBuilder)
         })
 
         it('pushes the right data into the chainedPaths attribute', () => {
@@ -279,9 +354,9 @@ describe('RailsRouteBuilder', () => {
       })
 
       context('chained calls to .namespace', () => {
-        it('returns a new RailsRouteBuilder instance', () => {
+        it('returns a new RouteBuilder instance', () => {
           let returnedValue = routeBuilder.namespace('users/:id', { id: 1 }).namespace('blog_post/:id', { id: 2 })
-          expect(returnedValue).to.be.an.instanceOf(RailsRouteBuilder)
+          expect(returnedValue).to.be.an.instanceOf(RouteBuilder)
         })
 
         it('pushes the right data into the chainedPaths list', () => {

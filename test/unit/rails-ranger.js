@@ -11,11 +11,6 @@ describe('RailsRanger', () => {
   })
 
   describe('constructor', () => {
-    it('instantiates RailsRanger with a pathBuilder', () => {
-      const railsRanger = new RailsRanger()
-      expect(railsRanger.pathBuilder).to.be.an('object')
-    })
-
     it('instantiates RailsRanger with a routeBuilder', () => {
       const railsRanger = new RailsRanger()
       expect(railsRanger.routeBuilder).to.be.an('object')
@@ -37,12 +32,12 @@ describe('RailsRanger', () => {
   describe('.get', () => {
     beforeEach(() => {
       spy(ranger.client, 'get')
-      spy(ranger.pathBuilder, 'get')
+      spy(ranger.routeBuilder, 'get')
     })
 
-    it('calls the pathBuilder', () => {
+    it('calls the routeBuilder', () => {
       ranger.get('/users/:id', { id: 1 })
-      expect(ranger.pathBuilder.get).to.have.been.calledWith('/users/:id', { id: 1 })
+      expect(ranger.routeBuilder.get).to.have.been.calledWith('/users/:id', { id: 1 })
     })
 
     it('calls the client with the right parameters', () => {
@@ -54,12 +49,12 @@ describe('RailsRanger', () => {
   describe('.post', () => {
     beforeEach(() => {
       spy(ranger.client, 'post')
-      spy(ranger.pathBuilder, 'post')
+      spy(ranger.routeBuilder, 'post')
     })
 
-    it('calls the pathBuilder', () => {
+    it('calls the routeBuilder', () => {
       ranger.post('/users/:id', { id: 1 })
-      expect(ranger.pathBuilder.post).to.have.been.calledWith('/users/:id', { id: 1 })
+      expect(ranger.routeBuilder.post).to.have.been.calledWith('/users/:id', { id: 1 })
     })
 
     it('calls the client with the right parameters', () => {
@@ -71,12 +66,12 @@ describe('RailsRanger', () => {
   describe('.put', () => {
     beforeEach(() => {
       spy(ranger.client, 'put')
-      spy(ranger.pathBuilder, 'put')
+      spy(ranger.routeBuilder, 'put')
     })
 
-    it('calls the pathBuilder', () => {
+    it('calls the routeBuilder', () => {
       ranger.put('/users/:id', { id: 1 })
-      expect(ranger.pathBuilder.put).to.have.been.calledWith('/users/:id', { id: 1 })
+      expect(ranger.routeBuilder.put).to.have.been.calledWith('/users/:id', { id: 1 })
     })
 
     it('calls the client with the right parameters', () => {
@@ -88,12 +83,12 @@ describe('RailsRanger', () => {
   describe('.patch', () => {
     beforeEach(() => {
       spy(ranger.client, 'patch')
-      spy(ranger.pathBuilder, 'patch')
+      spy(ranger.routeBuilder, 'patch')
     })
 
-    it('calls the pathBuilder', () => {
+    it('calls the routeBuilder', () => {
       ranger.patch('/users/:id', { id: 1 })
-      expect(ranger.pathBuilder.patch).to.have.been.calledWith('/users/:id', { id: 1 })
+      expect(ranger.routeBuilder.patch).to.have.been.calledWith('/users/:id', { id: 1 })
     })
 
     it('calls the client with the right parameters', () => {
@@ -105,12 +100,12 @@ describe('RailsRanger', () => {
   describe('.delete', () => {
     beforeEach(() => {
       spy(ranger.client, 'delete')
-      spy(ranger.pathBuilder, 'delete')
+      spy(ranger.routeBuilder, 'delete')
     })
 
-    it('calls the pathBuilder', () => {
+    it('calls the routeBuilder', () => {
       ranger.delete('/users/:id', { id: 1 })
-      expect(ranger.pathBuilder.delete).to.have.been.calledWith('/users/:id', { id: 1 })
+      expect(ranger.routeBuilder.delete).to.have.been.calledWith('/users/:id', { id: 1 })
     })
 
     it('calls the client with the right parameters', () => {

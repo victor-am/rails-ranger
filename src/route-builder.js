@@ -2,7 +2,7 @@ import { snakeCase, clone }              from 'lodash'
 import PathBuilder                       from './path-builder'
 import { MissingRequiredParameterError } from './exceptions'
 
-class RailsRouteBuilder {
+class RouteBuilder {
   /**
   * RailsRanger object constructor
   * @constructor
@@ -17,7 +17,7 @@ class RailsRouteBuilder {
   * @param {string} resource - the name of the resource to be used as namespace
   * @param {integer} id - the ID of the resource, can be left empty
   * @example
-  * const routes = new RailsRouteBuilder
+  * const routes = new RouteBuilder
   * routes.resource('users', 1).list('blogPosts')
   * //=> { path: '/users/1/blog_posts', params: {} }
   */
@@ -36,7 +36,7 @@ class RailsRouteBuilder {
   * @param {string} namespace - The path fragment to be used as the namespace
   * @param {object} params - The parameters to be interpolated into the path, can be left empty
   * @example
-  * const routes = new RailsRouteBuilder
+  * const routes = new RouteBuilder
   * routes.namespace('admin').list('blogPosts')
   * //=> { path: '/admin/blog_posts', params: {} }
   */
@@ -63,7 +63,7 @@ class RailsRouteBuilder {
   * @param {object} params - Any parameters for the request
   * @returns {Promise}
   * @example
-  * const routes = new RailsRouteBuilder
+  * const routes = new RouteBuilder
   * routes.index('users')
   * //=> { path: '/users', params: {} }
   */
@@ -73,7 +73,7 @@ class RailsRouteBuilder {
   }
 
   /**
-  * An alias for the {@link RailsRouteBuilder#index} function
+  * An alias for the {@link RouteBuilder#index} function
   */
   list (...args) {
     return this.index(...args)
@@ -86,7 +86,7 @@ class RailsRouteBuilder {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * const routes = new RailsRouteBuilder
+  * const routes = new RouteBuilder
   * routes.show('users', { id: 1 })
   * //=> { path: '/users/1', params: {} }
   */
@@ -104,7 +104,7 @@ class RailsRouteBuilder {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * const routes = new RailsRouteBuilder
+  * const routes = new RouteBuilder
   * routes.destroy('users', { id: 1 })
   * //=> { path: '/users/1', params: {} }
   */
@@ -121,7 +121,7 @@ class RailsRouteBuilder {
   * @param {object} params - Any parameters for the request
   * @returns {Promise}
   * @example
-  * const routes = new RailsRouteBuilder
+  * const routes = new RouteBuilder
   * routes.create('users', { email: 'john@doe.com' })
   * //=> { path: '/users', params: { email: 'john@doe.com' } }
   */
@@ -137,7 +137,7 @@ class RailsRouteBuilder {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * const routes = new RailsRouteBuilder
+  * const routes = new RouteBuilder
   * routes.update('users', { id: 1, email: 'john@doe.com' })
   * //=> { path: '/users/1', params: { email: 'john@doe.com' } }
   */
@@ -154,7 +154,7 @@ class RailsRouteBuilder {
   * @param {object} params - Any parameters for the request
   * @returns {Promise}
   * @example
-  * const routes = new RailsRouteBuilder
+  * const routes = new RouteBuilder
   * routes.new('users')
   * //=> { path: '/users', params: {} }
   */
@@ -170,7 +170,7 @@ class RailsRouteBuilder {
   * @param {number|string} params.id - The id of the resource
   * @returns {Promise}
   * @example
-  * const routes = new RailsRouteBuilder
+  * const routes = new RouteBuilder
   * routes.edit('users', { id: 1 })
   * //=> { path: '/users/1', params: {} }
   */
@@ -179,6 +179,81 @@ class RailsRouteBuilder {
 
     const path = `${snakeCase(resource)}/:id/edit`
     return this._buildPath('get', path, params)
+  }
+
+  /**
+  * Returns a path and params to the specified GET request
+  * @param {string} path - A path for the request
+  * @param {object} params - Any parameters for the request
+  * @param {number|string} params.id - The id of the resource
+  * @returns {Promise}
+  * @example
+  * const routes = new RouteBuilder
+  * routes.get('users')
+  * //=> { path: '/users', params: {} }
+  */
+  get (path, params) {
+    return this._buildPath('get', path, params)
+  }
+
+  /**
+  * Returns a path and params to the specified POST request
+  * @param {string} path - A path for the request
+  * @param {object} params - Any parameters for the request
+  * @param {number|string} params.id - The id of the resource
+  * @returns {Promise}
+  * @example
+  * const routes = new RouteBuilder
+  * routes.post('users', { id: 1 })
+  * //=> { path: '/users', params: { id: 1 } }
+  */
+  post (path, params) {
+    return this._buildPath('post', path, params)
+  }
+
+  /**
+  * Returns a path and params to the specified PATCH request
+  * @param {string} path - A path for the request
+  * @param {object} params - Any parameters for the request
+  * @param {number|string} params.id - The id of the resource
+  * @returns {Promise}
+  * @example
+  * const routes = new RouteBuilder
+  * routes.patch('users', { id: 1 })
+  * //=> { path: '/users', params: { id: 1 } }
+  */
+  patch (path, params) {
+    return this._buildPath('patch', path, params)
+  }
+
+  /**
+  * Returns a path and params to the specified PUT request
+  * @param {string} path - A path for the request
+  * @param {object} params - Any parameters for the request
+  * @param {number|string} params.id - The id of the resource
+  * @returns {Promise}
+  * @example
+  * const routes = new RouteBuilder
+  * routes.put('users', { id: 1 })
+  * //=> { path: '/users', params: { id: 1 } }
+  */
+  put (path, params) {
+    return this._buildPath('put', path, params)
+  }
+
+  /**
+  * Returns a path and params to the specified DELETE request
+  * @param {string} path - A path for the request
+  * @param {object} params - Any parameters for the request
+  * @param {number|string} params.id - The id of the resource
+  * @returns {Promise}
+  * @example
+  * const routes = new RouteBuilder
+  * routes.delete('users', { id: 1 })
+  * //=> { path: '/users?id=1', params: {} }
+  */
+  delete (path, params) {
+    return this._buildPath('delete', path, params)
   }
 
   /**
@@ -197,16 +272,12 @@ class RailsRouteBuilder {
   }
 
   _mergeChainPaths (mainPath) {
-    const paths = this.chainedPaths
+    if (this.chainedPaths === []) { return mainPath }
 
-    if (paths === []) {
-      return mainPath
-    }
+    const chainPath = this.chainedPaths.reduce((mergedPath, path) => mergedPath + path + '/', '')
 
-    const chainPaths = paths.reduce((mergedPath, path) => mergedPath + path + '/', '')
-
-    return chainPaths + mainPath
+    return chainPath + mainPath
   }
 }
 
-export default RailsRouteBuilder
+export default RouteBuilder
