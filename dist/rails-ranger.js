@@ -2441,16 +2441,10 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
     value.forEach(function (subValue) {
       result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
     });
-
-    return result;
-  }
-
-  if (isMap(value)) {
+  } else if (isMap(value)) {
     value.forEach(function (subValue, key) {
       result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
     });
-
-    return result;
   }
 
   var keysFunc = isFull ? isFlat ? getAllKeysIn : getAllKeys : isFlat ? keysIn : keys;
@@ -3035,7 +3029,7 @@ module.exports = overArg;
 
 
 /**
- * Gets the value at `key`, unless `key` is "__proto__".
+ * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
  *
  * @private
  * @param {Object} object The object to query.
@@ -3043,7 +3037,15 @@ module.exports = overArg;
  * @returns {*} Returns the property value.
  */
 function safeGet(object, key) {
-  return key == '__proto__' ? undefined : object[key];
+  if (key === 'constructor' && typeof object[key] === 'function') {
+    return;
+  }
+
+  if (key == '__proto__') {
+    return;
+  }
+
+  return object[key];
 }
 
 module.exports = safeGet;
@@ -5953,8 +5955,8 @@ function baseMerge(object, source, srcIndex, customizer, stack) {
     return;
   }
   baseFor(source, function (srcValue, key) {
+    stack || (stack = new Stack());
     if (isObject(srcValue)) {
-      stack || (stack = new Stack());
       baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
     } else {
       var newValue = customizer ? customizer(safeGet(object, key), srcValue, key + '', object, source, stack) : undefined;
@@ -6044,7 +6046,7 @@ function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, sta
       newValue = objValue;
       if (isArguments(objValue)) {
         newValue = toPlainObject(objValue);
-      } else if (!isObject(objValue) || srcIndex && isFunction(objValue)) {
+      } else if (!isObject(objValue) || isFunction(objValue)) {
         newValue = initCloneObject(srcValue);
       }
     } else {
@@ -6996,7 +6998,7 @@ module.exports = hasPath;
 
 
 /** Used to detect strings that need a more robust regexp to match words. */
-var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
 
 /**
  * Checks if `string` contains a word composed of Unicode symbols.
