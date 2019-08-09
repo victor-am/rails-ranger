@@ -46,7 +46,7 @@
     "nyc": "^14.1.1",
     "sinon": "^2.3.2",
     "sinon-chai": "^2.10.0",
-    "webpack": "^2.6.1"
+    "webpack": "^2.7.0"
   },
   "babelBoilerplateOptions": {
     "entryFileName": "rails-ranger.js",
