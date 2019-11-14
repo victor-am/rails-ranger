@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 
 var config = {
+  mode: 'production',
+
   context: __dirname + '/src',
 
   entry: {
@@ -27,12 +29,9 @@ var config = {
     ]
   },
 
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      include:  /\.min\.js$/,
-      minimize: true
-    })
-  ]
+  optimization: {
+    minimize: true,
+  }
 }
 
 module.exports = config;

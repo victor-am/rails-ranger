@@ -7,7 +7,7 @@
     "test": "NODE_ENV=test nyc mocha test/unit --recursive --require test/setup.js",
     "test:debug": "yarn test --inspect-brk",
     "doc": "jsdoc --recurse --configure .jsdoc-conf.json --verbose",
-    "build": "webpack"
+    "build": "webpack --config webpack.config.js"
   },
   "nyc": {
     "require": [
@@ -46,7 +46,8 @@
     "nyc": "^14.1.1",
     "sinon": "^2.3.2",
     "sinon-chai": "^2.10.0",
-    "webpack": "^2.7.0"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   },
   "babelBoilerplateOptions": {
     "entryFileName": "rails-ranger.js",
