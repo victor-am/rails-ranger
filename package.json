@@ -42,7 +42,7 @@
     "chai": "^4.0.1",
     "jsdoc": "^3.4.3",
     "minami": "victor-am/minami",
-    "mocha": "^3.4.2",
+    "mocha": "^6.2.2",
     "nyc": "^14.1.1",
     "sinon": "^2.3.2",
     "sinon-chai": "^2.10.0",
