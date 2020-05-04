@@ -80,7 +80,7 @@ api.resource(users, 1).list('blogPosts', { someParameter: false })
 ### Build your own client object
 You can build your own client object to centralize the API routes used by your front-end app.
 
-This is indeed **highly recommended** for non-trivial applications, to avoid duplication, get better control of the API client interface and make your life easier in the event of you wanting to remove/replace this dependency from your project.
+This is indeed **recommended** for non-trivial applications, to avoid duplication, allow manipulating the parameters before performing the request and make your life easier in the event of removal/replacement of this dependency from your project.
 
 Below is an example of such implementation:
 
@@ -91,17 +91,15 @@ import RailsRanger from 'rails-ranger'
 const client = new RailsRanger
 
 export default {
-  client,
-
   users: {
     list(params) {
-      return this.client.list('users', params)
+      return client.list('users', params)
     }
   }
 
   blogPosts: {
     list(params) {
-      return this.client.list('blogPosts', params)
+      return client.list('blogPosts', params)
     }
   }
 }
