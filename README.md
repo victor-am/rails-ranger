@@ -270,3 +270,16 @@ api.delete('users/:id', { id: 1, hidePassword: true })
 // => DELETE request to users/1&hide_password=true
 ```
 <br>
+
+## Request Cancellation
+Since rails-ranger is built on top of Axios, [request cancellation works the same way](https://github.com/axios/axios#cancellation).
+```javascript
+import api from 'api-client'
+
+import axios from 'axios';
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
+const request = api.get('/users/:id', {id: 1}, {cancelToken: source.token})
+request.cancel = (optionalMessage) => source.cancel(optionalMessage);
+```
